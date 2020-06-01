@@ -3,6 +3,11 @@ const port = process.env.PORT || 3000
 const express = require("express")
 const app = express()
 
+//MongoDb Atlas and mongoose
+const mongoose = require("mongoose")
+
+
+
 //for parsing various types of requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -11,9 +16,37 @@ app.use(express.urlencoded({ extended: true }));
 const cors = require('cors')
 app.use(cors())
 
+//for using route directories
+const EventRoutes = require("./routes/events")
+const TeamRoutes = require("./routes/teams")
+
+//for using and assigning prefixed routes
+app.use('/api/hackathons', EventRoutes);
+app.use('/api/teams', TeamRoutes);
+
+//Error Handling
+app.use((req,res,next) =>
+{
+  const error = new Error("Not Found");
+  error.status = 404;
+  next(error);
+})
+
+app.use((error,req,res,next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+        status: error.status,
+      message: error.message
+    }
+  })
+})
+
 //for accessing secret variables
-require("dotenv").config()
+/*require("dotenv").config()
 const {checkAuth,signOut} = require("./components/auth")
+
+
 
 var admin = require("firebase-admin");
 
@@ -52,7 +85,7 @@ app.get("/signout",(req,res)=>{
                                 })
         
        
-})
+})*/
 app.listen(port,()=>{
         console.log(`server started on port ${port}`)
 })
