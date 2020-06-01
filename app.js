@@ -16,7 +16,7 @@ require("dotenv").config()
 const {checkAuth,signOut} = require("./components/auth")
 
 const mongoose = require("mongoose")
-mongoose.connect('', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://hackportaldbUser:asHw5WBHLO1IV77x@stc-hack-portal-backend-jo4iu.gcp.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
