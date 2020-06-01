@@ -4,7 +4,8 @@ const checkAuth =
                 if (req.headers.authtoken) {
                         admin.auth().verifyIdToken(req.headers.authtoken)
                                 .then((decodedToken) => {
-                                        console.log(decodedToken)
+                                        console.log("decoded token",decodedToken)
+                                        req.userId = decodedToken.user_id 
                                         next()
                                 }).catch(() => {
                                         res.status(403).send({message:'Unauthorized'})
@@ -14,6 +15,7 @@ const checkAuth =
                 }
         }
 const signOut = (uid)=>{
+        console.log("signing out ",uid)
         admin.auth().revokeRefreshTokens(uid)
 }
 module.exports = {checkAuth,signOut}

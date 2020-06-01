@@ -5,7 +5,7 @@ const app = express()
 
 //for parsing various types of requests
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 
 // for allowing front end to send requests to api
 const cors = require('cors')
@@ -14,6 +14,30 @@ app.use(cors())
 //for accessing secret variables
 require("dotenv").config()
 const {checkAuth,signOut} = require("./components/auth")
+
+const mongoose = require("mongoose")
+mongoose.connect('', {useNewUrlParser: true, useUnifiedTopology: true})
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+        console.log("db connected")
+        app.post("/setprofile",checkAuth,(req,res)=>{
+                console.log("received set profile request for ", req.userId)
+                const {bio,name,skills,college,externalLink} = req.body
+        
+                const User = require("./components/models/User")
+        
+                User.findOne({_id: req.userId },(err, user)=>{
+                        if(err){
+                                console.log("Error in finding user",err)
+                        }else{
+                                console.log(user)
+                        }
+                })
+        
+        })
+});
+
 
 var admin = require("firebase-admin");
 
@@ -40,7 +64,8 @@ app.get("/",checkAuth,(req,res)=>{
         res.status(200).send({message:"success"})
 })
 
-app.get("/signout",(req,res)=>{
+
+app.get("/signout",checkAuth,(req,res)=>{
         admin.auth().verifyIdToken(req.headers.authtoken)
                                 .then((decodedToken) => {
                                         console.log(decodedToken)
