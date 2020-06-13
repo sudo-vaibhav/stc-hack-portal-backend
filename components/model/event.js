@@ -1,20 +1,32 @@
 const mongoose = require("mongoose")
 
-const eventSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  description: {type: String, required: true},
-  nameofevent: {type: String, required: true},
-  startDate: {type:Date, required: true, default: new Date().toLocaleDateString()},
-  endDate: {type: Date, required:true, default: new Date().toLocaleDateString()},
-  requiredCriteria: {type:String},
-  teamSize: {
-    type:Number,
-    size: {
-      default: 2
-    }
+const EventSchema = mongoose.Schema({
+  _id: {
+      type: String,
+      required: true
   },
-  participationFees: {type: Number},
-  prizes: {type: Number, }
+  startDate: {
+    type:Date,
+    required:true
+  },
+  endDate: {
+    type:Date,
+    required:true
+  },
+  location: {
+    type:String,
+    required:true
+  },
+  NameOfEvent: {
+    type: String, 
+    required: true
+  },
+  description: {
+    type: String,
+  },
+  EventUrl: {
+    type:String
+  }
 })
 
-module.exports = mongoose.model("Events", eventSchema)
+module.exports = mongoose.model("Events", EventSchema)

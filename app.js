@@ -5,7 +5,7 @@ const app = express()
 
 //MongoDb Atlas and mongoose
 const mongoose = require("mongoose")
-
+mongoose.connect('mongodb+srv://hackportaldbUser:'+ process.env.SECRETKEY+ '@stc-hack-portal-backend-jo4iu.gcp.mongodb.net/hack-portal?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
 
 
 //for parsing various types of requests
@@ -17,8 +17,8 @@ const cors = require('cors')
 app.use(cors())
 
 //for using route directories
-const EventRoutes = require("./routes/events")
-const TeamRoutes = require("./routes/teams")
+const EventRoutes = require("./components/routes/events")
+const TeamRoutes = require("./components/routes/teams")
 
 //for using and assigning prefixed routes
 app.use('/api/hackathons', EventRoutes);
@@ -43,7 +43,7 @@ app.use((error,req,res,next) => {
 })
 
 //for accessing secret variables
-/*require("dotenv").config()
+require("dotenv").config()
 const {checkAuth,signOut} = require("./components/auth")
 
 
@@ -85,7 +85,7 @@ app.get("/signout",(req,res)=>{
                                 })
         
        
-})*/
+}) 
 app.listen(port,()=>{
         console.log(`server started on port ${port}`)
 })
