@@ -9,6 +9,13 @@ const TeamsSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  HackathonName: {
+    type: String,
+    required: true
+  },
+  HackathonLink: {
+    type: String
+  },
   description: {
     type: String
   },
@@ -19,7 +26,7 @@ const TeamsSchema = mongoose.Schema({
       required: true
     }
   },
-  url: {
+  TeamUrl: {
     type:String
   }
 })

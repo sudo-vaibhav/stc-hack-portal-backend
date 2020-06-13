@@ -1,6 +1,5 @@
 const express = require("express")
 const router = express.Router();
-const mongoose = require("mongoose");
 
 const Events = require('../model/Event');
 
@@ -10,23 +9,11 @@ router.get('/listHackathon',(req,res,next) => {
     Events.find()
     .exec()
     .then(docs => {
-      const response ={
-        details: docs.map(doc => {
-          return {
-            _id: doc._id,
-            startDate: doc.startDate,
-            endDate: doc.endDate,
-            location: doc.location,
-            NameOfEvent: doc.NameOfEvent,
-            description: doc.description,
-            EventUrl: doc.EventUrl
-          }
-        })
-      }
-      res.status(200).json(response)
+      console.log("hackathons displayed")
+      res.status(200).send(docs)
     })
     .catch(err => {
-      res.status(500).json({
+      res.status(500).send({
         error: err
       })
     })
@@ -41,18 +28,16 @@ router.get("/aboutHackathon/:Id",(req,res,next) => {
   .then(doc => 
     {
       if(doc){
-        res.status(200).json({
-          details: doc
-        })
+        res.status(200).send(doc)
       }
       else{
-        res.status(404).json({
+        res.status(404).send({
           message: "No Data Found!"
         })
       }
     })
     .catch(err => {
-      res.status(500).json({
+      res.status(500).send({
         error: err
       })
     })
@@ -75,20 +60,11 @@ router.post("/addHackathon/:Id",(req,res,next) =>
   event.findById(id)
   .save()
   .then(result => {
-    res.status(201).json({
-      addedHackathon: {
-        _id: result._id,
-      startDate: result.startDate,
-      endDate: result.endDate,
-      location: result.location,
-      NameOfEvent: result.NameOfEvent,
-      description: result.description,
-      EventUrl: result.EventUrl
-      }
-    })
+    console.log("Hackathon created")
+    res.status(201).send(result)
   })
   .catch(err => {
-    res.status(500).json({
+    res.status(500).send({
       error: err
     })
   })

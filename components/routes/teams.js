@@ -14,9 +14,7 @@ router.get("/:Id",(req,res,next) =>
   .then(doc =>
     {
       if(doc){
-        res.status(200).send({
-          Team: doc
-        })
+        res.status(200).send(doc)
       }
       else{
         res.status(404).send({
@@ -36,17 +34,28 @@ router.get("/:Id",(req,res,next) =>
 router.post("/addTeam/:Id", (req,res,next) => {
   const team = new Teams({
     _id: req.body._id,
-    members: [{
-      type: req.body.type
-    }],
+    TeamName: req.body.TeamName,
+    HackathonName: req.body.HackathonName,
+    HackathonLink: req.body.HackathonLink,
     description: req.body.description,
-    domain: [{
-      type:req.body.type
-    }],   
+    TeamSize: req.body.TeamSize.size,
+    TeamUrl: req.body.TeamUrl
+  })
+  const id = req.params.Id
+  team.findById(id)
+  .save()
+  .then(result => {
+    console.log("Hackathon created")
+    res.status(201).send(result)
+  })
+  .catch(err => {
+    res.status(500).send({
+      error: err
+    })
   })
 })
 
-router.patch("/updateTeam/:Id",(req,res,next) => {
+/*router.patch("/updateTeam/:Id",(req,res,next) => {
   res.status(200).json({
     message: "Team updated"
   })
@@ -56,6 +65,6 @@ router.delete("/removeTeam/:Id", (req,res,next) => {
   res.status(200).json({
     message: "Team deleted"
   })
-})
+})*/
 
 module.exports = router

@@ -24,23 +24,7 @@ const TeamRoutes = require("./components/routes/teams")
 app.use('/api/hackathons', EventRoutes);
 app.use('/api/teams', TeamRoutes);
 
-//Error Handling
-app.use((req,res,next) =>
-{
-  const error = new Error("Not Found");
-  error.status = 404;
-  next(error);
-})
 
-app.use((error,req,res,next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-        status: error.status,
-      message: error.message
-    }
-  })
-})
 
 //for accessing secret variables
 require("dotenv").config()
