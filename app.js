@@ -2,9 +2,10 @@ const port = process.env.PORT || 3000
 
 const express = require("express")
 const app = express()
+const bodyParser = require("body-parser")
 
 //for parsing various types of requests
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
 
 // for allowing front end to send requests to api
@@ -16,26 +17,14 @@ require("dotenv").config()
 const {checkAuth,signOut} = require("./components/auth")
 
 const mongoose = require("mongoose")
-mongoose.connect('', {useNewUrlParser: true, useUnifiedTopology: true})
+
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
         console.log("db connected")
-        app.post("/setprofile",checkAuth,(req,res)=>{
-                console.log("received set profile request for ", req.userId)
-                const {bio,name,skills,college,externalLink} = req.body
-        
-                const User = require("./components/models/User")
-        
-                User.findOne({_id: req.userId },(err, user)=>{
-                        if(err){
-                                console.log("Error in finding user",err)
-                        }else{
-                                console.log(user)
-                        }
-                })
-        
-        })
+        app.use("/users",checkAuth,require("./components/routes/users"))
 });
 
 
@@ -52,7 +41,6 @@ var serviceAccount = {
         "token_uri": process.env.TOKEN_URI,
         "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_X509_CERT_URL,
         "client_x509_cert_url": process.env.CLIENT_X509_CERT_URL
-
 }
 
 admin.initializeApp({
