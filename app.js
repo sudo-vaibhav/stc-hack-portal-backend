@@ -4,11 +4,6 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 
-//MongoDb Atlas and mongoose
-const mongoose = require("mongoose")
-mongoose.connect('mongodb+srv://hackportaldbUser:'+ process.env.SECRETKEY+ '@stc-hack-portal-backend-jo4iu.gcp.mongodb.net/hack-portal?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true})
-
-
 //for parsing various types of requests
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
@@ -17,24 +12,15 @@ app.use(express.urlencoded({ extended: true }))
 const cors = require('cors')
 app.use(cors())
 
-//for using route directories
-const EventRoutes = require("./components/routes/events")
-const TeamRoutes = require("./components/routes/teams")
-
-//for using and assigning prefixed routes
-app.use('/api/hackathons', EventRoutes);
-app.use('/api/teams', TeamRoutes);
-
-
-
 //for accessing secret variables
 require("dotenv").config()
 
 //middleware import for authentication check
 const {checkAuth} = require("./components/middleware/auth")
 
-const mongoose = require("mongoose")
 
+//importing mongoose and connecting to database
+const mongoose = require("mongoose")
 mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
 var db = mongoose.connection;
@@ -44,13 +30,16 @@ db.once('open', function() {
 
         //for getting and setting user profiles
         app.use("/users",checkAuth,require("./components/routes/users"))
+
+        //for operations related to hackathons
+        app.use('/hackathons', require("./components/routes/events"));
+
+        //for operations related to teams
+        app.use('/teams',  require("./components/routes/teams"));
 });
 
-
 //just a test route for testing auth status
-app.get("/",checkAuth,(req,res)=>{
-        res.status(200).send({message:"success"})
-})
+app.get("/",checkAuth,(req,res)=>{ res.status(200).send({message:"success"}) })
 
 //route for handling signout requests
 app.use("/signout",checkAuth,require("./components/routes/signout"))

@@ -1,12 +1,12 @@
 const express = require("express")
-const router = express.Router();
+const Router = express.Router();
 const mongoose = require("mongoose")
 
 
-const Teams = require('../model/Team');
+const Teams = require('../models/Team');
 
 
-router.get("/:Id",(req,res,next) => 
+Router.get("/:Id",(req,res,next) => 
 {
   const id = req.params.Id;
   Teams.findById(id)
@@ -31,7 +31,7 @@ router.get("/:Id",(req,res,next) =>
     })
 })
 
-router.post("/addTeam/:Id", (req,res,next) => {
+Router.post("/addTeam/:Id", (req,res,next) => {
   const team = new Teams({
     _id: req.body._id,
     TeamName: req.body.TeamName,
@@ -55,16 +55,16 @@ router.post("/addTeam/:Id", (req,res,next) => {
   })
 })
 
-/*router.patch("/updateTeam/:Id",(req,res,next) => {
+/*Router.patch("/updateTeam/:Id",(req,res,next) => {
   res.status(200).json({
     message: "Team updated"
   })
 })
 
-router.delete("/removeTeam/:Id", (req,res,next) => {
+Router.delete("/removeTeam/:Id", (req,res,next) => {
   res.status(200).json({
     message: "Team deleted"
   })
 })*/
 
-module.exports = router
+module.exports = Router

@@ -1,12 +1,12 @@
 const express = require("express")
-const router = express.Router();
+const Router = express.Router();
 
-const Events = require('../model/Event');
+const Event = require('../models/Event');
 
 
 // to view all hackathons
-router.get('/listHackathon',(req,res,next) => {
-    Events.find()
+Router.get('/listhackathon',(req,res,next) => {
+    Event.find()
     .exec()
     .then(docs => {
       console.log("hackathons displayed")
@@ -21,9 +21,9 @@ router.get('/listHackathon',(req,res,next) => {
 
 
 //to view specific hackathon(id)
-router.get("/aboutHackathon/:Id",(req,res,next) => {
+Router.get("/abouthackathon/:Id",(req,res,next) => {
   const id = req.params.id
-  Events.findById(id)
+  Event.findById(id)
   .exec()
   .then(doc => 
     {
@@ -45,9 +45,9 @@ router.get("/aboutHackathon/:Id",(req,res,next) => {
 
 
 //to add info about specific hackathon(id)
-router.post("/addHackathon/:Id",(req,res,next) => 
+Router.post("/addHackathon/:Id",(req,res,next) => 
 {
-  const event = new Events({
+  const event = new Event({
     _id: req.body._id,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
@@ -72,7 +72,7 @@ router.post("/addHackathon/:Id",(req,res,next) =>
 
 
 /*to update specific hackathon(id)
-router.patch("/updateHackathon/:Id", (req,res,next) => {
+Router.patch("/updateHackathon/:Id", (req,res,next) => {
   res.status(201).json({
     message: "hackathon has been updated"
   })
@@ -80,10 +80,10 @@ router.patch("/updateHackathon/:Id", (req,res,next) => {
 
 
 //to remove specific hackathon(id)
-router.delete("/removeHackathon/:Id",(req,res,next) => {
+Router.delete("/removeHackathon/:Id",(req,res,next) => {
   res.status(200).json({
     message: "hackathon has been deleted"
   })
 }) */
 
-module.exports = router
+module.exports = Router

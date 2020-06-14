@@ -1,35 +1,35 @@
 const mongoose = require("mongoose")
 
-const TeamsSchema = mongoose.Schema({
+const TeamSchema = mongoose.Schema({
   _id: {
     type:String,
     required: true
   },
-  TeamName: {
+  teamName: {
     type: String,
     required: true
   },
-  HackathonName: {
+  hackathonName: {
     type: String,
     required: true
   },
-  HackathonLink: {
+  hackathonLink: {
     type: String
   },
   description: {
     type: String
   },
-  TeamSize: {
+  teamSize: {
     type: Number,
     size: {
       default: 2,
       required: true
     }
   },
-  TeamUrl: {
+  teamUrl: {
     type:String
   }
 })
 
-
-module.exports = mongoose.model("Teams", TeamsSchema)
+const Team = mongoose.model("Team", TeamSchema)
+module.exports = Team
