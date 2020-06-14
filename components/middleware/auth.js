@@ -24,16 +24,24 @@ const checkAuth =
         (req, res, next) => {
                 console.log("auth token:",req.headers.authtoken)
                 if (req.headers.authtoken) {
-                        admin.auth().verifyIdToken(req.headers.authtoken)
-                                .then((decodedToken) => {
-                                        console.log("decoded token",decodedToken)
-                                        req.userId = decodedToken.user_id
-                                        req.email = decodedToken.email
-                                        next()
-                                }).catch(() => {
-                                        console.log("some problem with token. Unable to decode")
-                                        res.status(403).send({message:'Unauthorized'})
-                                });
+                        //only for testing
+                        if(req.headers.authtoken=="test"){
+                                req.userId = `xVw6qPV1zrhlT2D8U47FD7IZH5N2`
+                                req.email = "vasumanhas000@gmail.com"
+                                next()
+                        }
+                        else{
+                                admin.auth().verifyIdToken(req.headers.authtoken)
+                                        .then((decodedToken) => {
+                                                console.log("decoded token",decodedToken)
+                                                req.userId = decodedToken.user_id
+                                                req.email = decodedToken.email
+                                                next()
+                                        }).catch(() => {
+                                                console.log("some problem with token. Unable to decode")
+                                                res.status(403).send({message:'Unauthorized'})
+                                        });
+                        }
                 } else {
                         res.status(403).send('Unauthorized')
                 }
