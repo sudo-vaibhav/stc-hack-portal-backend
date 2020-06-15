@@ -1,15 +1,18 @@
 const express = require("express")
 const Router = express.Router();
+const mongoose = require("mongoose")
 
 const Event = require('../models/Event');
+const { checkAuth } = require("../middleware/auth");
+
 
 
 // to view all hackathons
-Router.get('/listhackathon',(req,res,next) => {
+Router.get('/gethackathon',(req,res,next) => {
     Event.find()
     .exec()
     .then(docs => {
-      console.log("hackathons displayed")
+      console.log("hackathons displayed",docs)
       res.status(200).send(docs)
     })
     .catch(err => {
@@ -22,7 +25,7 @@ Router.get('/listhackathon',(req,res,next) => {
 
 //to view specific hackathon(id)
 Router.get("/abouthackathon/:Id",(req,res,next) => {
-  const id = req.params.id
+  const id = req.params.Id
   Event.findById(id)
   .exec()
   .then(doc => 
@@ -44,23 +47,23 @@ Router.get("/abouthackathon/:Id",(req,res,next) => {
 })
 
 
-//to add info about specific hackathon(id)
-Router.post("/addHackathon/:Id",(req,res,next) => 
+//to add info about specific hackathon(id) 
+Router.post("/sethackathon",checkAuth,(req,res,next) => 
 {
   const event = new Event({
-    _id: req.body._id,
+    _id: new mongoose.Types.ObjectId().toString(),
+    creatorId: req.userId,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     location: req.body.location,
-    NameOfEvent: req.body.NameOfEvent,
+    nameOfEvent: req.body.nameOfEvent,
     description: req.body.description,
-    EventUrl: req.body.EventUrl
+    eventUrl: req.body.eventUrl
   });
-  const id = req.params.Id
-  event.findById(id)
+  event
   .save()
   .then(result => {
-    console.log("Hackathon created")
+    console.log("Hackathon created",result)
     res.status(201).send(result)
   })
   .catch(err => {

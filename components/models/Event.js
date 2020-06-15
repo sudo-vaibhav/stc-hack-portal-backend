@@ -5,6 +5,10 @@ const EventSchema = mongoose.Schema({
       type: String,
       required: true
   },
+  creatorId: {
+    type: String,
+    required:true
+  },
   startDate: {
     type:Date,
     required:true
@@ -17,14 +21,14 @@ const EventSchema = mongoose.Schema({
     type:String,
     required:true
   },
-  NameOfEvent: {
+  nameOfEvent: {
     type: String, 
     required: true
   },
   description: {
     type: String,
   },
-  EventUrl: {
+  eventUrl: {
     type:String
   }
 })

@@ -5,6 +5,10 @@ const TeamSchema = mongoose.Schema({
     type:String,
     required: true
   },
+  creatorId: {
+    type: String,
+    required:true
+  },
   teamName: {
     type: String,
     required: true
