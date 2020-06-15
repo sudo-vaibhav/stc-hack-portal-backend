@@ -28,7 +28,7 @@ Router.get("/:Id",checkAuth,(req,res,next) =>
     {
       console.log(err)
       res.status(500).send({
-        error: err
+        error: "Internal Servor Error"
       })
     })
 })
@@ -52,7 +52,7 @@ Router.post("/setteam",checkAuth,(req,res,next) => {
   })
   .catch(err => {
     res.status(500).send({
-      error: err
+      error: "Internal Server Error"
     })
   })
 })

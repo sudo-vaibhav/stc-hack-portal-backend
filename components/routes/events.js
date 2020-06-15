@@ -41,7 +41,7 @@ Router.get("/abouthackathon/:Id",(req,res,next) => {
     })
     .catch(err => {
       res.status(500).send({
-        error: err
+        error: "Internal Servor Error"
       })
     })
 })
@@ -68,7 +68,7 @@ Router.post("/sethackathon",checkAuth,(req,res,next) =>
   })
   .catch(err => {
     res.status(500).send({
-      error: err
+      error: "Internal Server Error"
     })
   })
 })
