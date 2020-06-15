@@ -41,7 +41,7 @@ Router.post("/setteam",checkAuth,(req,res,next) => {
     hackathonName: req.body.hackathonName,
     hackathonLink: req.body.hackathonLink,
     description: req.body.description,
-    teamSize: req.body.teamSize.size,
+    teamSize: req.body.teamSize,
     teamUrl: req.body.teamUrl
   })
   team
