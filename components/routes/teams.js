@@ -37,12 +37,12 @@ Router.post("/setteam",checkAuth,(req,res,next) => {
   const team = new Teams({
     _id: new mongoose.Types.ObjectId().toString(),
     creatorId: req.userId,
-    TeamName: req.body.TeamName,
-    HackathonName: req.body.hackathonName,
-    HackathonLink: req.body.hackathonLink,
+    teamName: req.body.teamName,
+    hackathonName: req.body.hackathonName,
+    hackathonLink: req.body.hackathonLink,
     description: req.body.description,
-    TeamSize: req.body.teamSize.size,
-    TeamUrl: req.body.teamUrl
+    teamSize: req.body.teamSize.size,
+    teamUrl: req.body.teamUrl
   })
   team
   .save()

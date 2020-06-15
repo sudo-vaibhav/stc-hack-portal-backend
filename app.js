@@ -21,7 +21,7 @@ const {checkAuth} = require("./components/middleware/auth")
 
 //importing mongoose and connecting to database
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://hackportaldbUser:a87j04phcEJgk4eH@stc-hack-portal-backend-jo4iu.gcp.mongodb.net/hack-portal?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true, useMongoClient: true})
+mongoose.connect("mongodb://localhost/hackportal_test", {useNewUrlParser: true, useUnifiedTopology: true})
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

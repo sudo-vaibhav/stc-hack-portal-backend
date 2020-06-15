@@ -28,7 +28,7 @@ const EventSchema = mongoose.Schema({
   description: {
     type: String,
   },
-  EventUrl: {
+  eventUrl: {
     type:String
   }
 })

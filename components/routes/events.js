@@ -56,9 +56,9 @@ Router.post("/sethackathon",checkAuth,(req,res,next) =>
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     location: req.body.location,
-    NameOfEvent: req.body.nameOfEvent,
+    nameOfEvent: req.body.nameOfEvent,
     description: req.body.description,
-    EventUrl: req.body.EventUrl
+    eventUrl: req.body.eventUrl
   });
   event
   .save()
