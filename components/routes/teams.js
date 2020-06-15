@@ -4,9 +4,10 @@ const mongoose = require("mongoose")
 
 
 const Teams = require('../models/Team');
+const { checkAuth } = require("../middleware/auth");
 
 
-Router.get("/:Id",(req,res,next) => 
+Router.get("/:Id",checkAuth,(req,res,next) => 
 {
   const id = req.params.Id;
   Teams.findById(id)
@@ -14,6 +15,7 @@ Router.get("/:Id",(req,res,next) =>
   .then(doc =>
     {
       if(doc){
+        console.log("team displayed: ",doc)
         res.status(200).send(doc)
       }
       else{
@@ -31,21 +33,21 @@ Router.get("/:Id",(req,res,next) =>
     })
 })
 
-Router.post("/addTeam/:Id", (req,res,next) => {
+Router.post("/setteam",checkAuth,(req,res,next) => {
   const team = new Teams({
-    _id: req.body._id,
+    _id: new mongoose.Types.ObjectId().toString(),
+    creatorId: req.userId,
     TeamName: req.body.TeamName,
-    HackathonName: req.body.HackathonName,
-    HackathonLink: req.body.HackathonLink,
+    HackathonName: req.body.hackathonName,
+    HackathonLink: req.body.hackathonLink,
     description: req.body.description,
-    TeamSize: req.body.TeamSize.size,
-    TeamUrl: req.body.TeamUrl
+    TeamSize: req.body.teamSize.size,
+    TeamUrl: req.body.teamUrl
   })
-  const id = req.params.Id
-  team.findById(id)
+  team
   .save()
   .then(result => {
-    console.log("Hackathon created")
+    console.log("Team created: ",result)
     res.status(201).send(result)
   })
   .catch(err => {
