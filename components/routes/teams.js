@@ -32,28 +32,38 @@ Router.get("/:Id", checkAuth, (req, res, next) => {
     })
   })
 })
+ 
+Router.post("/setteam",checkAuth,(req,res,next) => 
+{
+  Event.findById(req.body.hackathonId)
+  .then(hackathon => {
+    if(!hackathon){
+      res.status(404).send({
+        message: "No data found for this hackathon"
+      })
+    }
+    const team = new Teams({
+      _id: new mongoose.Types.ObjectId().toString(),
+      creatorId: req.userId,
+      teamName: req.body.teamName,
+      hackathonId: req.body.hackathonId,
+      description: req.body.description,
+      members: req.userId,
+      skillsRequired: req.body.skillsRequired || []
+    })
+    return team.save()
+    .then(result => {
+      console.log("Team created: ",result)
+      res.status(201).send(result)
+    })
 
-Router.post("/setteam", checkAuth, (req, res) => {
-  const team = new Teams({
-    _id: new mongoose.Types.ObjectId().toString(),
-    creatorId: req.userId,
-    teamName: req.body.teamName,
-    hackathonId: req.body.hackathonId,
-    description: req.body.description,
-    teamUrl: req.body.teamUrl || "",
-    members: [req.userId]
-  })
-  team
-  .save()
-  .then(result => {
-    return res.status(201).send(result)
   })
   .catch(err => {
     return res.status(500).send({
       error: "Internal Server Error"
     })
   })
-})
+  })
 
 Router.post("/sendinvite", checkAuth, sendInvite)
 
