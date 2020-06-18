@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 
 
 const Teams = require('../models/Team');
-
+const Event = require("../models/Event")
 //helper functions for simplifying code
 const sendInvite = require("../functions/team/sendInvite")
 //authentication middleware
