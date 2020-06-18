@@ -4,67 +4,67 @@ const mongoose = require("mongoose")
 
 
 const Teams = require('../models/Team');
-const { checkAuth } = require("../middleware/auth");
+
+//helper functions for simplifying code
+const sendInvite = require("../functions/team/sendInvite")
+//authentication middleware
+const {
+  checkAuth
+} = require("../middleware/auth");
 
 
-Router.get("/:Id",checkAuth,(req,res,next) => 
-{
+Router.get("/:Id", checkAuth, (req, res, next) => {
   const id = req.params.Id;
   Teams.findById(id)
-  .exec() 
-  .then(doc =>
-    {
-      if(doc){
-        console.log("team displayed: ",doc)
-        res.status(200).send(doc)
-      }
-      else{
-        res.status(404).send({
-          message: "No Data Found!"
-        })
-      }
-    })
-  .catch(err =>
-    {
-      console.log(err)
-      res.status(500).send({
-        error: "Internal Servor Error"
+  .exec()
+  .then(doc => {
+    if (doc) {
+      return res.status(200).send(doc)
+    } else {
+      return res.status(404).send({
+        message: "Team not found"
       })
+    }
+  })
+  .catch(err => {
+    return res.status(500).send({
+      message: "Internal Servor Error"
     })
+  })
 })
 
-Router.post("/setteam",checkAuth,(req,res,next) => {
+Router.post("/setteam", checkAuth, (req, res) => {
   const team = new Teams({
     _id: new mongoose.Types.ObjectId().toString(),
     creatorId: req.userId,
     teamName: req.body.teamName,
-    hackathonName: req.body.hackathonName,
-    hackathonLink: req.body.hackathonLink,
+    hackathonId: req.body.hackathonId,
     description: req.body.description,
-    teamSize: req.body.teamSize,
-    teamUrl: req.body.teamUrl
+    teamUrl: req.body.teamUrl || "",
+    members: [req.userId]
   })
   team
   .save()
   .then(result => {
-    console.log("Team created: ",result)
-    res.status(201).send(result)
+    return res.status(201).send(result)
   })
   .catch(err => {
-    res.status(500).send({
+    return res.status(500).send({
       error: "Internal Server Error"
     })
   })
 })
 
+Router.post("/sendinvite", checkAuth, sendInvite)
+
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
-  res.status(200).json({
+  return res.status(200).json({
     message: "Team updated"
   })
 })
 
 Router.delete("/removeTeam/:Id", (req,res,next) => {
-  res.status(200).json({
+  return res.status(200).json({
     message: "Team deleted"
   })
 })*/

@@ -13,25 +13,19 @@ const TeamSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  hackathonName: {
+  hackathonId: {
     type: String,
     required: true
-  },
-  hackathonLink: {
-    type: String
   },
   description: {
     type: String
   },
-  teamSize: {
-    type: Number,
-    size: {
-      default: 2,
-      required: true
-    }
+  members:{
+    type: [String],
+    required: true
   },
-  teamUrl: {
-    type:String
+  pendingRequests:{
+    type: [String]
   }
 })
 

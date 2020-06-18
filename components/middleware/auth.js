@@ -39,11 +39,11 @@ const checkAuth =
                                                 next()
                                         }).catch(() => {
                                                 console.log("some problem with token. Unable to decode")
-                                                res.status(403).send({message:'Unauthorized'})
+                                                return res.status(403).send({message:'Unauthorized'})
                                         });
                         }
                 } else {
-                        res.status(403).send('Unauthorized')
+                        return res.status(403).send('Unauthorized')
                 }
         }
 // const signOut = (uid)=>{
