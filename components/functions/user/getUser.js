@@ -1,20 +1,6 @@
 const User = require("../../models/User")
 
 const processUserQuery = (user) => {
-        // payload: {
-        //         "skills": user.skills,
-        //         "teams": user.teams,
-        //         "invites": user.invites,
-        //         "_id": user._id,
-        //         "name": user.name,
-        //         "email": user.email,
-        //         "college": user.college,
-        //         "expectedGraduation": user.expectedGraduation,
-        //         "bio": user.bio,
-        //         "githubLink": user.githubLink,
-        //         "stackOverflowLink": user.stackOverflowLink,
-        //         "externalLink": user.externalLink
-        // }
         if (user) {
                 return {
                         status: 200,
