@@ -3,15 +3,15 @@ const Router = express.Router();
 const mongoose = require("mongoose")
 
 
-const Teams = require('../models/Team');
-const Event = require("../models/Event")
+const Team = require('../models/Team');
+const Event = require("../models/Event");
 //helper functions for simplifying code
 const sendInvite = require("../functions/team/sendInvite")
+const acceptInvite =require("../functions/team/acceptInvite")
 //authentication middleware
 const {
   checkAuth
 } = require("../middleware/auth");
-
 
 Router.get("/:Id", checkAuth, (req, res, next) => {
   const id = req.params.Id;
@@ -46,7 +46,7 @@ Router.post("/setteam",checkAuth,(req,res,next) =>
       _id: new mongoose.Types.ObjectId().toString(),
       creatorId: req.userId,
       teamName: req.body.teamName,
-      hackathonId: req.body.hackathonId,
+      eventId: req.body.eventId,
       description: req.body.description,
       members: req.userId,
       skillsRequired: req.body.skillsRequired || []
@@ -66,6 +66,8 @@ Router.post("/setteam",checkAuth,(req,res,next) =>
   })
 
 Router.post("/sendinvite", checkAuth, sendInvite)
+
+Router.post("/acceptinvite",checkAuth, acceptInvite)
 
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({

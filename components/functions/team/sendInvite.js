@@ -1,16 +1,15 @@
-const Teams = require("../../models/Team")
+const Team = require("../../models/Team")
 
 const getUser = require("../user/getUser")
 
 const sendInvite = async (req, res) => {
-        // team id, user email, and only admin of
-        // team should be able to send this invite
-        
+        // team id, invitee email, 
+        //condition: only admin of team should be able to send this invite
         const {
           inviteeEmail,
           teamId
         } = req.body
-        Teams.findOne({
+        Team.findOne({
           _id: teamId
         }, async (err, team) => {
           if (err) {
@@ -35,7 +34,7 @@ const sendInvite = async (req, res) => {
                     })
                   }
                   
-                  //check that invitee does not already have a request form the same team
+                  //check that invitee does not already have a request from the same team
                   if (team.pendingRequests.includes(invitee._id)) {
                     return res.status(400).send({
                       message: "Invitee already has a pending request for this team"
@@ -43,7 +42,7 @@ const sendInvite = async (req, res) => {
                   }
                   
                   //check that invitee should not be in another team for the same hackathon
-                  Teams.findOne({
+                  Team.findOne({
                     hackathonId: team.hackathonId,
                     members: invitee._id
                   }, async (err, otherTeamofInvitee) => {
