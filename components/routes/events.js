@@ -10,7 +10,7 @@ const {
 
 
 // to view all hackathons
-Router.get('/gethackathon', (req, res, next) => {
+Router.get('/getevent', (req, res, next) => {
     Event.find()
         .exec()
         .then(docs => {
@@ -26,7 +26,7 @@ Router.get('/gethackathon', (req, res, next) => {
 
 
 //to view specific hackathon(id)
-Router.get("/abouthackathon/:Id", (req, res, next) => {
+Router.get("/aboutevent/:Id", (req, res, next) => {
     const id = req.params.Id
     Event.findById(id)
         .exec()

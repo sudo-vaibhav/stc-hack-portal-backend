@@ -78,7 +78,7 @@
 
 * **URL**
 
-  /hackathons/gethackathon
+  /events/getevent
 
 * **Method:**
 
@@ -99,7 +99,7 @@
 
 * **URL**
 
-  /hackathons/abouthackathon/:Id
+  /events/aboutevent/:Id
 
 * **Method:**
 
@@ -119,7 +119,7 @@
  
 * **URL**
 
-  /hackathons/sethackathon
+  /events/setevent
 
 * **Method:**
 
