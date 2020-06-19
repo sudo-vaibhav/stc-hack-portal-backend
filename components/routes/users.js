@@ -4,16 +4,19 @@ const Router = express.Router()
 //importing helper functions for simplifying operations
 const getUser = require("../functions/user/getUser")
 const setProfile = require("../functions/user/setProfile")
-
+const rejectInvite = require("../functions/user/rejectInvite")
 // basically /users/setprofile route
-Router.post("/setprofile",setProfile)
+Router.post("/setprofile", setProfile)
 
 // basically /users/getprofile route
-Router.get("/getprofile", async (req,res)=>{
-        const responseData = await getUser(req.userId,"byId")
-        const statusCode = responseData.status
-        const payload = responseData.payload
-        return res.status(statusCode).send(payload)
+Router.get("/getprofile", async (req, res) => {
+    const responseData = await getUser(req.userId, "byId")
+    const statusCode = responseData.status
+    const payload = responseData.payload
+    return res.status(statusCode).send(payload)
 })
+
+Router.post("/rejectinvite", rejectInvite)
+
 
 module.exports = Router
