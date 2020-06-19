@@ -44,6 +44,8 @@ app.get("/",checkAuth,(req,res)=>{ res.status(200).send({message:"success"}) })
 //route for handling signout requests
 app.use("/signout",checkAuth,require("./components/routes/signout"))
 
+
+
 app.listen(port,()=>{
         console.log(`server started on port ${port}`)
 })
