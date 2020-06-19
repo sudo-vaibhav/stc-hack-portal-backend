@@ -37,10 +37,12 @@ const acceptInvite=  (req,res) =>
           const invites = invitee.invites
           invites.splice(invites.indexOf(team._id), 1)
           invitee.invites = invites
-
+          
+          //save the updated team and user profiles
           const updatedTeam = await team.save()
           const updatedInvitee= await invitee.save()
 
+          //return the updated Invitee profile
           return res.status(201).send(updatedInvitee)
 
         }
