@@ -32,10 +32,12 @@ const EventSchema = mongoose.Schema({
         type: String
     },
     minimumTeamSize: {
-        type: Number
+        type: Number,
+        required: true
     },
     maximumTeamSize: {
-        type: Number
+        type: Number,
+        required: true
     }
 })
 
