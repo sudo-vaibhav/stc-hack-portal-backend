@@ -36,10 +36,11 @@ db.once('open', function() {
 
         //for operations related to teams
         app.use('/teams',  require("./components/routes/teams"));
+
 });
 
 //just a test route for testing auth status
-app.get("/",checkAuth,(req,res)=>{ res.status(200).send({message:"success"}) })
+app.get("/",checkAuth,(req,res)=>{ return res.status(200).send({message:"success"}) })
 
 //route for handling signout requests
 app.use("/signout",checkAuth,require("./components/routes/signout"))

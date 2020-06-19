@@ -13,10 +13,10 @@ Router.get('/gethackathon',(req,res,next) => {
     .exec()
     .then(docs => {
       console.log("hackathons displayed",docs)
-      res.status(200).send(docs)
+      return res.status(200).send(docs)
     })
     .catch(err => {
-      res.status(500).send({
+      return res.status(500).send({
         error: err
       })
     })
@@ -31,16 +31,16 @@ Router.get("/abouthackathon/:Id",(req,res,next) => {
   .then(doc => 
     {
       if(doc){
-        res.status(200).send(doc)
+        return res.status(200).send(doc)
       }
       else{
-        res.status(404).send({
+        return res.status(404).send({
           message: "No Data Found!"
         })
       }
     })
     .catch(err => {
-      res.status(500).send({
+      return res.status(500).send({
         error: "Internal Servor Error"
       })
     })
@@ -64,10 +64,10 @@ Router.post("/sethackathon",checkAuth,(req,res,next) =>
   .save()
   .then(result => {
     console.log("Hackathon created",result)
-    res.status(201).send(result)
+    return res.status(201).send(result)
   })
   .catch(err => {
-    res.status(500).send({
+    return res.status(500).send({
       error: "Internal Server Error"
     })
   })
@@ -76,7 +76,7 @@ Router.post("/sethackathon",checkAuth,(req,res,next) =>
 
 /*to update specific hackathon(id)
 Router.patch("/updateHackathon/:Id", (req,res,next) => {
-  res.status(201).json({
+  return res.status(201).json({
     message: "hackathon has been updated"
   })
 })
@@ -84,7 +84,7 @@ Router.patch("/updateHackathon/:Id", (req,res,next) => {
 
 //to remove specific hackathon(id)
 Router.delete("/removeHackathon/:Id",(req,res,next) => {
-  res.status(200).json({
+  return res.status(200).json({
     message: "hackathon has been deleted"
   })
 }) */
