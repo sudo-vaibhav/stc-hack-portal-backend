@@ -1,6 +1,6 @@
 //Helper function imports
 const getTeam = require("../team/getTeam");
-const getUser = require("./getUser");
+const getUser = require("../user/getUser");
 
 const acceptInvite=  async(req,res) =>
 {
