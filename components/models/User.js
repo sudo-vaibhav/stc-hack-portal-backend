@@ -37,7 +37,9 @@ const UserSchema = new mongoose.Schema({
         externalLink:{
                 type: String
         },
-        teams: [{type: String}]     
+        teams: [String],
+        invites: [String]
+
 })
 
 const User = mongoose.model("User", UserSchema)

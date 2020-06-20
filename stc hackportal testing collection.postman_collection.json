@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "a249cfef-8900-43e2-8a7d-0b4d8aac874d",
+		"name": "stc hackportal testing collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users/getprofile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"getprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a particular team",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/users/getprofile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"getprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get events",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/events/getevents",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"events",
+						"getevents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get particular event",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\" : \"21/06/2020\",\n    \"endDate\" : \"24/06/2020\",\n    \"location\" : \"Anna Auditorium, VIT Vellore\",\n    \"nameOfEvent\" : \"Indian Premier Hackathon (IPH)\",\n    \"description\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque eget lectus eget vestibulum. Maecenas leo leo, interdum ultrices magna in, varius tincidunt diam. Aliquam at turpis sapien. Phasellus dolor dui, consectetur nec sagittis in, laoreet sit amet massa. Vivamus placerat pellentesque quam id aliquam.\",\n    \"eventUrl\" : \"https://www.devfolio.com/\",\n    \"minimumTeamSize\": 2,\n    \"maximumTeamSize\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/events/aboutevent/5ee78c68cf0a8700046df23a",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"events",
+						"aboutevent",
+						"5ee78c68cf0a8700046df23a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make new event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\" : \"21/06/2020\",\n    \"endDate\" : \"24/06/2020\",\n    \"location\" : \"Anna Auditorium, VIT Vellore\",\n    \"nameOfEvent\" : \"Indian Premier Hackathon (IPH)\",\n    \"description\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque eget lectus eget vestibulum. Maecenas leo leo, interdum ultrices magna in, varius tincidunt diam. Aliquam at turpis sapien. Phasellus dolor dui, consectetur nec sagittis in, laoreet sit amet massa. Vivamus placerat pellentesque quam id aliquam.\",\n    \"eventUrl\" : \"https://www.devfolio.com/\",\n    \"minimumTeamSize\": 2,\n    \"maximumTeamSize\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/events/setevent/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"events",
+						"setevent",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make a new team",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eventId\" : \"5eedf879378bcb46f5714614\",\n    \"teamName\" : \"Delhi Daredevils\",\n    \"description\" : \"Delhi boiiis club\",\n    \"skillsRequired\" : [\n        \"NodeJS\",\"Flask\",\"Android App Development\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/setteam",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"setteam"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send invite of team by team admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inviteeEmail\":\"mailvaibhavchopra@gmail.com\",\n    \"teamId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/sendinvite",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"sendinvite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reject invite of team by invitee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/rejectinvite",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"rejectinvite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accept invite of team by invitee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/rejectinvite",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"rejectinvite"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "87a34912-7e87-471b-a741-52b53f958c78",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1a5a48ce-ef2d-4658-981d-d76bbc1f64d4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "6bbdf8a8-6ece-4dcd-811f-761857eefc0e",
+			"key": "authtoken",
+			"value": "test",
+			"type": "string"
+		},
+		{
+			"id": "0556a7e7-c7f7-4663-a9bc-74c3fbfec3ff",
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"id": "ec6ced65-5973-4693-9a6e-90cee21e4aa6",
+			"key": "secondauthtoken",
+			"value": "vaibhav",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

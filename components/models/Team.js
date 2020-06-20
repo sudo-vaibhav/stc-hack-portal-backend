@@ -1,38 +1,38 @@
 const mongoose = require("mongoose")
 
 const TeamSchema = mongoose.Schema({
-  _id: {
-    type:String,
-    required: true
-  },
-  creatorId: {
-    type: String,
-    required:true
-  },
-  teamName: {
-    type: String,
-    required: true
-  },
-  hackathonName: {
-    type: String,
-    required: true
-  },
-  hackathonLink: {
-    type: String
-  },
-  description: {
-    type: String
-  },
-  teamSize: {
-    type: Number,
-    size: {
-      default: 2,
-      required: true
+    _id: {
+        type: String,
+        required: true
+    },
+    creatorId: {
+        type: String,
+        required: true
+    },
+    teamName: {
+        type: String,
+        required: true
+    },
+    eventId: {
+        type: String,
+        required: true,
+        ref: 'Event'
+    },
+    description: {
+        type: String
+    },
+    members: {
+        type: [String],
+        required: true
+    },
+    pendingRequests: {
+        type: [String],
+        required: true
+    },
+    skillsRequired: {
+        type: [String],
+        required: true
     }
-  },
-  teamUrl: {
-    type:String
-  }
 })
 
 const Team = mongoose.model("Team", TeamSchema)
