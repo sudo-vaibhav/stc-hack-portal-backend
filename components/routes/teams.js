@@ -46,10 +46,10 @@ Router.get("/:teamId", checkAuth, (req, res) => {
 
 Router.post("/setteam", checkAuth, (req, res) => {
     Event.findById(req.body.eventId)
-        .then(hackathon => {
-            if (!hackathon) {
+        .then(event => {
+            if (!event) {
                 return res.status(404).send({
-                    message: "No data found for this hackathon"
+                    message: "No data found for this event"
                 })
             }
             const team = new Team({
@@ -58,13 +58,14 @@ Router.post("/setteam", checkAuth, (req, res) => {
                 teamName: req.body.teamName,
                 eventId: req.body.eventId,
                 description: req.body.description,
-                members: req.userId,
+                members: [req.userId],
                 skillsRequired: req.body.skillsRequired || [],
+                pendingRequests: []
             })
             team.save()
                 .then(result => {
                     console.log("Team created: ", result)
-                    return res.status(201).send(result)
+                    return res.status(200).send(result)
                 })
 
         })

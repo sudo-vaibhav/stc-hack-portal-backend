@@ -9,12 +9,12 @@ const {
 
 
 
-// to view all hackathons
-Router.get('/getevent', (req, res, next) => {
+// to view all events
+Router.get('/getevents', (req, res, next) => {
     Event.find()
         .exec()
         .then(docs => {
-            console.log("hackathons displayed", docs)
+            console.log("events displayed", docs)
             return res.status(200).send(docs)
         })
         .catch(err => {
@@ -25,7 +25,7 @@ Router.get('/getevent', (req, res, next) => {
 })
 
 
-//to view specific hackathon(id)
+//to view specific event(id)
 Router.get("/aboutevent/:Id", (req, res, next) => {
     const id = req.params.Id
     Event.findById(id)
@@ -47,7 +47,7 @@ Router.get("/aboutevent/:Id", (req, res, next) => {
 })
 
 
-//to add info about specific hackathon(id) 
+//to add info about specific event(id) 
 Router.post("/setevent", checkAuth, (req, res, next) => {
     const event = new Event({
         _id: new mongoose.Types.ObjectId().toString(),
@@ -69,24 +69,24 @@ Router.post("/setevent", checkAuth, (req, res, next) => {
         })
         .catch(err => {
             return res.status(500).send({
-                error: "Internal Server Error"
+                error: err.message
             })
         })
 })
 
 
-/*to update specific hackathon(id)
-Router.patch("/updateHackathon/:Id", (req,res,next) => {
+/*to update specific event(id)
+Router.patch("/updateEvent/:Id", (req,res,next) => {
   return res.status(201).json({
-    message: "hackathon has been updated"
+    message: "event has been updated"
   })
 })
 
 
-//to remove specific hackathon(id)
-Router.delete("/removeHackathon/:Id",(req,res,next) => {
+//to remove specific event(id)
+Router.delete("/removeEvent/:Id",(req,res,next) => {
   return res.status(200).json({
-    message: "hackathon has been deleted"
+    message: "event has been deleted"
   })
 }) */
 

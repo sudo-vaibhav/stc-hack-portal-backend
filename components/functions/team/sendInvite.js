@@ -11,7 +11,7 @@ const sendInvite = async (req, res) => {
         inviteeEmail,
         teamId
     } = req.body
-    Teams.findOne({
+    Team.findOne({
         _id: teamId
     }, async (err, team) => {
         if (err) {
@@ -24,7 +24,7 @@ const sendInvite = async (req, res) => {
                 if (req.userId == team.creatorId) {
 
                     //check that team is not full already
-                    const eventQuery = await getEvent(team.hackathonId, "byId")
+                    const eventQuery = await getEvent(team.eventId, "byId")
                     const eventStatus = eventQuery.status
                     if (eventStatus == 200) {
                         const event = eventQuery.payload
@@ -54,9 +54,9 @@ const sendInvite = async (req, res) => {
                                     })
                                 }
 
-                                //check that invitee should not be in another team for the same hackathon
-                                Teams.findOne({
-                                    hackathonId: team.hackathonId,
+                                //check that invitee should not be in another team for the same event
+                                Team.findOne({
+                                    eventId: team.eventId,
                                     members: invitee._id
                                 }, async (err, otherTeamofInvitee) => {
                                     if (err) {
@@ -65,7 +65,7 @@ const sendInvite = async (req, res) => {
                                         })
                                     } else {
 
-                                        //means user is already in some other team for the same hackathon
+                                        //means user is already in some other team for the same event
                                         if (otherTeamofInvitee) {
                                             return res.status(400).send({
                                                 message: "Invitee is already in another team for the same Event"
@@ -88,7 +88,9 @@ const sendInvite = async (req, res) => {
                                                 //update records of both the team and invitee
                                                 updatedTeam = await team.save()
                                                 updatedInvitee = await invitee.save()
-                                                return res.status(200).send(updatedTeam)
+                                                return res.status(200).send({
+                                                    message: "Invite sent successfully"
+                                                })
                                             } catch (err) {
                                                 return res.status(500).send({
                                                     message: "Internal server Error"

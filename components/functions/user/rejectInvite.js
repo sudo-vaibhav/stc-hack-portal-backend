@@ -3,12 +3,12 @@ const getUser = require("../user/getUser")
 
 const rejectInvite = async (req, res) => {
     const inviteeId = req.userId
+    console.log("user id is:", inviteeId)
     const {
         teamId
     } = req.body
 
-    const inviteeQuery = getUser(inviteeId, "byId")
-
+    const inviteeQuery = await getUser(inviteeId, "byId")
     //first check that team exists
     const teamQuery = await getTeam(teamId, "byId")
     if (teamQuery.status == 200) {
@@ -46,7 +46,9 @@ const rejectInvite = async (req, res) => {
                     const updatedTeam = await team.save()
                     const updatedInvitee = await invitee.save()
 
-                    return res.status(200).send(updatedInvitee)
+                    return res.status(200).send({
+                        message: "invite rejected successfully"
+                    })
 
                 } else {
                     return res.status(400).send({
@@ -58,9 +60,6 @@ const rejectInvite = async (req, res) => {
             } else {
                 return res.status(inviteeQuery.status).send(inviteeQuery.payload)
             }
-
-
-
 
         } else {
             return res.status(400).send({

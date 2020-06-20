@@ -63,12 +63,12 @@
   
 #### Events
 
-1. **Show Hackathon**
+1. **Show Event**
 ----
-  Returns the data related to every hackathon present in the database,i.e 
+  Returns the data related to every event present in the database,i.e 
   
   - _id, 
-  - creatorId(id of the hackathon creator),
+  - creatorId(id of the event creator),
   - startDate, 
   - endDate, 
   - location, 
@@ -84,12 +84,12 @@
 
   `GET`
 
-2. **Show Specific Hackathon**
+2. **Show Specific Event**
 ----
-  Returns Id specific data related to a hackathon,i.e 
+  Returns Id specific data related to a event,i.e 
   
   - _id, 
-  - creatorId(id of the hackathon creator),
+  - creatorId(id of the event creator),
   - startDate, 
   - endDate, 
   - location, 
@@ -105,9 +105,9 @@
 
   `GET`
   
- 3. **Add Hackathon**
+ 3. **Add Event**
 ----
-  Adds a Hackathon to the Database, with the following data: 
+  Adds a Event to the Database, with the following data: 
   
   - startDate, 
   - endDate, 
@@ -134,7 +134,7 @@
   - _id
   - creatorId,(this refers to the creator of the team) 
   - teamName 
-  - hackathonId(this refers to the hackathon the team is a part of), 
+  - eventId(this refers to the event the team is a part of), 
   - description (team description)
   - members (array of members)
   - skillsrequired (array of skills required)
@@ -152,7 +152,7 @@
   Adds a Team into the database with the following details: 
   
   - teamName, 
-  - hackathonId(this refers to the hackathon the team is a part of), 
+  - eventId(this refers to the event the team is a part of), 
   - description,(team description)
   - members ( array of members)
   -skillsrequired (array of skills required)
