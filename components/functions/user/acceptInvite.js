@@ -1,39 +1,39 @@
 //Helper function imports
-const getTeam = require("../team/getTeam");
-const getUser = require("../user/getUser");
+const getTeam = require("../team/getTeam")
+const getUser = require("../user/getUser")
 
-const acceptInvite=  async(req,res) =>
+
+const acceptInvite=  async (req,res) =>
 {
   //to check if user exists
-  const inviteeQuery = getUser(req.userId,"byId")
+  const inviteeQuery =  await getUser(req.userId,"byId")
   //to check if team exists
   const teamQuery=  await getTeam(req.body.teamId,"byId")
-  // to get the status code of the query output
-  const teamStatus= teamQuery.status
-  if(teamStatus == 200)
+  if(teamQuery.status == 200)
   {
     const team = teamQuery.payload
     //check whether the user has invite for team
     if(team.pendingRequests.includes(req.userId))
     {
       //generate users data
-      if(inviteeQuery.status ==200){
+      if(inviteeQuery.status == 200)
+      {
         const invitee= inviteeQuery.payload
         // NOTE: theoretically this check should always pass as team.pendingRequests and user.invites
         // are meant to always be manipulated together in each route that deals with invites
         // so if team.pendingRequests.include(inviteeId) is true then then invitee.invites.includes(team._id)
         // should also be true
         //check whether users invites include team id
-        if(inviteeQuery.invites.includes(req.body.teamId))
+        if(invitee.invites.includes(req.body.teamId))
         {
           //now let us modify the team schema by adding the userId to the members and removing the userId from the pendingRequests
 
           const members = team.members
-          members.push(invitee._id)
+          members.push(req.userId)
           team.members = members
 
           const pendingRequests = team.pendingRequests
-          pendingRequests.splice(pendingRequests.indexOf(invitee._id), 1)
+          pendingRequests.splice(pendingRequests.indexOf(req.userId), 1)
           team.pendingRequests = pendingRequests
 
           //let us also modify the user schema by adding the the teamsId to the teams and remove the teamsId from the invites
@@ -46,16 +46,15 @@ const acceptInvite=  async(req,res) =>
           invitee.invites = invites
           
           //save the updated team and user profiles
-          const updatedTeam = await team.save()
-          const updatedInvitee= await invitee.save()
+          const updatedTeam =  await team.save()
+          const updatedInvitee=  await invitee.save()
 
           //return the updated Invitee profile
-          return res.status(201).send(updatedInvitee)
-
-        }
+          return res.status(200).send(updatedInvitee)
+        } 
         else{
           return res.status(400).send({
-            message: "No Invite found for that team"
+            message: "No Invite found from that team"
           })
         }
       } else {
@@ -70,7 +69,7 @@ const acceptInvite=  async(req,res) =>
   }
   else
   {
-    return res.status(teamStatus).send(teamQuery.payload)
+    return res.status(teamQuery.status).send(teamQuery.payload)
   }
 }
 

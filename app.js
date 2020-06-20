@@ -28,7 +28,7 @@ const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+  })
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -55,6 +55,8 @@ app.get("/", checkAuth, (req, res) => {
 
 //route for handling signout requests
 app.use("/signout", checkAuth, require("./components/routes/signout"))
+
+
 
 app.listen(port, () => {
     console.log(`server started on port ${port}`)

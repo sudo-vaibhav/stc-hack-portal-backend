@@ -11,7 +11,7 @@ const sendInvite = async (req, res) => {
         inviteeEmail,
         teamId
     } = req.body
-    Teams.findOne({
+    Team.findOne({
         _id: teamId
     }, async (err, team) => {
         if (err) {
@@ -24,7 +24,7 @@ const sendInvite = async (req, res) => {
                 if (req.userId == team.creatorId) {
 
                     //check that team is not full already
-                    const eventQuery = await getEvent(team.hackathonId, "byId")
+                    const eventQuery = await getEvent(team.eventId, "byId")
                     const eventStatus = eventQuery.status
                     if (eventStatus == 200) {
                         const event = eventQuery.payload
@@ -55,8 +55,8 @@ const sendInvite = async (req, res) => {
                                 }
 
                                 //check that invitee should not be in another team for the same hackathon
-                                Teams.findOne({
-                                    hackathonId: team.hackathonId,
+                                Team.findOne({
+                                    eventId: team.eventId,
                                     members: invitee._id
                                 }, async (err, otherTeamofInvitee) => {
                                     if (err) {
