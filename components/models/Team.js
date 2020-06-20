@@ -13,9 +13,10 @@ const TeamSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  hackathonId: {
+  eventId: {
     type: String,
-    required: true
+    required: true,
+    ref: 'Event'
   },
   description: {
     type: String

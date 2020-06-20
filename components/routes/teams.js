@@ -7,6 +7,7 @@ const Team = require('../models/Team');
 const Event = require("../models/Event")
 //helper functions for simplifying code
 const sendInvite = require("../functions/team/sendInvite")
+
 //authentication middleware
 const {
     checkAuth
@@ -26,7 +27,7 @@ Router.get("/:teamId", checkAuth, (req, res) => {
                     return res.status(200).send(team)
                 } else {
                     return res.status(403).send({
-                        message: "You don't have the adequate priviledges to access this resource"
+                        message: "You don't have the adequate privileges to access this resource"
                     })
                 }
 
@@ -44,7 +45,7 @@ Router.get("/:teamId", checkAuth, (req, res) => {
 })
 
 Router.post("/setteam", checkAuth, (req, res) => {
-    Event.findById(req.body.hackathonId)
+    Event.findById(req.body.eventId)
         .then(hackathon => {
             if (!hackathon) {
                 return res.status(404).send({
@@ -55,7 +56,7 @@ Router.post("/setteam", checkAuth, (req, res) => {
                 _id: new mongoose.Types.ObjectId().toString(),
                 creatorId: req.userId,
                 teamName: req.body.teamName,
-                hackathonId: req.body.hackathonId,
+                eventId: req.body.eventId,
                 description: req.body.description,
                 members: req.userId,
                 skillsRequired: req.body.skillsRequired || [],
@@ -75,6 +76,8 @@ Router.post("/setteam", checkAuth, (req, res) => {
 })
 
 Router.post("/sendinvite", checkAuth, sendInvite)
+
+
 
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({

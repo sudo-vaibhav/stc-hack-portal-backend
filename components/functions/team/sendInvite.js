@@ -1,4 +1,4 @@
-const Teams = require("../../models/Team")
+const Team = require("../../models/Team")
 
 const getUser = require("../user/getUser")
 const getEvent = require("../event/getEvent")
