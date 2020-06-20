@@ -22,7 +22,7 @@ const setProfile = async (req,res)=>{
         
         //if server error occured
         if(queryResponse.status==500){
-                res.status(queryResponse.status).send(queryResponse.payload)
+                return res.status(queryResponse.status).send(queryResponse.payload)
         }
         else{
                 //if user is already created previously

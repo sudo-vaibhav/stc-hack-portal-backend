@@ -3,67 +3,76 @@ const Router = express.Router();
 const mongoose = require("mongoose")
 
 
-const Teams = require('../models/Team');
+const Team = require('../models/Team');
 const Event = require("../models/Event")
 //helper functions for simplifying code
 const sendInvite = require("../functions/team/sendInvite")
 //authentication middleware
 const {
-  checkAuth
+    checkAuth
 } = require("../middleware/auth");
 
 
-Router.get("/:Id", checkAuth, (req, res, next) => {
-  const id = req.params.Id;
-  Teams.findById(id)
-  .exec()
-  .then(doc => {
-    if (doc) {
-      return res.status(200).send(doc)
-    } else {
-      return res.status(404).send({
-        message: "Team not found"
-      })
-    }
-  })
-  .catch(err => {
-    return res.status(500).send({
-      message: "Internal Servor Error"
-    })
-  })
-})
- 
-Router.post("/setteam",checkAuth,(req,res,next) => 
-{
-  Event.findById(req.body.hackathonId)
-  .then(hackathon => {
-    if(!hackathon){
-      res.status(404).send({
-        message: "No data found for this hackathon"
-      })
-    }
-    const team = new Teams({
-      _id: new mongoose.Types.ObjectId().toString(),
-      creatorId: req.userId,
-      teamName: req.body.teamName,
-      hackathonId: req.body.hackathonId,
-      description: req.body.description,
-      members: req.userId,
-      skillsRequired: req.body.skillsRequired || []
-    })
-    return team.save()
-    .then(result => {
-      console.log("Team created: ",result)
-      res.status(201).send(result)
-    })
+Router.get("/:teamId", checkAuth, (req, res) => {
+    const teamId = req.params.teamId;
+    Team.findById(teamId)
+        .exec()
+        .then(team => {
+            if (team) {
+                //check so that only people who are either members or
+                //have pending invites from the team can get information
+                //about the team due to privacy concerns
+                if (team.members.includes(req.userId) || team.pendingRequests.includes(req.userId)) {
+                    return res.status(200).send(team)
+                } else {
+                    return res.status(403).send({
+                        message: "You don't have the adequate priviledges to access this resource"
+                    })
+                }
 
-  })
-  .catch(err => {
-    return res.status(500).send({
-      error: "Internal Server Error"
-    })
-  })
-  })
+            } else {
+                return res.status(404).send({
+                    message: "Team not found"
+                })
+            }
+        })
+        .catch(err => {
+            return res.status(500).send({
+                message: "Internal Servor Error"
+            })
+        })
+})
+
+Router.post("/setteam", checkAuth, (req, res) => {
+    Event.findById(req.body.hackathonId)
+        .then(hackathon => {
+            if (!hackathon) {
+                return res.status(404).send({
+                    message: "No data found for this hackathon"
+                })
+            }
+            const team = new Team({
+                _id: new mongoose.Types.ObjectId().toString(),
+                creatorId: req.userId,
+                teamName: req.body.teamName,
+                hackathonId: req.body.hackathonId,
+                description: req.body.description,
+                members: req.userId,
+                skillsRequired: req.body.skillsRequired || [],
+            })
+            team.save()
+                .then(result => {
+                    console.log("Team created: ", result)
+                    return res.status(201).send(result)
+                })
+
+        })
+        .catch(err => {
+            return res.status(500).send({
+                error: "Internal Server Error"
+            })
+        })
+})
 
 Router.post("/sendinvite", checkAuth, sendInvite)
 
