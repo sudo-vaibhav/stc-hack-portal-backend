@@ -38,7 +38,7 @@ db.once('open', function () {
     //for getting and setting user profiles
     app.use("/users", checkAuth, require("./components/routes/users"))
 
-    //for operations related to hackathons
+    //for operations related to events
     app.use('/events', require("./components/routes/events"));
 
     //for operations related to teams

@@ -2,6 +2,7 @@ const User = require("../../models/User")
 
 const processUserQuery = (user) => {
     if (user) {
+        console.log(user)
         return {
             status: 200,
             payload: user
@@ -45,7 +46,7 @@ const getUser = async (userIdentifier, searchParameter = "byId") => {
         return {
             status: 500,
             payload: {
-                message: "Internal server error"
+                message: err.message
             }
         }
     }
