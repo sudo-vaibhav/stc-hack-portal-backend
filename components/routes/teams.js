@@ -15,7 +15,7 @@ const {
 
 Router.get("/:Id", checkAuth, (req, res, next) => {
   const id = req.params.Id;
-  Teams.findById(id)
+  Team.findById(id)
   .exec()
   .then(doc => {
     if (doc) {
@@ -35,14 +35,14 @@ Router.get("/:Id", checkAuth, (req, res, next) => {
  
 Router.post("/setteam",checkAuth,(req,res,next) => 
 {
-  Event.findById(req.body.hackathonId)
+  Event.findById(req.body.eventId)
   .then(hackathon => {
     if(!hackathon){
       res.status(404).send({
         message: "No data found for this hackathon"
       })
     }
-    const team = new Teams({
+    const team = new Team({
       _id: new mongoose.Types.ObjectId().toString(),
       creatorId: req.userId,
       teamName: req.body.teamName,

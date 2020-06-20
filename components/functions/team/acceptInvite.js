@@ -2,10 +2,10 @@
 const getTeam = require("../team/getTeam");
 const getUser = require("../user/getUser");
 
-const acceptInvite=  (req,res) =>
+const acceptInvite=  async(req,res) =>
 {
   const inviteeQuery = getUser(req.userId,"byId")
-  const teamQuery=  await getTeam(req.body.teamId,"byId")
+  const teamQuery= getTeam(req.body.teamId,"byId")
   const teamStatus= teamQuery.status
   if(teamStatus == 200)
   {
