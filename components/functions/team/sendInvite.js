@@ -55,6 +55,7 @@ const sendInvite = async (req, res) => {
                                 }
 
                                 //check that invitee should not be in another team for the same event
+
                                 Team.findOne({
                                     eventId: team.eventId,
                                     members: invitee._id

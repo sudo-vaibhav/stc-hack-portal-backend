@@ -1,6 +1,7 @@
 //Helper function imports
-const getTeam = require("../team/getTeam");
-const getUser = require("../user/getUser");
+const getTeam = require("../team/getTeam")
+const getUser = require("../user/getUser")
+
 
 const acceptInvite = async (req, res) => {
     const teamId = req.body.teamId
@@ -33,10 +34,12 @@ const acceptInvite = async (req, res) => {
                     pendingRequests.splice(pendingRequests.indexOf(invitee._id), 1)
                     team.pendingRequests = pendingRequests
 
+
                     //let us also modify the user schema by adding the the teamsId to the teams and remove the teamsId from the invites
                     const teams = invitee.teams
                     teams.push(team._id)
                     invitee.teams = teams
+
 
                     const invites = invitee.invites
                     invites.splice(invites.indexOf(team._id), 1)

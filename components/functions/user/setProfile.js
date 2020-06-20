@@ -1,4 +1,5 @@
 const getUser = require("./getUser")
+const User = require("../../models/User")
 
 const setProfile = async (req,res)=>{
         // extracting all the data provided about user in request body
