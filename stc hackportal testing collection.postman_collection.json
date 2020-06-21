@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a249cfef-8900-43e2-8a7d-0b4d8aac874d",
+		"_postman_id": "cec397bf-1f4c-4929-8c8b-235107e85ab6",
 		"name": "stc hackportal testing collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -383,13 +383,82 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get user profiles for adding to team",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/users/getprofiles/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"getprofiles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search profiles by skill",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"skills\" : [\"FLASK\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/searchprofiles/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"searchprofiles",
+						"1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "87a34912-7e87-471b-a741-52b53f958c78",
+				"id": "5c3bbff7-bbca-46dc-a705-7e83f1f8b6b9",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -399,7 +468,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "1a5a48ce-ef2d-4658-981d-d76bbc1f64d4",
+				"id": "50d687b7-df8d-4e1b-951c-2533eeb8a836",
 				"type": "text/javascript",
 				"exec": [
 					""
