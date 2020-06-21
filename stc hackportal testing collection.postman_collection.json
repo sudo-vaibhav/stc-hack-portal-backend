@@ -12,20 +12,84 @@
 				"header": [
 					{
 						"key": "authtoken",
-						"value": "{{authtoken}}",
+						"value": "{{secondauthtoken}}",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/users/getprofile",
-					"protocol": "http",
+					"raw": "{{url}}/users/getuserprofile",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"users",
-						"getprofile"
+						"getuserprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{secondauthtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Vaibhav Chopra\",\n    \"college\": \"VIT Vellore\",\n    \"expectedGraduation\" : \"2023\",\n    \"bio\" : \"njklgjfhklgfhfgpnhpfgfgn\",\n    \"skills\" : [\"nodeJS\",\"flask\"],\n    \"githubLink\" : \"github.com/vaibhav\",\n    \"stackOverflowLink\": \"stackoverflow.com/vaibhav\",\n    \"externalLink\" : \"vaibhav.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/setprofile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"setprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make new team",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamName\" : \"midnight coders\",\n    \"eventId\" : \"5eefb72f6e12a5266fbd3eac\",\n    \"description\" : \"we code at night, sleep in day\",\n    \"skillsRequired\" : []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/setteam",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"setteam"
 					]
 				}
 			},
@@ -43,15 +107,15 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/users/getprofile",
+					"raw": "http://localhost:3000/teams/5eefbab76937f7272e543ee2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"users",
-						"getprofile"
+						"teams",
+						"5eefbab76937f7272e543ee2"
 					]
 				}
 			},
@@ -295,6 +359,30 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "cancel an invite from team admin's end",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/teams/cancelinvite",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"cancelinvite"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -321,19 +409,19 @@
 	],
 	"variable": [
 		{
-			"id": "6bbdf8a8-6ece-4dcd-811f-761857eefc0e",
+			"id": "8147da1a-5d57-494c-859a-a485f3564091",
 			"key": "authtoken",
 			"value": "test",
 			"type": "string"
 		},
 		{
-			"id": "0556a7e7-c7f7-4663-a9bc-74c3fbfec3ff",
+			"id": "0b73887f-d8e1-4e47-9465-22914abbdcd8",
 			"key": "url",
 			"value": "http://localhost:3000",
 			"type": "string"
 		},
 		{
-			"id": "ec6ced65-5973-4693-9a6e-90cee21e4aa6",
+			"id": "2d98ee18-759f-445c-bb23-d5e7a7db51a1",
 			"key": "secondauthtoken",
 			"value": "vaibhav",
 			"type": "string"

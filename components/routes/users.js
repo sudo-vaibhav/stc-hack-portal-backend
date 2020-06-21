@@ -11,12 +11,13 @@ const rejectInvite = require("../functions/user/rejectInvite")
 Router.post("/setprofile", setProfile)
 
 // basically /users/getprofile route
-Router.get("/getprofile", async (req, res) => {
+Router.get("/getuserprofile", async (req, res) => {
     const responseData = await getUser(req.userId, "byId")
     const statusCode = responseData.status
     const payload = responseData.payload
     return res.status(statusCode).send(payload)
 })
+
 
 
 Router.post("/acceptinvite", acceptInvite)
