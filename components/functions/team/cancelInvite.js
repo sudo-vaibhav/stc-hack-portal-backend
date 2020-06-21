@@ -1,8 +1,5 @@
 const getUser = require("../user/getUser")
 const getTeam = require("./getTeam")
-const {
-    update
-} = require("../../models/Team")
 
 const cancelInvite = async (req, res) => {
     const adminId = req.userId
