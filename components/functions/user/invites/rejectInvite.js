@@ -1,5 +1,5 @@
-const getTeam = require("../team/getTeam")
-const getUser = require("../user/getUser")
+const getTeam = require("../../team/getTeam")
+const getUser = require("../profile/getUser")
 
 const rejectInvite = async (req, res) => {
     const inviteeId = req.userId
@@ -11,7 +11,7 @@ const rejectInvite = async (req, res) => {
 
     const inviteeQuery = await getUser(inviteeId, "byId")
     //first check that team exists
-    const teamQuery =  await getTeam(teamId, "byId")
+    const teamQuery = await getTeam(teamId, "byId")
     if (teamQuery.status == 200) {
         //then check that user has an invite for that team or not
         const team = teamQuery.payload
