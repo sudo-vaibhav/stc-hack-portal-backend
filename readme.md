@@ -12,6 +12,8 @@
 - Teams
 - Signout
 
+----
+
 ### Operation of Routes
 
 #### Users
@@ -41,6 +43,8 @@
 * **Method:**
 
   `GET`
+  
+  ----
 
 2. **Add User**
 ----
@@ -64,7 +68,9 @@
 
   `POST`
   
- 3. **Accepting an Invite**
+  ----
+  
+3. **Accepting an Invite**
 ----
   Adds the user Id to the "members of the team", Removes the user Id from the "teams pending requests", Adds the team Id to the "teams of the user" and Removes the team Id from the "users invites". Data required includes:
   
@@ -77,6 +83,8 @@
 * **Method:**
 
   `POST`
+  
+  ----
   
 4. **Rejecting an Invite**
 ----
@@ -93,8 +101,9 @@
 
   `POST`
   
- 
-#### Events
+  ----
+  
+ #### Events
 
 1. **Show Event**
 ----
@@ -118,6 +127,8 @@
 * **Method:**
 
   `GET`
+  
+  ----
 
 2. **Show Specific Event**
 ----
@@ -142,7 +153,9 @@
 
   `GET`
   
- 3. **Add Event**
+  ----
+  
+3. **Add Event**
 ----
   Adds a Event to the Database, data required includes: 
   
@@ -163,6 +176,8 @@
 * **Method:**
 
   `POST`
+  
+  ----
   
 #### Teams
 
@@ -188,7 +203,9 @@
 
   `GET`
   
- 2. **Add Team**
+  ----
+  
+2. **Add Team**
 ----
   Adds a Team into the database with the following details: 
   
@@ -204,8 +221,10 @@
 * **Method:**
 
   `POST`
+  
+  ----
  
-  3. **Send an Invite to a User**
+3. **Send an Invite to a User**
 ----
   As an Admin(Creator of the team), you can send an invite to a user to join your team,on doing so the invitee's Id will be added to the "teams pending requests" and the team's Id will be added to the "users invites" ,required data includes: 
   
@@ -220,7 +239,9 @@
 
   `POST`
   
-  4. **Cancel an Invite to a User**
+  ----
+  
+4. **Cancel an Invite to a User**
 ----
   As an Admin(Creator of the team), you can cancel the invite you sent to a User, on doing so, the invitee's Id will be removed from the "teams pending requests" and the team's Id will be removed from  the "users invites" ,required data includes: 
   
@@ -236,7 +257,9 @@
 
   `POST`
   
-   5. **Remove Member from the Team**
+ ----
+  
+5. **Remove Member from the Team**
 ----
   As an admin, you can remove a member from the team, on doing so the member's Id will be removed from the "teams members" and the team's Id will be removed from the "users teams", required data includes:
   
@@ -251,9 +274,11 @@
 
   `POST`
   
+ ----
+ 
 #### Signout
 
- 1. **Signout**
+1. **Signout**
 ----
   Signout from the portal:
   
