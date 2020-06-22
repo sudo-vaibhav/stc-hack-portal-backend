@@ -75,15 +75,28 @@ Router.post("/setevent", checkAuth, (req, res, next) => {
 })
 
 
-/*to update specific event(id)
-Router.patch("/updateEvent/:Id", (req,res,next) => {
-  return res.status(201).json({
-    message: "event has been updated"
+Router.patch("/updateevent/:Id", checkAuth, (req,res,next) =>
+{
+  const id = req.params.Id
+  delete req.body._id,req.body.creatorId
+  Event.update({_id: id}, req.body)
+  .exec()
+  .then(result =>
+    {
+    res.status(200).send({
+        message: "Event has been updated",
+    })
+  })
+  .catch(err => {
+    res.status(500).json({
+      error: "Internal Server Error"
+    })
   })
 })
 
 
-//to remove specific event(id)
+
+/*to remove specific event(id)
 Router.delete("/removeEvent/:Id",(req,res,next) => {
   return res.status(200).json({
     message: "event has been deleted"

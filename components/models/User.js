@@ -41,11 +41,9 @@ const UserSchema = new mongoose.Schema({
     },
     teams: {
         type: [String],
-        required: true
     },
     invites: {
         type: [String],
-        required: true
     }
 
 })
