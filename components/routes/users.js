@@ -25,6 +25,7 @@ Router.post("/acceptinvite", acceptInvite)
 
 Router.post("/rejectinvite", rejectInvite)
 
+
 Router.get("/searchprofiles/:pageNo", searchProfiles)
 
 module.exports = Router
