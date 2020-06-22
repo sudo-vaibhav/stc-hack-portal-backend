@@ -9,6 +9,7 @@ const Event = require("../models/Event")
 const sendInvite = require("../functions/team/invite/sendInvite")
 const getUser = require("../functions/user/profile/getUser")
 const cancelInvite = require("../functions/team/invite/cancelInvite")
+const removeMember = require("../functions/team/invite/removeMember")
 
 //authentication middleware
 const {
@@ -53,7 +54,7 @@ Router.post("/setteam", checkAuth, (req, res) => {
                 return res.status(404).send({
                     message: "No data found for this event"
                 })
-            } else {
+            }else {
                 const creatorQuery = await getUser(req.userId, "byId")
 
                 //this will check if user has completed their profile or not
@@ -74,7 +75,7 @@ Router.post("/setteam", checkAuth, (req, res) => {
                             return res.status(200).send(result)
                         })
                 } else {
-                    return res.status(creatorQuery.status).send(creatorQuery.message)
+                    return res.status(creatorQuery.status).send(creatorQuery.payload)
                 }
 
             }
@@ -91,6 +92,8 @@ Router.post("/setteam", checkAuth, (req, res) => {
 Router.post("/sendinvite", checkAuth, sendInvite)
 
 Router.post("/cancelinvite", checkAuth, cancelInvite)
+
+Router.post("/removemember",checkAuth, removeMember)
 
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({
