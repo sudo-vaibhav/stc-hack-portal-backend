@@ -10,7 +10,7 @@ const searchProfiles = async (req, res) => {
     const docs = await getPaginatedData(User, pageNo, PER_PAGE_LIMIT, {
         skills: {
             $elemMatch: {
-                $in: skills.map(skill => skill.toLowerCase())
+                $in: skills.map(skill => skill.toLowerCase().trim())
             }
         }
     })
