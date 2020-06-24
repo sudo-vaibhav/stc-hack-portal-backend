@@ -85,6 +85,7 @@ Router.post("/sendinvite", checkAuth, sendInvite)
 
 Router.post("/cancelinvite", checkAuth, cancelInvite)
 Router.post("/removemember", checkAuth, removeMember)
+
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({
     message: "Team updated"
