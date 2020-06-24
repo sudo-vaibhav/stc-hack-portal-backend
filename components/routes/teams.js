@@ -40,7 +40,7 @@ Router.get("/:teamId", checkAuth, async (req, res) => {
 })
 
 Router.post("/setteam", checkAuth, (req, res) => {
-    Event.findById(req.body.eventId)
+    Event.findById(req.body.eventId).select('-__v')
         .then(async (event) => {
             if (!event) {
                 return res.status(404).send({

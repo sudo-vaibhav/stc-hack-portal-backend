@@ -38,7 +38,7 @@ const EventSchema = mongoose.Schema({
     maximumTeamSize: {
         type: Number,
         required: true
-    }
+    },
 })
 
 module.exports = mongoose.model("Event", EventSchema)

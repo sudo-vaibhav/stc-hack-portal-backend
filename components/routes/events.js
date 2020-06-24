@@ -12,6 +12,7 @@ const {
 // to view all events
 Router.get('/getevents', (req, res, next) => {
     Event.find()
+         .select('-__v')
         .exec()
         .then(docs => {
             console.log("events displayed", docs)
@@ -29,6 +30,7 @@ Router.get('/getevents', (req, res, next) => {
 Router.get("/aboutevent/:Id", (req, res, next) => {
     const id = req.params.Id
     Event.findById(id)
+        .select('-__v')
         .exec()
         .then(doc => {
             if (doc) {
@@ -61,7 +63,7 @@ Router.post("/setevent", checkAuth, (req, res, next) => {
         minimumTeamSize: req.body.minimumTeamSize,
         maximumTeamSize: req.body.maximumTeamSize
     });
-    event
+    event.select('-__v')
         .save()
         .then(result => {
             console.log("Event created", result)
