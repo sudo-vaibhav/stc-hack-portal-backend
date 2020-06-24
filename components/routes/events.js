@@ -64,36 +64,45 @@ Router.post("/setevent", checkAuth, async (req, res) => {
         minimumTeamSize,
         maximumTeamSize
     } = req.body
-
     //we need to initialize the model because without it,
     //mongoose won't ensure that event name is unique even 
     //after you tell it that unique:true  in Event schema 😕
-    Event.init().then( () => {
-        const event = new Event({
-            _id: new mongoose.Types.ObjectId().toString(),
-            creatorId: req.userId,
-            startDate: startDate,
-            endDate: endDate,
-            location: location,
-            nameOfEvent: nameOfEvent,
-            description: description,
-            eventUrl: eventUrl,
-            minimumTeamSize: minimumTeamSize,
-            maximumTeamSize: maximumTeamSize
-        });
-        event
-            .save()
-            .then(result => {
-                console.log("Event created", result)
-                return res.status(201).send(result)
-            })
-            .catch(err => {
-                return res.status(400).send({
-                    message: "Duplicate event name, choose another name."
+    Event.init().then(() => {
+            const event = new Event({
+                _id: new mongoose.Types.ObjectId().toString(),
+                creatorId: req.userId,
+                startDate: startDate,
+                endDate: endDate,
+                location: location,
+                nameOfEvent: nameOfEvent,
+                description: description,
+                eventUrl: eventUrl,
+                minimumTeamSize: minimumTeamSize,
+                maximumTeamSize: maximumTeamSize
+            });
+            event
+                .save()
+                .then(result => {
+                    console.log("Event created", result)
+                    return res.status(201).send(result)
                 })
-            })
+                .catch(err => {
+                    return res.status(400).send({
+                        message: "Duplicate event name, choose another name."
+                    })
+                })
 
-    })
+        }) <<
+        << << < HEAD ===
+        === =
+        // }
+        // else{
+        //     return res.status(400).send({
+        //         message : "Event with same name already exists"
+        //     })
+        // }
+        >>>
+        >>> > e875ff2506c14945c87bf8e7dd0cfba87bd61e7f
 })
 
 
