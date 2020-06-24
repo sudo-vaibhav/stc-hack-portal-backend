@@ -448,38 +448,6 @@
 				}
 			},
 			"response": []
-		},	{
-			"name": "remove member of team by team admin",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "authtoken",
-						"type": "text",
-						"value": "{{authtoken}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"inviteeEmail\":\"mailvaibhavchopra@gmail.com\",\n    \"memberId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/teams/removemember",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"teams",
-						"removemember"
-					]
-				}
-			},
-			"response": []
 		},
 		{
 			"name": "get user profiles for adding to team",
