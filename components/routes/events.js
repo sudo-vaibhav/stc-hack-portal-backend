@@ -92,17 +92,7 @@ Router.post("/setevent", checkAuth, async (req, res) => {
                     })
                 })
 
-        }) <<
-        << << < HEAD ===
-        === =
-        // }
-        // else{
-        //     return res.status(400).send({
-        //         message : "Event with same name already exists"
-        //     })
-        // }
-        >>>
-        >>> > e875ff2506c14945c87bf8e7dd0cfba87bd61e7f
+        }) 
 })
 
 
