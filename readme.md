@@ -103,6 +103,78 @@
   
   ----
   
+5. **Get User Profiles for adding to a Team**
+----
+  Returns data regarding the profile of a user,i.e, 
+  
+  - _id
+  - name
+  - email
+  - college
+  - expectedGraduation
+  - bio
+  - skills (an array of skills the user has) 
+  - githubLink 
+  - stackOverflowLink 
+  - externalLink 
+  - teams (an array of teams the user is a part of)
+  - invites ( an array of invites the user has recieved)
+                
+
+* **URL**
+
+  /users/getprofiles/:pageNo
+
+* **Method:**
+
+  `GET`
+  
+  ----  
+  
+6. **Search for profiles based on Skill**
+----
+  Returns data regarding the profile of a user based on the search-by-skill parameter,i.e, 
+  
+  - _id
+  - name
+  - email
+  - college
+  - expectedGraduation
+  - bio
+  - skills (an array of skills the user has) 
+  - githubLink 
+  - stackOverflowLink 
+  - externalLink 
+  - teams (an array of teams the user is a part of)
+  - invites ( an array of invites the user has recieved)
+                
+
+* **URL**
+
+  /users/searchprofiles/:pageNo
+
+* **Method:**
+
+  `GET`
+  
+  ----
+ 
+
+7. **Update User**
+----
+  Update information related to the user.(Note: You cannot alter the _id, teams and invites entities)
+                
+
+* **URL**
+
+  /users/updateprofile
+
+* **Method:**
+
+  `PATCH`
+  
+  ----
+  
  #### Events
 
 1. **Show Event**
@@ -176,6 +248,21 @@
 * **Method:**
 
   `POST`
+  
+  ----
+ 
+4. **Update Specific Event**
+----
+  Update information related to a specific event.(Note: You cannot alter the _id, and creatorId entities)
+                
+
+* **URL**
+
+  /events/updateevent/:Id
+
+* **Method:**
+
+  `PATCH`
   
   ----
   
