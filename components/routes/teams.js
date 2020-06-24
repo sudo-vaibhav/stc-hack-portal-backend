@@ -62,9 +62,12 @@ Router.post("/setteam", checkAuth, (req, res) => {
                         pendingRequests: []
                     })
                     team.save()
-                        .then(result => {
-                            console.log("Team created: ", result)
-                            return res.status(200).send(result)
+                        .then(newTeam => {
+                            console.log("Team created: ", newTeam)
+                            const creator = creatorQuery.payload
+                            creator.teams.push(newTeam._id)
+                            await creator.save()
+                            return res.status(200).send(newTeam)
                         })
                 } else {
                     return res.status(creatorQuery.status).send(creatorQuery.message)
