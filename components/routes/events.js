@@ -64,15 +64,11 @@ Router.post("/setevent", checkAuth, async (req, res) => {
         minimumTeamSize,
         maximumTeamSize
     } = req.body
-    // const eventQuery = await getEvent(nameOfEvent,"byName")
-    // if(eventQuery.status!=200){
-    console.log("dil mein aata hun")
-    
+
     //we need to initialize the model because without it,
     //mongoose won't ensure that event name is unique even 
     //after you tell it that unique:true  in Event schema 😕
     Event.init().then( () => {
-        console.log("samajh mein nahi")
         const event = new Event({
             _id: new mongoose.Types.ObjectId().toString(),
             creatorId: req.userId,
@@ -98,12 +94,6 @@ Router.post("/setevent", checkAuth, async (req, res) => {
             })
 
     })
-    // }
-    // else{
-    //     return res.status(400).send({
-    //         message : "Event with same name already exists"
-    //     })
-    // }
 })
 
 
