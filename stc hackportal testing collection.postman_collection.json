@@ -74,7 +74,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\" : \"\",\n    \"college\": \"\",\n    \"\" : \"\",\n    \"bio\" : \"\",\n    \"skills\" : [\"\",\"\"],\n    \"githubLink\" : \"\",\n    \"stackOverflowLink\": \"\",\n    \"externalLink\" : \"\"\n}",
+					"raw": "{\n    \"name\" : \"\",\n    \"college\": \"\",\n    \"\" expectedGraduation: \"\",\n    \"bio\" : \"\",\n    \"skills\" : [\"\",\"\"],\n    \"githubLink\" : \"\",\n    \"stackOverflowLink\": \"\",\n    \"externalLink\" : \"\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -139,12 +139,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/teams/5eefbab76937f7272e543ee2",
+					"raw": "{{url}}/teams/5eefbab76937f7272e543ee2",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"teams",
 						"5eefbab76937f7272e543ee2"
@@ -247,7 +246,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/events/setevent/",
+					"raw": "{{url}}/events/setevent",
 					"host": [
 						"{{url}}"
 					],
@@ -461,14 +460,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{url}}/users/getprofiles/",
+					"raw": "{{url}}/users/getprofiles/1",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
 						"getprofiles",
-						""
+						"1"
 					]
 				}
 			},
@@ -539,12 +538,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/users/removemember",
+					"raw": "{{url}}/teams/removemember",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"users",
+						"teams",
 						"removemember"
 					]
 				}
