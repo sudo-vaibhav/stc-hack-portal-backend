@@ -11,7 +11,7 @@ const removeMember = async (req,res) =>
 
   const adminQuery= await getUser(adminId,"byId")
 
-  //check if user exists
+  //check if admin exists
   if(adminQuery.status == 200)
   {
     //check if team exists
@@ -30,8 +30,9 @@ const removeMember = async (req,res) =>
           const member = memberQuery.payload
           if(team.members.includes(memberId))
           {
-            //remove the memberId from the members array in the Team Schema and remove the teamId from the teams array in the User Schema
-
+            //remove the memberId from the members array in the Team Schema and remove the teamId from the teams array in the User Schema and ensure that the member to be removed is not the admin
+            if(memberId != adminId)
+            {
             const members = team.members
             members.splice(members.indexOf(memberId), 1)
             team.members = members
@@ -46,24 +47,25 @@ const removeMember = async (req,res) =>
               message: "User has been removed from the team"
             })
           }else{
-            return res.status(404).send({
-              message: "No such user exists in this team"
+            return res.status(403).send({
+              message: "Admin can't remove himself"
             })
           }
         }else{
-          return res.status(memberQuery.status).send(memberQuery.payload)
+          return res.status(404).send({message: "No such user exists in the team"})
         }
       }else{
-        return res.status(403).send({
-          message: "You are not authorized to perform such actions"
-        })
+        return res.status(memberQuery.status).send(memberQuery.payload)
       }
     }else{
-      return res.status(teamQuery.status).send(teamQuery.payload)
+      return res.status(403).send({message: "You are not authorized to take such actions"})
     }
   }else{
-    return res.status(adminQuery.status).send(adminQuery.payload)
+    return res.status(teamQuery.status).send(teamQuery.payload)
   }
+}else{
+  return res.status(adminQuery.status).send(adminQuery.payload)
+}
 }
 
 module.exports = removeMember
