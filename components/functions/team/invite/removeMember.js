@@ -1,13 +1,13 @@
 
 //Helper Functions
 const getUser= require("../../user/profile/getUser")
-const getTeam = require("../getTeam")
+const getTeam = require("../getTeam/getTeam")
 
 const removeMember = async (req,res) =>
 {
   const adminId=req.userId
   const teamId=req.body.teamId
-  const inviteeId=req.body.inviteeId
+  const memberId=req.body.memberId
 
   const adminQuery= await getUser(adminId,"byId")
 
@@ -23,24 +23,24 @@ const removeMember = async (req,res) =>
       if(team.creatorId == adminId)
       {
         //check whether the user to be removed exists
-        const inviteeQuery= await getUser(inviteeId,"byId")
-        if(inviteeQuery.status ==200)
+        const memberQuery= await getUser(memberId,"byId")
+        if(memberQuery.status ==200)
         {
           //check whether the members of the team include the user to be removed
-          const invitee = inviteeQuery.payload
-          if(team.members.includes(inviteeId))
+          const member = memberQuery.payload
+          if(team.members.includes(memberId))
           {
-            //remove the inviteeId from the members array in the Team Schema and remove the teamId from the teams array in the User Schema
+            //remove the memberId from the members array in the Team Schema and remove the teamId from the teams array in the User Schema
 
             const members = team.members
-            members.splice(members.indexOf(inviteeId), 1)
+            members.splice(members.indexOf(memberId), 1)
             team.members = members
 
-            const teams = invitee.teams
+            const teams = member.teams
             teams.splice(teams.indexOf(teamId), 1)
-            invitee.teams = teams
+            member.teams = teams
             
-            await Promise.all([invitee.save(), team.save()])
+            await Promise.all([member.save(), team.save()])
 
             return res.status(201).send({
               message: "User has been removed from the team"
@@ -51,7 +51,7 @@ const removeMember = async (req,res) =>
             })
           }
         }else{
-          return res.status(inviteeQuery.status).send(inviteeQuery.payload)
+          return res.status(memberQuery.status).send(memberQuery.payload)
         }
       }else{
         return res.status(403).send({

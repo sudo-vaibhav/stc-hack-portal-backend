@@ -1,5 +1,5 @@
 //Helper function imports
-const getTeam = require("../../team/getTeam")
+const getTeam = require("../../team/getTeam/getTeam")
 const getUser = require("../profile/getUser")
 
 

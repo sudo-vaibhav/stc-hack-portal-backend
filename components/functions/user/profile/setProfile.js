@@ -24,7 +24,7 @@ const setProfile = async (req, res) => {
         college: college,
         expectedGraduation: expectedGraduation || "",
         bio: bio,
-        skills: skills.map(skill => skill.toLowerCase()) || [],
+        skills: skills.map(skill => skill.toLowerCase().trim()) || [],
         githubLink: githubLink || "",
         stackOverflowLink: stackOverflowLink || "",
         externalLink: externalLink || ""
