@@ -102,7 +102,7 @@
 				"header": [
 					{
 						"key": "authtoken",
-						"value": "{{authtoken}}",
+						"value": "{{secondauthtoken}}",
 						"type": "text"
 					}
 				],
@@ -274,7 +274,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"inviteeEmail\":\"mailvaibhavchopra@gmail.com\",\n    \"teamId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
+					"raw": "{\n    \"inviteeEmail\":\"mailvaibhavchopra@gmail.com\",\n    \"teamId\":\"5eefbab76937f7272e543ee2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -335,12 +335,12 @@
 					{
 						"key": "authtoken",
 						"type": "text",
-						"value": "{{authtoken}}"
+						"value": "{{secondauthtoken}}"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"teamId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
+					"raw": "{\n    \"teamId\":\"5eefbab76937f7272e543ee2\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -348,13 +348,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/teams/rejectinvite",
+					"raw": "{{url}}/users/acceptinvite",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"teams",
-						"rejectinvite"
+						"users",
+						"acceptinvite"
 					]
 				}
 			},
@@ -448,6 +448,39 @@
 							"value": "",
 							"disabled": true
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove team member by admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\": \"\",\n    \"memberId\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/removemember",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"removemember"
 					]
 				}
 			},
