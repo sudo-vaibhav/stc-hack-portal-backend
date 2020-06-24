@@ -67,6 +67,7 @@ Router.post("/setevent", checkAuth, async (req, res) => {
     //we need to initialize the model because without it,
     //mongoose won't ensure that event name is unique even 
     //after you tell it that unique:true  in Event schema 😕
+    //read more about it here: https://mongoosejs.com/docs/faq.html#unique-doesnt-work
     Event.init().then(() => {
             const event = new Event({
                 _id: new mongoose.Types.ObjectId().toString(),
