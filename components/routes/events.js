@@ -20,7 +20,7 @@ Router.get('/getevents', (req, res, next) => {
         })
         .catch(err => {
             return res.status(500).send({
-                error: err
+                error: "Internal Server Error"
             })
         })
 })
@@ -63,7 +63,7 @@ Router.post("/setevent", checkAuth, (req, res, next) => {
         minimumTeamSize: req.body.minimumTeamSize,
         maximumTeamSize: req.body.maximumTeamSize
     });
-    event.select('-__v')
+    event
         .save()
         .then(result => {
             console.log("Event created", result)
@@ -71,7 +71,7 @@ Router.post("/setevent", checkAuth, (req, res, next) => {
         })
         .catch(err => {
             return res.status(500).send({
-                error: err.message
+                error: "Internal Server Error"
             })
         })
 })
