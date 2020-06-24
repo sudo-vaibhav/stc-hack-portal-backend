@@ -61,6 +61,38 @@
 				}
 			},
 			"response": []
+		},{
+			"name": "update profile",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{secondauthtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Vaibhav Chopra\",\n    \"college\": \"VIT Vellore\",\n    \"expectedGraduation\" : \"2023\",\n    \"bio\" : \"njklgjfhklgfhfgpnhpfgfgn\",\n    \"skills\" : [\"nodeJS\",\"flask\"],\n    \"githubLink\" : \"github.com/vaibhav\",\n    \"stackOverflowLink\": \"stackoverflow.com/vaibhav\",\n    \"externalLink\" : \"vaibhav.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/updateprofile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"updateprofile"
+					]
+				}
+			},
+			"response": []
 		},
 		{
 			"name": "make new team",
@@ -227,6 +259,39 @@
 				}
 			},
 			"response": []
+		},	{
+			"name": "update an event",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\" : \"21/06/2020\",\n    \"endDate\" : \"24/06/2020\",\n    \"location\" : \"Anna Auditorium, VIT Vellore\",\n    \"nameOfEvent\" : \"Indian Premier Hackathon (IPH)\",\n    \"description\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque eget lectus eget vestibulum. Maecenas leo leo, interdum ultrices magna in, varius tincidunt diam. Aliquam at turpis sapien. Phasellus dolor dui, consectetur nec sagittis in, laoreet sit amet massa. Vivamus placerat pellentesque quam id aliquam.\",\n    \"eventUrl\" : \"https://www.devfolio.com/\",\n    \"minimumTeamSize\": 2,\n    \"maximumTeamSize\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/events/updateevent/5ee78c68cf0a8700046df23a",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+            "events",
+						"updateevent",
+						"5ee78c68cf0a8700046df23a"
+					]
+				}
+			},
+			"response": []
 		},
 		{
 			"name": "make a new team",
@@ -315,7 +380,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/teams/rejectinvite",
+					"raw": "{{url}}/users/rejectinvite",
 					"host": [
 						"{{url}}"
 					],
@@ -348,13 +413,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/teams/rejectinvite",
+					"raw": "{{url}}/users/acceptinvite",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"teams",
-						"rejectinvite"
+						"acceptinvite"
 					]
 				}
 			},
@@ -379,6 +444,38 @@
 					"path": [
 						"teams",
 						"cancelinvite"
+					]
+				}
+			},
+			"response": []
+		},	{
+			"name": "remove member of team by team admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"type": "text",
+						"value": "{{authtoken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inviteeEmail\":\"mailvaibhavchopra@gmail.com\",\n    \"memberId\":\"5eedfd3ea1df6b4e8c2befb1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/removemember",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"removemember"
 					]
 				}
 			},
