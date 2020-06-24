@@ -25,6 +25,11 @@ const getEvent = async (eventIdentifier, searchParameter="byId") => {
                     _id: eventIdentifier
                 })
                 return processEventQuery(event)
+            case "byName":
+                event = await Event.findOne({
+                    nameOfEvent: eventIdentifier
+                })
+                return processEventQuery(event)
             default:
                 // if no proper search parameter is given
                 // search will be done by id

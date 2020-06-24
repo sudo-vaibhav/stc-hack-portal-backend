@@ -30,7 +30,8 @@ const mongoose = require("mongoose");
 //for local testing use: "mongodb://127.0.0.1:27017/hackportal
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 })
 
 var db = mongoose.connection

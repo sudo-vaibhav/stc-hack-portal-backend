@@ -49,7 +49,9 @@ const checkAuth =
                     });
             }
         } else {
-            return res.status(403).send('Unauthorized')
+            return res.status(403).send({
+                message: 'Unauthorized'
+            })
         }
     }
 // const signOut = (uid)=>{
