@@ -2,7 +2,6 @@ const User = require("../../../models/User")
 
 const processUserQuery = (user) => {
     if (user) {
-        console.log(user)
         return {
             status: 200,
             payload: user

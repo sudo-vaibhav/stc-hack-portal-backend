@@ -25,7 +25,7 @@ Router.get("/:teamId", checkAuth, async (req, res) => {
 
     if (teamQuery.status == 200) {
         const team = teamQuery.payload
-        teamInfo = getTeamInfoByAccessLevel(userId, team)
+        teamInfo = await getTeamInfoByAccessLevel(userId, team)
         if(teamInfo){
             return res.status(200).send(teamInfo)
         }
@@ -63,7 +63,6 @@ Router.post("/setteam", checkAuth, (req, res) => {
                     })
                     team.save()
                         .then(async (newTeam) => {
-                            console.log("Team created: ", newTeam)
                             const creator = creatorQuery.payload
                             creator.teams.push(newTeam._id)
                             await creator.save()

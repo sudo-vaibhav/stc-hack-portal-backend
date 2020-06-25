@@ -16,7 +16,6 @@ Router.get('/getevents', (req, res, next) => {
         .select('-__v')
         .exec()
         .then(docs => {
-            console.log("events displayed", docs)
             return res.status(200).send(docs)
         })
         .catch(err => {
@@ -34,7 +33,6 @@ Router.get("/aboutevent/:Id", (req, res) => {
         .populate("creator","name email")
         .exec((err,doc) => {
             if (doc) {
-                console.log("creator",doc.creator)
                 return res.status(200).send(doc.toJSON({virtuals: true}))
             } else {
                 return res.status(404).send({
@@ -77,7 +75,6 @@ Router.post("/setevent", checkAuth, async (req, res) => {
             event
                 .save()
                 .then(result => {
-                    console.log("Event created", result)
                     return res.status(201).send(result)
                 })
                 .catch(err => {

@@ -54,10 +54,7 @@ const checkAuth =
             })
         }
     }
-// const signOut = (uid)=>{
-//         console.log("signing out ",uid)
-//         admin.auth().revokeRefreshTokens(uid)
-// }
+
 module.exports = {
     checkAuth
 }
