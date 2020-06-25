@@ -4,8 +4,6 @@ const mongoose = require("mongoose")
 
 const Event = require('../models/Event');
 
-const getEvent = require("../functions/event/getEvent")
-
 const {
     checkAuth
 } = require("../middleware/auth");
@@ -30,24 +28,19 @@ Router.get('/getevents', (req, res, next) => {
 
 
 //to view specific event(id)
-Router.get("/aboutevent/:Id", (req, res, next) => {
+Router.get("/aboutevent/:Id", (req, res) => {
     const id = req.params.Id
     Event.findById(id)
-        .select('-__v')
-        .exec()
-        .then(doc => {
+        .populate("creator","name email")
+        .exec((err,doc) => {
             if (doc) {
-                return res.status(200).send(doc)
+                console.log("creator",doc.creator)
+                return res.status(200).send(doc.toJSON({virtuals: true}))
             } else {
                 return res.status(404).send({
                     message: "No Data Found!"
                 })
             }
-        })
-        .catch(err => {
-            return res.status(500).send({
-                error: "Internal Servor Error"
-            })
         })
 })
 
@@ -115,8 +108,6 @@ Router.patch("/updateevent/:Id", checkAuth, (req, res, next) => {
             })
         })
 })
-
-
 
 /*to remove specific event(id)
 Router.delete("/removeEvent/:Id",(req,res,next) => {

@@ -40,6 +40,14 @@ const EventSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-})
+}, {
+    id: false
+}) //setting id to false prevents extra unneccessary id appearing when converting object to json
 
+EventSchema.virtual("creator", {
+    ref: "User",
+    localField: "creatorId",
+    foreignField: "_id",
+    justOne: true
+})
 module.exports = mongoose.model("Event", EventSchema)
