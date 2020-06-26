@@ -28,7 +28,7 @@ Router.post("/acceptinvite", acceptInvite)
 
 Router.post("/rejectinvite", rejectInvite)
 
-Router.get("/searchprofiles/:pageNo", searchProfiles)
+Router.post("/searchprofiles/:pageNo", searchProfiles)
 
 Router.patch("/updateprofile", (req,res,next) =>
 {
