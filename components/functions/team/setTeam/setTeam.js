@@ -42,6 +42,9 @@ const setTeam = async (req, res) => {
                             })
                     }
                 })
+                .catch(err=>{
+                    return res.status(500).send("internal server error")
+                })
 
         } else {
             return res.status(creatorQuery.status).send(creatorQuery.message)

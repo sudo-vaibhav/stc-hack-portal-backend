@@ -9,17 +9,24 @@ const getProfiles = require("../functions/user/profile/getProfiles")
 const acceptInvite = require("../functions/user/invites/acceptInvite")
 const rejectInvite = require("../functions/user/invites/rejectInvite")
 const searchProfiles = require("../functions/user/profile/searchProfiles")
-const getShareableUserDocs = require("../functions/user/getShareableUserDocs/getShareableUserDocs")
-
+const populateUserWithTeamsInfo = require("../functions/user/profile/populateUserWithTeamInfo/populateUserWithTeamInfo")
 // basically /users/setprofile route
 Router.post("/setprofile", setProfile)
 
 // basically /users/getprofile route
 Router.get("/getuserprofile", async (req, res) => {
     const responseData = await getUser(req.userId, "byId")
+
     const statusCode = responseData.status
     const payload = responseData.payload
-    return res.status(statusCode).send(payload)
+    if(statusCode == 200){
+        const userWithTeamInfo = await populateUserWithTeamsInfo(payload)
+        console.log("userwithteaminfo",userWithTeamInfo)
+        return res.status(statusCode).send(userWithTeamInfo)
+    }
+    else{
+        return res.status(statusCode).send(payload)
+    }
 })
 Router.get("/getprofiles/:pageNo", getProfiles)
 
