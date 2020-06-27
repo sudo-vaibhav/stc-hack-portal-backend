@@ -4,17 +4,8 @@ const mongoose = require("mongoose")
 const multer = require("multer")
 const path= require("path")
 const Event = require('../models/Event');
-const fs = require("fs")
-
-const getEvent = require("../functions/event/getEvent")
-const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
-
 
 const checkAuth = require("../middleware/checkAuth")
-
-
-const checkAuth = require("../middleware/checkAuth");
-
 
 //storage mechanism for multer
 const fileStorage = multer.diskStorage({
