@@ -114,5 +114,5 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
-#event upload
-eventUpload
+#event uploads
+components/functions/event/eventUpload
