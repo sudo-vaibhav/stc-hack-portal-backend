@@ -11,7 +11,7 @@ const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 //authentication middleware
 const checkAuth= require("../middleware/checkAuth");
 
-Router.get("/:teamId", checkAuth, async (req, res) => {
+Router.get("/getteaminfo/:teamId", checkAuth, async (req, res) => {
     const teamId = req.params.teamId;
     const userId = req.userId
     const teamQuery = await getTeam(teamId, "byId")

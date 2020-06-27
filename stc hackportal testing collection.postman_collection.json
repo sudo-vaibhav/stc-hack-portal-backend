@@ -102,12 +102,12 @@
 				"header": [
 					{
 						"key": "authtoken",
-						"value": "{{secondauthtoken}}",
+						"value": "{{authtoken}}",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/teams/5eefbab76937f7272e543ee2",
+					"raw": "http://localhost:3000/teams/getteaminfo/5ef6832074ae2c94488acd16",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -115,7 +115,8 @@
 					"port": "3000",
 					"path": [
 						"teams",
-						"5eefbab76937f7272e543ee2"
+						"getteaminfo",
+						"5ef6832074ae2c94488acd16"
 					]
 				}
 			},
@@ -582,17 +583,17 @@
 	],
 	"variable": [
 		{
-			"id": "8ad704fc-a64c-4064-a824-196c271c3ae7",
+			"id": "cf837a33-2224-4f5d-a140-eaae7e5a533c",
 			"key": "authtoken",
 			"value": "test"
 		},
 		{
-			"id": "bc3e7f31-0d60-4edc-901a-d43d832211b2",
+			"id": "30fed1c0-b51a-4d41-bcdf-6540c6e6c6c0",
 			"key": "url",
 			"value": "http://localhost:3000"
 		},
 		{
-			"id": "7a5a8a80-eeea-43a1-a430-38e255f7e282",
+			"id": "26800804-6c84-40b1-98f9-bb68da38d9f7",
 			"key": "secondauthtoken",
 			"value": "vaibhav"
 		}
