@@ -7,7 +7,7 @@ const setSquad = async (req,res)=>{
     const userQuery = await getUser(userId,"byId")
     const userStatus = userQuery.status
     if(userStatus==200){
-        const {squadName,description,skillsRequired} = req.body
+        let {squadName,description,skillsRequired} = req.body
         //cleaning skills required up
         skillsRequired = skillsRequired.map(skill => skill.toLowerCase().trim())
 
@@ -20,11 +20,15 @@ const setSquad = async (req,res)=>{
                 const squad = new Squad({
                     squadName,description,skillsRequired,
                     creatorId : userId,
-                    _id: new mongoose.Types.ObjectId().toString()
+                    _id: new mongoose.Types.ObjectId().toString(),
+                    members: [userId]
                 })
 
                 squad.save()
-                .then(result=>{
+                .then(async(result)=>{
+                    const user = userQuery.payload
+                    user.squads.push(result._id)
+                    await user.save()
                     return res.status(200).send(result)
                 })
                 .catch(err=>{

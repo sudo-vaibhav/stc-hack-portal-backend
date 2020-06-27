@@ -1,13 +1,12 @@
 const getShareableUserDocs = (docs) => {
     const shareableDocs = []
-    docs.forEach(async (doc) => {
+    docs.forEach(doc => {
         const shareableDoc = {
             ...doc
         } //makes a deep copy instead of assigning pointer to original object 
 
-        delete shareableDoc["__v"]
-        delete shareableDoc["teams"]
-        delete shareableDoc["invites"]
+        //delete confidential user information
+        delete shareableDoc["__v"],shareableDoc["teams"],shareableDoc["invites"],shareableDoc["squads"],shareableDoc["squadInvites"]
         shareableDocs.push(shareableDoc)
     })
 

@@ -46,7 +46,7 @@ db.once('open', function () {
     app.use('/teams', require("./components/routes/teams"));
 
     //for operations related to squads (basically ready made teams)
-    // app.use("/squads", require("./components/routes/squads"))
+    app.use("/squads", require("./components/routes/squads"))
 
 });
 

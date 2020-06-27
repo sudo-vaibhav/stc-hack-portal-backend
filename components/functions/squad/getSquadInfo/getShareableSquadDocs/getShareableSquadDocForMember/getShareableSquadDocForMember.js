@@ -1,25 +1,23 @@
-const getShareableTeamDocForMember = doc => {
+const getShareableSquadDocForMember = doc => {
     const {
         _id,
         creatorId,
         members,
-        teamName,
+        squadName,
         eventId,
         description,
-        skillsRequired,
-        nameOfEvent
+        skillsRequired
     } = doc
 
     return {
         _id,
         creatorId,
-        teamName,
+        squadName,
         eventId,
         description,
         skillsRequired,
-        members,
-        nameOfEvent
+        members
     }
 }
 
-module.exports = getShareableTeamDocForMember
+module.exports = getShareableSquadDocForMember

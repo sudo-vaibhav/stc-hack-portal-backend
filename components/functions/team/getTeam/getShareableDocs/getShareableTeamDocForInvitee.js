@@ -5,7 +5,8 @@ const getShareableTeamDocForInvitee = (doc) => {
         teamName,
         eventId,
         description,
-        skillsRequired
+        skillsRequired,
+        nameOfEvent
     } = doc
 
     return {
@@ -14,7 +15,8 @@ const getShareableTeamDocForInvitee = (doc) => {
         teamName,
         eventId,
         description,
-        skillsRequired
+        skillsRequired,
+        nameOfEvent
     }
 
 }

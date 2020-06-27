@@ -8,8 +8,8 @@ const removeSquadMember = require("../functions/squad/removeSquadMember/removeSq
 const deleteSquad = require("../functions/squad/deleteSquad/deleteSquad")
 const sendSquadInvite = require('../functions/squad/sendSquadInvite/sendSquadInvite')
 
-Router.post("/setsquad",checkAuth,setSquad)
-Router.get("/getsquadinfo/:squadId",getSquadInfo)
+Router.post("/setsquad", checkAuth, setSquad)
+Router.get("/getsquadinfo/:squadId", checkAuth, getSquadInfo)
 Router.post("/sendsquadinvite", checkAuth, sendSquadInvite)
 Router.post("/cancelsquadinvite", checkAuth, cancelSquadInvite)
 Router.post("/removesquadmember", checkAuth, removeSquadMember)

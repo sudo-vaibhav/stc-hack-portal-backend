@@ -37,6 +37,7 @@ const TeamSchema = mongoose.Schema({
 })
 
 
+
 // we need to remove all mentions of this team id in user records
 // be it either invitee status or membership status
 TeamSchema.post("remove", (team) => {

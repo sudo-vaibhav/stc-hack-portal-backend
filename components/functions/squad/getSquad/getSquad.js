@@ -1,5 +1,5 @@
 const Squad = require("../../../models/Squad")
-const processSquadQuery = (squad) =>{
+const processSquadQuery = (squad) => {
     if (squad) {
         return {
             status: 200,
@@ -14,8 +14,8 @@ const processSquadQuery = (squad) =>{
         }
     }
 }
-const getSquad = async (squadIdentifier,searchParameter) =>{
-    //searchBy stores by querying by id
+const getSquad = async (squadIdentifier, searchParameter) => {
+    //search by querying by id or name of squad
     let squad = undefined
     try {
         switch (searchParameter) {
@@ -26,6 +26,11 @@ const getSquad = async (squadIdentifier,searchParameter) =>{
                 })
                 return processSquadQuery(squad)
 
+            case "byName":
+                squad = await Squad.findOne({
+                    squadName: squadIdentifier
+                })
+                return processSquadQuery(squad)
             default:
                 // if no proper search parameter is given
                 // search will be done by id
