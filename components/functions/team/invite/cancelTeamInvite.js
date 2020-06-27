@@ -1,7 +1,7 @@
 const getUser = require("../../user/profile/getUser")
 const getTeam = require("../getTeam/getTeam")
 
-const cancelInvite = async (req, res) => {
+const cancelTeamInvite = async (req, res) => {
     const adminId = req.userId
     const {
         teamId,
@@ -75,4 +75,4 @@ const cancelInvite = async (req, res) => {
     }
 }
 
-module.exports = cancelInvite
+module.exports = cancelTeamInvite

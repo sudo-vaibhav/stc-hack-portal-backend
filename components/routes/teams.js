@@ -2,9 +2,9 @@ const Router = require("express").Router();
 
 //helper functions for simplifying code
 const sendTeamInvite = require("../functions/team/invite/sendTeamInvite")
-const cancelInvite = require("../functions/team/invite/cancelInvite")
+const cancelTeamInvite = require("../functions/team/invite/cancelTeamInvite")
 const getTeam = require("../functions/team/getTeam/getTeam")
-const removeMember = require("../functions/team/invite/removeMember")
+const removeTeamMember = require("../functions/team/invite/removeTeamMember")
 const getTeamInfoByAccessLevel = require("../functions/team/getTeam/getTeamInfoByAccessLevel")
 const setTeam = require("../functions/team/setTeam/setTeam")
 const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
@@ -34,8 +34,8 @@ Router.get("/getteaminfo/:teamId", checkAuth, async (req, res) => {
 
 Router.post("/setteam", checkAuth, setTeam)
 Router.post("/sendinvite", checkAuth, sendTeamInvite)
-Router.post("/cancelinvite", checkAuth, cancelInvite)
-Router.post("/removemember", checkAuth, removeMember)
+Router.post("/cancelinvite", checkAuth, cancelTeamInvite)
+Router.post("/removemember", checkAuth, removeTeamMember)
 Router.post("/deleteteam",checkAuth, deleteTeam)
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({

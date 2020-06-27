@@ -1,8 +1,8 @@
 //Helper function imports
-const getTeam = require("../../team/getTeam/getTeam")
-const getUser = require("../profile/getUser")
-const Team  = require("../../../models/Team")
-
+const getTeam = require("../../../team/getTeam/getTeam")
+const getUser = require("../../profile/getUser")
+const Team  = require("../../../../models/Team")
+const getEvent = require("../../../event/getEvent")
 const acceptInvite = async (req, res) => {
     const teamId = req.body.teamId
     //to check if user exists
@@ -33,35 +33,46 @@ const acceptInvite = async (req, res) => {
                     
                     if(!otherTeam){  //true if other team is not found
 
+                        //check that team is not full already
+                        const eventQuery = await getEvent(team.eventId,"byId")
+                        const event = eventQuery.payload
+                        const maximumTeamSize = event.maximumTeamSize
                         //now let us modify the team schema by adding the userId to the members and removing the userId from the pendingRequests
-    
-                        const members = team.members
-                        members.push(invitee._id)
-                        team.members = members
-    
-                        const pendingRequests = team.pendingRequests
-                        pendingRequests.splice(pendingRequests.indexOf(invitee._id), 1)
-                        team.pendingRequests = pendingRequests
-    
-    
-                        //let us also modify the user schema by adding the the teamsId to the teams and remove the teamsId from the invites
-                        const teams = invitee.teams
-                        teams.push(team._id)
-                        invitee.teams = teams
-    
-    
-                        const invites = invitee.invites
-                        invites.splice(invites.indexOf(team._id), 1)
-                        invitee.invites = invites
-    
-                        //save the updated team and user profiles
-                        const updatedTeam = await team.save()
-                        const updatedInvitee = await invitee.save()
-    
-                        //return the updated Invitee profile
-                        return res.status(201).send({
-                            message: "Invite accepted successfully"
-                        })
+                        if(team.members.length>=maximumTeamSize){
+                            return res.status(400).send({
+                                message : "team is already full"
+                            })
+                        }
+                        else{
+                            const members = team.members
+                            members.push(invitee._id)
+                            team.members = members
+        
+                            const pendingRequests = team.pendingRequests
+                            pendingRequests.splice(pendingRequests.indexOf(invitee._id), 1)
+                            team.pendingRequests = pendingRequests
+        
+        
+                            //let us also modify the user schema by adding the the teamsId to the teams and remove the teamsId from the invites
+                            const teams = invitee.teams
+                            teams.push(team._id)
+                            invitee.teams = teams
+        
+        
+                            const invites = invitee.invites
+                            invites.splice(invites.indexOf(team._id), 1)
+                            invitee.invites = invites
+        
+                            //save the updated team and user profiles
+                            const updatedTeam = await team.save()
+                            const updatedInvitee = await invitee.save()
+        
+                            //return the updated Invitee profile
+                            return res.status(201).send({
+                                message: "Invite accepted successfully"
+                            })
+
+                        }
                     }
                     else{
                         return res.status(400).send({

@@ -5,20 +5,26 @@ const User =require("../models/User")
 //importing helper functions for simplifying operations
 const setProfile = require("../functions/user/profile/setProfile")
 const getProfiles = require("../functions/user/profile/getProfiles")
-const acceptInvite = require("../functions/user/invites/acceptInvite")
-const rejectInvite = require("../functions/user/invites/rejectInvite")
+const acceptTeamInvite = require("../functions/user/invites/teamInvites/acceptTeamInvite")
+const rejectTeamInvite = require("../functions/user/invites/teamInvites/rejectTeamInvite")
+const leaveTeam = require("../functions/user/leaveTeam/leaveTeam")
+const leaveSquad = require("../functions/user/leaveSquad/leaveSquad")
+const acceptSquadInvite = require("../functions/user/invites/squadInvites/acceptSquadInvite")
+const rejectSquadInvite = require("../functions/user/invites/squadInvites/rejectSquadInvite")
+
 const searchProfiles = require("../functions/user/profile/searchProfiles")
 const getUserProfile = require("../functions/user/profile/getUserProfile")
-const leaveTeam = require("../functions/user/leaveTeam/leaveTeam")
-
 
 Router.post("/setprofile", setProfile)
 Router.get("/getuserprofile", getUserProfile)
 Router.get("/getprofiles/:pageNo", getProfiles)
-Router.post("/acceptinvite", acceptInvite)
-Router.post("/rejectinvite", rejectInvite)
+Router.post("/acceptteaminvite", acceptTeamInvite)
+Router.post("/rejectteaminvite", rejectTeamInvite)
+Router.post("/acceptsquadinvite", acceptSquadInvite)
+Router.post("/rejectsquadinvite",rejectSquadInvite)
 Router.post("/searchprofiles/:pageNo", searchProfiles)
 Router.post("/leaveteam",leaveTeam)
+Router.post("/leavesquad",leaveSquad)
 
 Router.patch("/updateprofile", (req,res,next) =>
 {
