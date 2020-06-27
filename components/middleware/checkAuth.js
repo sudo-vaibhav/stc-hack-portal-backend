@@ -54,6 +54,4 @@ const checkAuth =
         }
     }
 
-module.exports = {
-    checkAuth
-}
+module.exports = checkAuth

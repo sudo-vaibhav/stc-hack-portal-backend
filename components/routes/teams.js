@@ -9,9 +9,7 @@ const getTeamInfoByAccessLevel = require("../functions/team/getTeam/getTeamInfoB
 const setTeam = require("../functions/team/setTeam/setTeam")
 const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 //authentication middleware
-const {
-    checkAuth
-} = require("../middleware/auth");
+const checkAuth= require("../middleware/checkAuth");
 
 Router.get("/:teamId", checkAuth, async (req, res) => {
     const teamId = req.params.teamId;
@@ -44,11 +42,5 @@ Router.post("/deleteteam",checkAuth,deleteTeam)
     message: "Team updated"
   })
 })
-
-Router.delete("/removeTeam/:Id", (req,res,next) => {
-  return res.status(200).json({
-    message: "Team deleted"
-  })
-})*/
-
+*/
 module.exports = Router

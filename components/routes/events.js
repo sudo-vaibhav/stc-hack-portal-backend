@@ -4,9 +4,7 @@ const mongoose = require("mongoose")
 
 const Event = require('../models/Event');
 
-const {
-    checkAuth
-} = require("../middleware/auth");
+const checkAuth = require("../middleware/checkAuth");
 
 
 

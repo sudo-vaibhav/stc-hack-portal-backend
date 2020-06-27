@@ -516,6 +516,39 @@
 		{
 			"name": "leave a team by member",
 			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{secondauthtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\":\"5ef68baa8c1b499fa423ddc3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/leaveteam",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"leaveteam"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -549,17 +582,17 @@
 	],
 	"variable": [
 		{
-			"id": "5c10650d-13b3-46fe-a831-0c73689bc703",
+			"id": "8ad704fc-a64c-4064-a824-196c271c3ae7",
 			"key": "authtoken",
 			"value": "test"
 		},
 		{
-			"id": "22f55db5-3150-470f-8f2f-f6b938e8c0b0",
+			"id": "bc3e7f31-0d60-4edc-901a-d43d832211b2",
 			"key": "url",
 			"value": "http://localhost:3000"
 		},
 		{
-			"id": "e2f70d7e-6b27-43ec-9432-aec1fd38adc2",
+			"id": "7a5a8a80-eeea-43a1-a430-38e255f7e282",
 			"key": "secondauthtoken",
 			"value": "vaibhav"
 		}

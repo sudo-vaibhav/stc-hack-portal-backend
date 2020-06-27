@@ -16,9 +16,7 @@ app.use(cors())
 require("dotenv").config()
 
 //middleware import for authentication check
-const {
-    checkAuth
-} = require("./components/middleware/auth")
+const checkAuth= require("./components/middleware/checkAuth")
 
 
 //importing mongoose and connecting to database
@@ -45,6 +43,9 @@ db.once('open', function () {
 
     //for operations related to teams
     app.use('/teams', require("./components/routes/teams"));
+
+    //for operations related to squads (basically ready made teams)
+    // app.use("/squads", require("./components/routes/squads"))
 
 });
 

@@ -40,10 +40,16 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
     teams: {
-        type: [String],
+        type: [String]
     },
     invites: {
-        type: [String],
+        type: [String]
+    },
+    squadInvites: {
+        type: [String]
+    },
+    squads: {
+        type: [String]
     }
 
 }, {
