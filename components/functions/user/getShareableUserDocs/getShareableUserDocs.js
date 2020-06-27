@@ -13,8 +13,6 @@ const getShareableUserDocs = (docs) => {
         delete shareableDoc["squadInvites"]
         shareableDocs.push(shareableDoc)
     })
-
-    console.log("shareable docs",shareableDocs)
     return shareableDocs
 }
 
