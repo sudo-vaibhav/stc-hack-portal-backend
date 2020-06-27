@@ -12,7 +12,7 @@ const TeamSchema = mongoose.Schema({
     teamName: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
     eventId: {
         type: String,
@@ -77,6 +77,8 @@ TeamSchema.post("remove", (team) => {
         })
 
 })
+
+
 
 const Team = mongoose.model("Team", TeamSchema)
 module.exports = Team
