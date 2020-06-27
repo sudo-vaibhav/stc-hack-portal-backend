@@ -1,4 +1,4 @@
-const getSquad = async (req,res)=>{
+const getSquadInfo = async (req,res)=>{
 
 }
-module.exports = getSquad
+module.exports = getSquadInfo

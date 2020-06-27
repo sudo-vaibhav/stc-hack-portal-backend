@@ -6,8 +6,6 @@ const Event = require('../models/Event');
 
 const checkAuth = require("../middleware/checkAuth");
 
-
-
 // to view all events
 Router.get('/getevents', (req, res, next) => {
     Event.find()
