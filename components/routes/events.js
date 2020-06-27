@@ -6,11 +6,14 @@ const path= require("path")
 const Event = require('../models/Event');
 
 const getEvent = require("../functions/event/getEvent")
+const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 
 const {
     checkAuth
-} = require("../middleware/auth");
-const deleteEvent = require("../functions/event/deleteEvent");
+} = require("../middleware/checkAuth");
+
+
+
 
 //storage mechanism for multer
 const fileStorage = multer.diskStorage({
@@ -39,7 +42,7 @@ const fileUpload = multer({storage:fileStorage,
 limits:{
   fileSize: 1024 * 1024 * 6 // maximum 6MB file size
 },fileFilter: fileFilter})
-const checkAuth = require("../middleware/checkAuth");
+
 
 // to view all events
 Router.get('/getevents', (req, res, next) => {
@@ -155,9 +158,7 @@ Router.post("/updateevent/:Id", checkAuth, fileUpload.single("eventImage"), (req
 //to remove specific event(id)
 
 
-Router.delete('/deleteevent/:Id', checkAuth,async (req, res) => {
-  const id=req.params.Id
-  
+Router.delete('/deleteevent/:Id', checkAuth,deleteTeam,async (req, res) => {
   Event.findById(id).then((event) => {
     if(!event){
       return res.status(404).send({
@@ -165,6 +166,7 @@ Router.delete('/deleteevent/:Id', checkAuth,async (req, res) => {
       })
     }
     return event.deleteOne()
+    return team
   }).then((event) => {
     console.log("event " + event._id+ " deleted successfully")
     return res.status(200).send({

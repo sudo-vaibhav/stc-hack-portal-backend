@@ -58,7 +58,7 @@ EventSchema.virtual("teams", {
 
 //delete event teams and user teams and invites when the event is removed
 
-EventSchema.pre('deleteOne', { document: true},  function (next) {
+EventSchema.post('deleteOne', { document: true},  function (next) {
   const event = this
   console.log(event)
   Team.deleteMany({eventId: event._id}).then(() => {
