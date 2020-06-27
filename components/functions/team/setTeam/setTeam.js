@@ -22,8 +22,9 @@ const setTeam = async (req, res) => {
                             message: "You already have a team for the same event"
                         })
                     }
-                    else{
-                        const team = new Team({
+                    else{   
+                      Team.init().then(() => {
+                            const team = new Team({
                             _id: new mongoose.Types.ObjectId().toString(),
                             creatorId: req.userId,
                             teamName: req.body.teamName,
@@ -40,8 +41,13 @@ const setTeam = async (req, res) => {
                                 await creator.save()
                                 return res.status(200).send(newTeam)
                             })
-                    }
-                })
+                            .catch(err => {
+                              return res.status(500).send({
+                                error: "Duplicate Team Name!"
+                              })
+                            })
+                    })
+                }})
                 .catch(err=>{
                     return res.status(500).send("internal server error")
                 })

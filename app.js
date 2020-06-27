@@ -8,7 +8,7 @@ app.use(express.urlencoded({
     extended: true
 }))
 //static folder for event image upload
-app.use('/eventImage', express.static('./components/functions/event/eventUpload'))
+app.use('/eventImage', express.static('./public/uploads/eventUpload'))
 // for allowing front end to send requests to api
 const cors = require('cors')
 app.use(cors())

@@ -1,16 +1,16 @@
 const express = require("express")
-const Router = express.Router();
+const Router = express.Router()
 const mongoose = require("mongoose")
 const multer = require("multer")
 const path= require("path")
 const Event = require('../models/Event');
+const fs = require("fs")
 
 const getEvent = require("../functions/event/getEvent")
 const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 
-const {
-    checkAuth
-} = require("../middleware/checkAuth");
+
+const checkAuth = require("../middleware/checkAuth")
 
 
 
@@ -18,7 +18,7 @@ const {
 //storage mechanism for multer
 const fileStorage = multer.diskStorage({
   destination: (req,file,cb) => {
-    cb(null,'./components/functions/event/eventUpload')
+    cb(null,'./public/uploads/eventUpload')
   },
   filename: (req,file,cb) => {
     cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
@@ -106,7 +106,7 @@ Router.post("/setevent", checkAuth,fileUpload.single('eventImage'),async (req, r
                 eventUrl: eventUrl,
                 minimumTeamSize: minimumTeamSize,
                 maximumTeamSize: maximumTeamSize,
-                eventImage: req.file.filename
+                eventImage: "http://localhost:3000/eventImage/"+ req.file.filename //https://hackportal.herokuapp.com
             });
             event
                 .save()
@@ -122,51 +122,65 @@ Router.post("/setevent", checkAuth,fileUpload.single('eventImage'),async (req, r
         }) 
 })
 
+
+
+
 //to update a specific event
-Router.post("/updateevent/:Id", checkAuth, fileUpload.single("eventImage"), (req, res, next) => {
-    const id = req.params.Id
-    delete req.body._id, req.body.creatorId
-    Event.update({
-            _id: id
-        }, {
-          _id: new mongoose.Types.ObjectId().toString(),
-          creatorId: req.userId,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          location: req.body.location,
-          nameOfEvent: req.body.nameOfEvent,
-          description: req.body.description,
-          eventUrl: req.body.eventUrl,
-          minimumTeamSize: req.body.minimumTeamSize,
-          maximumTeamSize: req.body.maximumTeamSize,
+Router.post('/updateevent/:Id',checkAuth,fileUpload.single("eventImage"), function(req, res) 
+{
+ 
+  if(req.file)
+  {
+    var dataRecords={
+  startDate : req.body.startDate,
+  endDate : req.body.endDate,
+  location : req.body.location,
+  description : req.body.description,
+  eventUrl : req.body.eventUrl,
+  minimumTeamSize : req.body.minimumTeamSize,
+  maximumTeamSize : req.body.maximumTeamSize,
+  eventImage:  "http://localhost:3000/eventImage/"+ req.file.filename
+}
+}else{
+
+      var dataRecords={
+      startDate : req.body.startDate,
+      endDate : req.body.endDate,
+      location : req.body.location,
+      description : req.body.description,
+      eventUrl : req.body.eventUrl,
+      minimumTeamSize : req.body.minimumTeamSize,
+      maximumTeamSize : req.body.maximumTeamSize     
+    }
+  }
+
+const id = req.params.Id
+delete req.body._id,req.body.creatorId
+
+var update= Event.findOneAndUpdate({_id:id},dataRecords,{omitUndefined: true})
+update.exec().then(event => {
+  return res.status(200).send({
+    message: "Event has been updated"
+  })
+}).catch(err => {
+  return res.status(500).send({
+    message: "Internal Server Error"
+  })
 })
-        .exec()
-        .then(result => {
-            res.status(200).send({
-                message: "Event has been updated",
-            })
-        })
-        .catch(err => {
-            res.status(500).send({
-                error: "Internal Server Error"
-            })
-        })
 })
 
 
 
 //to remove specific event(id)
-
-
-Router.delete('/deleteevent/:Id', checkAuth,deleteTeam,async (req, res) => {
+Router.delete('/deleteevent/:Id',checkAuth,async (req, res) => {
+  const id = req.params.Id
   Event.findById(id).then((event) => {
     if(!event){
       return res.status(404).send({
         message: "event not found"
       })
     }
-    return event.deleteOne()
-    return team
+    return event.remove()
   }).then((event) => {
     console.log("event " + event._id+ " deleted successfully")
     return res.status(200).send({
@@ -180,4 +194,4 @@ Router.delete('/deleteevent/:Id', checkAuth,deleteTeam,async (req, res) => {
   })
 })
 
-module.exports = Router
+module.exports= Router
