@@ -28,6 +28,7 @@ Router.post("/leavesquad",leaveSquad)
 
 Router.patch("/updateprofile", (req,res,next) =>
 {
+  delete req.body["_id"] 
   delete req.body["teams"]
   delete req.body["invites"]
   delete req.body["squads"]
@@ -36,13 +37,13 @@ Router.patch("/updateprofile", (req,res,next) =>
   .exec()
   .then(result =>
     {
-    res.status(200).send({
+    return res.status(200).send({
         message: "User has been updated",
     })
   })
   .catch(err => {
-    res.status(500).json({
-      error: "Internal Server Error"
+    return res.status(500).send({
+      message: "Internal Server Error"
     })
   })
 })

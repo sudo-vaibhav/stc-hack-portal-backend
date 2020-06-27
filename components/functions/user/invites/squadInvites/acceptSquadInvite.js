@@ -1,6 +1,5 @@
 const getSquad = require("../../../squad/getSquad/getSquad")
 const getUser = require("../../profile/getUser")
-const { response } = require("express")
 const acceptSquadInvite = async (req, res) => {
     const squadId = req.body.squadId
     const userId = req.userId

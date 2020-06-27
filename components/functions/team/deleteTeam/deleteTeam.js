@@ -2,7 +2,7 @@ const getTeam = require("../getTeam/getTeam")
 const deleteTeam = async (req,res)=>{
     //first find the team
     const userId = req.userId
-    const teamId = req.body.teamId
+    const teamId = req.params.teamId
     const teamQuery = await getTeam(teamId,"byId")
 
     const teamStatus = teamQuery.status
