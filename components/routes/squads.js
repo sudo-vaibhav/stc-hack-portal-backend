@@ -6,6 +6,7 @@ const checkAuth = require("../middleware/checkAuth")
 const cancelSquadInvite = require("../functions/squad/cancelSquadInvite/cancelSquadInvite")
 const removeSquadMember = require("../functions/squad/removeSquadMember/removeSquadMember")
 const deleteSquad = require("../functions/squad/deleteSquad/deleteSquad")
+const sendSquadInvite = require('../functions/squad/sendSquadInvite/sendSquadInvite')
 
 Router.post("/setsquad",checkAuth,setSquad)
 Router.get("/getsquadinfo/:squadId",getSquadInfo)

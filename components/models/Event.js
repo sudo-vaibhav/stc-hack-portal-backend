@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const Team = require("../models/Team")
 const User = require("../models/User")
+const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 
 const EventSchema = mongoose.Schema({
     _id: {
@@ -49,28 +50,7 @@ const EventSchema = mongoose.Schema({
   id: false
 }) //setting id to false prevents extra unneccessary id appearing when converting object to json)
 
-EventSchema.virtual("teams", {
-  ref: "Team",
-  localField: "_id",
-  foreignField: "eventId",
-})
 
-
-//delete event teams and user teams and invites when the event is removed
-
-EventSchema.post('deleteOne', { document: true},  function (next) {
-  const event = this
-  console.log(event)
-  Team.deleteMany({eventId: event._id}).then(() => {
-    console.log("Event " + event._id + " teams deleted")
-    next()
-  }).catch((err) => {
-    console.log("Event " + event._id + " Teams not deleted")
-    return res.status(500).send({
-      error: "error in middleware"
-    })
-  })
-})
 
 
 

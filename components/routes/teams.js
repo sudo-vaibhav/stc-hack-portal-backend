@@ -36,7 +36,7 @@ Router.post("/setteam", checkAuth, setTeam)
 Router.post("/sendinvite", checkAuth, sendInvite)
 Router.post("/cancelinvite", checkAuth, cancelInvite)
 Router.post("/removemember", checkAuth, removeMember)
-Router.post("/deleteteam",checkAuth,deleteTeam)
+Router.post("/deleteteam",checkAuth, deleteTeam)
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({
     message: "Team updated"

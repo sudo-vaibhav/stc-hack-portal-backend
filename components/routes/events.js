@@ -3,14 +3,11 @@ const Router = express.Router();
 const mongoose = require("mongoose")
 const multer = require("multer")
 const path= require("path")
-const Event = require('../models/Event');
+const Event = require('../models/Event')
 
 const getEvent = require("../functions/event/getEvent")
 const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
-
-const {
-    checkAuth
-} = require("../middleware/checkAuth");
+const checkAuth = require("../middleware/checkAuth");
 
 
 
@@ -128,18 +125,7 @@ Router.post("/updateevent/:Id", checkAuth, fileUpload.single("eventImage"), (req
     delete req.body._id, req.body.creatorId
     Event.update({
             _id: id
-        }, {
-          _id: new mongoose.Types.ObjectId().toString(),
-          creatorId: req.userId,
-          startDate: req.body.startDate,
-          endDate: req.body.endDate,
-          location: req.body.location,
-          nameOfEvent: req.body.nameOfEvent,
-          description: req.body.description,
-          eventUrl: req.body.eventUrl,
-          minimumTeamSize: req.body.minimumTeamSize,
-          maximumTeamSize: req.body.maximumTeamSize,
-})
+        },req.body)
         .exec()
         .then(result => {
             res.status(200).send({
@@ -158,26 +144,6 @@ Router.post("/updateevent/:Id", checkAuth, fileUpload.single("eventImage"), (req
 //to remove specific event(id)
 
 
-Router.delete('/deleteevent/:Id', checkAuth,deleteTeam,async (req, res) => {
-  Event.findById(id).then((event) => {
-    if(!event){
-      return res.status(404).send({
-        message: "event not found"
-      })
-    }
-    return event.deleteOne()
-    return team
-  }).then((event) => {
-    console.log("event " + event._id+ " deleted successfully")
-    return res.status(200).send({
-      message: "event deleted successfully"
-    })
-  }).catch((err) => {
-    console.log("deleting event " + event._id + " failed")
-    return res.status(500).send({
-      message: "Internal Server Error"
-    })
-  })
-})
+
 
 module.exports = Router
