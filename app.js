@@ -1,5 +1,3 @@
-const port = process.env.PORT || 3000
-
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -50,18 +48,10 @@ db.once('open', function () {
 
 });
 
-//just a test route for testing auth status
-app.get("/", checkAuth, (req, res) => {
-    return res.status(200).send({
-        message: "success"
-    })
-})
-
 //route for handling signout requests
 app.use("/signout", checkAuth, require("./components/routes/signout"))
 
-
-
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log(`server started on port ${port}`)
 })

@@ -1,30 +1,36 @@
 const getTeam = require("../../../team/getTeam/getTeam")
 
 
-const populateUserWithTeamInfo = async (user)=>{
-    const userObject = {...user.toJSON()}
+const populateUserWithTeamInfo = async (user) => {
+    const userObject = {
+        ...user.toJSON()
+    }
     const teamInfoQueries = []
     const inviteInfoQueries = []
-    for (const team of userObject.teams){
-        teamInfoQueries.push( getTeam(team,"byId"))  //this will return promises, we will await for their resolution later
+    for (const team of userObject.teams) {
+        teamInfoQueries.push(getTeam(team, "byId")) //this will return promises, we will await for their resolution later
     }
 
-    for  (const invite of userObject.invites){
-        inviteInfoQueries.push( getTeam(invite, "byId")) //this will return promises, we will await for their resolution later
+    for (const invite of userObject.invites) {
+        inviteInfoQueries.push(getTeam(invite, "byId")) //this will return promises, we will await for their resolution later
     }
-
-    // await Promise.all([...teamInfoQueries,...inviteInfoQueries])
 
     const teamsInfo = []
     const invitesInfo = []
-    for await(const teamQuery of teamInfoQueries){
-        const {_id,teamName,creatorId} = teamQuery.payload
-        teamsInfo.push({_id,teamName,creatorId})
-        // console.log("teamquery",teamQuery)
-        // teamsInfo.push(teamQuery.payload)
+    for await (const teamQuery of teamInfoQueries) { // we are awaiting for each promise to get resolved
+        const {
+            _id,
+            teamName,
+            creatorId
+        } = teamQuery.payload
+        teamsInfo.push({
+            _id,
+            teamName,
+            creatorId
+        })
     }
 
-    for await (const inviteQuery of inviteInfoQueries)  {   
+    for await (const inviteQuery of inviteInfoQueries) {   // we are awaiting for each promise to get resolved
         const {
             _id,
             teamName,
@@ -37,7 +43,7 @@ const populateUserWithTeamInfo = async (user)=>{
         })
     }
 
-    console.log(teamsInfo,invitesInfo)
+    //now populate the user object
     userObject.teamsInfo = teamsInfo
     userObject.invitesInfo = invitesInfo
 

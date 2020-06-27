@@ -22,7 +22,6 @@ admin.initializeApp({
 
 const checkAuth =
     (req, res, next) => {
-        console.log("auth token:", req.headers.authtoken)
         if (req.headers.authtoken) {
             //only for testing
             if (req.headers.authtoken == "test") {
