@@ -59,21 +59,36 @@ EventSchema.virtual("teams", {
 
 //delete event teams and user teams and invites when the event is removed
 
-EventSchema.post('remove', { document: true},  function(res,next) {
-  const event = this
-  console.log(event)
-  Team.remove({eventId: event._id}).then(() => {
-    console.log("Event " + event._id + " teams deleted")
-    next()
-  }).catch((err) => {
-    console.log("Event " + event._id + " Teams not deleted")
-    return res.status(500).send({
-      error: "error in middleware"
+// EventSchema.post('remove', { document: true},  function(res,next) {
+//   const event = this
+//   console.log(event)
+//   Team.remove({eventId: event._id}).then(() => {
+//     console.log("Event " + event._id + " teams deleted")
+//     next()
+//   }).catch((err) => {
+//     console.log("Event " + event._id + " Teams not deleted")
+//     return res.status(500).send({
+//       error: "error in middleware"
+//     })
+//   })
+// })
+
+EventSchema.post("remove",(event)=>{
+    const eventId = event._id
+    Team.find({eventId})
+    .then(async (teams, err) => {
+        if(err){
+            console.log("error in post event removal")
+        }
+        else{
+            const teamRemovesToAwait = teams.map(team=>{
+                return team.remove()
+            })
+            await Promise.all(teamRemovesToAwait)
+            console.log("all teams of the event have been removed")
+        }
     })
-  })
 })
-
-
 
 
 
