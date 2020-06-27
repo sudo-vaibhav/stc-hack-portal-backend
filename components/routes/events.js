@@ -71,7 +71,7 @@ Router.post("/setevent", checkAuth, async (req, res) => {
             event
                 .save()
                 .then(result => {
-                    return res.status(201).send(result)
+                    return res.status(200).send(result)
                 })
                 .catch(err => {
                     return res.status(400).send({

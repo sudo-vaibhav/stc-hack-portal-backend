@@ -17,8 +17,7 @@ const processTeamQuery = (team) => {
 }
 
 const getTeam = async (teamIdentifier, searchParameter) => {
-        //searchBy stores whether querying will be done 
-        //by id
+        //searchBy stores by querying by id
         let team = undefined
         try {
                 switch (searchParameter) {
