@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const Team = require("../models/Team")
+const User = require("../models/User")
 
 const EventSchema = mongoose.Schema({
     _id: {
@@ -40,6 +42,37 @@ const EventSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    eventImage: {
+      type: String
+    }
 })
+
+EventSchema.virtual("teams", {
+  ref: "Team",
+  localField: "_id",
+  foreignField: "eventId",
+})
+
+
+//delete event teams and user teams and invites when the event is removed
+
+EventSchema.pre('deleteOne', { document: true},  function (next) {
+  const event = this
+  console.log(event)
+  Team.deleteMany({eventId: event._id}).then(() => {
+    console.log("Event " + event._id + " teams deleted")
+    next()
+  }).catch((err) => {
+    console.log("Event " + event._id + " Teams not deleted")
+    return res.status(500).send({
+      error: "error in middleware"
+    })
+  })
+})
+
+
+
+
+
 
 module.exports = mongoose.model("Event", EventSchema)

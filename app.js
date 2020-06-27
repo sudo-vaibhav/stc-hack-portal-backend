@@ -9,7 +9,8 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({
     extended: true
 }))
-
+//static folder for event image upload
+app.use('/eventImage', express.static('./components/functions/event/eventUpload'))
 // for allowing front end to send requests to api
 const cors = require('cors')
 app.use(cors())
@@ -28,11 +29,12 @@ const mongoose = require("mongoose");
 
 
 //for local testing use: "mongodb://127.0.0.1:27017/hackportal
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect("mongodb://localhost/hack_apitrial6",{useNewUrlParser: true, useUnifiedTopology: true});
+/*mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
-})
+})*/
 
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -60,7 +62,15 @@ app.get("/", checkAuth, (req, res) => {
 //route for handling signout requests
 app.use("/signout", checkAuth, require("./components/routes/signout"))
 
-
+//error handling
+/*app.use((error,req,res,next) => {
+  res.status(error.status || 500);
+  res.send({
+    error: {
+      message: error.message
+    }
+  })
+})*/
 
 app.listen(port, () => {
     console.log(`server started on port ${port}`)

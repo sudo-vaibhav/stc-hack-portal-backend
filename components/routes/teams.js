@@ -51,7 +51,7 @@ Router.post("/setteam", checkAuth, (req, res) => {
 
                 //this will check if user has completed their profile or not
                 if (creatorQuery.status == 200) {
-                    const team = new Team({
+                    const team = new Team ({
                         _id: new mongoose.Types.ObjectId().toString(),
                         creatorId: req.userId,
                         teamName: req.body.teamName,
@@ -68,8 +68,13 @@ Router.post("/setteam", checkAuth, (req, res) => {
                             creator.teams.push(newTeam._id)
                             await creator.save()
                             return res.status(200).send(newTeam)
+                        }).catch(err => {
+                          return res.status(400).send({
+                            error: "Team Name Already Chosen!"
+                          })
                         })
-                } else {
+                      } 
+                      else {
                     return res.status(creatorQuery.status).send(creatorQuery.message)
                 }
 
@@ -88,17 +93,11 @@ Router.post("/sendinvite", checkAuth, sendInvite)
 
 Router.post("/cancelinvite", checkAuth, cancelInvite)
 Router.post("/removemember", checkAuth, removeMember)
-
+Router.post("/deleteteam",checkAuth,deleteTeam)
 /*Router.patch("/updateTeam/:Id",(req,res,next) => {
   return res.status(200).json({
     message: "Team updated"
   })
 })
-
-Router.delete("/removeTeam/:Id", (req,res,next) => {
-  return res.status(200).json({
-    message: "Team deleted"
-  })
-})*/
 
 module.exports = Router

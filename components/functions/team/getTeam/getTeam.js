@@ -16,7 +16,7 @@ const processTeamQuery = (team) => {
         }
 }
 
-const getTeam = async (teamIdentifier, searchParameter) => {
+const getTeam = async (teamIdentifier, searchParameter="byId") => {
         //searchBy stores whether querying will be done 
         //by id
         let team = undefined
@@ -26,6 +26,12 @@ const getTeam = async (teamIdentifier, searchParameter) => {
                         case "byId":
                                 team = await Team.findOne({
                                         _id: teamIdentifier
+                                })
+                                return processTeamQuery(team)
+                        
+                        case "byName":
+                                team = await Team.findOne({
+                                teamName: teamIdentifier
                                 })
                                 return processTeamQuery(team)
 
