@@ -1,10 +1,11 @@
 const getShareableTeamDocForInvitee = require("./getShareableDocs/getShareableTeamDocForInvitee")
 const getShareableTeamDocForMember = require("./getShareableDocs/getShareableTeamDocForMember")
-const populateTeamForMembersAndAdmin = require("../populate/populateTeamForMembersAndAdmin")
+const populateTeamForMembersAndAdmin = require("../populateTeam/populateTeamForMembersAndAdmin")
+const populateTeamWithCreator = require("../populateTeam/populateTeamWithCreator")
 const getEvent = require("../../event/getEvent")
 
 const getTeamInfoByAccessLevel = async (userId, teamDoc) => {
-    const team = {...teamDoc.toJSON()}
+    let team = {...teamDoc.toJSON()}
 
     //means user has a pending invite from this team 
     // or is a member or the admin
@@ -15,14 +16,17 @@ const getTeamInfoByAccessLevel = async (userId, teamDoc) => {
         const event = eventQuery.payload
         team.nameOfEvent = event.nameOfEvent
 
+        //add info creator to the team object
+        team = await populateTeamWithCreator(team)
+
         //means user is an invitee
         if (team.pendingRequests.includes(userId)) {
             return getShareableTeamDocForInvitee(team)
         }
 
         //means user is member
-        if(team.members.includes(userId)){ 
-            let teamJSON = team
+        else if(team.members.includes(userId)){ 
+            let teamJSON = {...team}
 
             //means user is member of team but not admin
             if (userId != team.creatorId){

@@ -1,10 +1,11 @@
 const getUser = require("../../../user/profile/getUser")
-const populateSquadWithCreator = async (squadJSON)=>{
-    const userId = squadJSON._id
+const getShareableUserDocs = require("../../../user/getShareableUserDocs/getShareableUserDocs")
+const populateSquadWithCreator = async (squadInfo)=>{
+    const squadJSON = {...squadInfo}
+    const userId = squadJSON.creatorId
     const creatorQuery = await getUser(userId,"byId")
-    const creator = creatorQuery.payload
-
-    squadJSON.creatorInfo = {...creator}
+    const creator = creatorQuery.payload.toJSON()
+    squadJSON.creatorInfo = getShareableUserDocs([creator])[0]
     return squadJSON
 }
 

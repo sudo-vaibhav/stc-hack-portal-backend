@@ -1,3 +1,7 @@
+// this function takes in an array of user docs in json and 
+//gives them back after removing sensitive information for being 
+//shared with other users
+
 const getShareableUserDocs = (docs) => {
     const shareableDocs = []
     docs.forEach(doc => {

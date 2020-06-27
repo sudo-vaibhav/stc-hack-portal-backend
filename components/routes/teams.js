@@ -1,7 +1,7 @@
 const Router = require("express").Router();
 
 //helper functions for simplifying code
-const sendInvite = require("../functions/team/invite/sendInvite")
+const sendTeamInvite = require("../functions/team/invite/sendTeamInvite")
 const cancelInvite = require("../functions/team/invite/cancelInvite")
 const getTeam = require("../functions/team/getTeam/getTeam")
 const removeMember = require("../functions/team/invite/removeMember")
@@ -33,7 +33,7 @@ Router.get("/getteaminfo/:teamId", checkAuth, async (req, res) => {
 })
 
 Router.post("/setteam", checkAuth, setTeam)
-Router.post("/sendinvite", checkAuth, sendInvite)
+Router.post("/sendinvite", checkAuth, sendTeamInvite)
 Router.post("/cancelinvite", checkAuth, cancelInvite)
 Router.post("/removemember", checkAuth, removeMember)
 Router.post("/deleteteam",checkAuth, deleteTeam)

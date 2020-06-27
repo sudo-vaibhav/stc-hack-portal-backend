@@ -6,12 +6,14 @@ const getSquadInfoByAccessLevel = async (userId, squad) => {
     //means user has a pending invite from this squad
     let squadJSON = squad.toJSON()
     squadJSON = await populateSquadWithCreator(squadJSON)
+    
+    //means user is an invitee
     if (squadJSON.pendingRequests.includes(userId)) {
         return getShareableSquadDocForInvitee(squadJSON)
     }
 
     //means user is member of squad (could be admin also)
-    if (squadJSON.members.includes(userId)) {
+    else if (squadJSON.members.includes(userId)) {
 
         //means user is member of squad (non-admin)
         if (userId != squadJSON.creatorId) {

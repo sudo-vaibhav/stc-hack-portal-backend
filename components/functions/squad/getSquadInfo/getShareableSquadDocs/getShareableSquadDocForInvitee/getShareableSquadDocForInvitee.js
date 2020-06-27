@@ -5,7 +5,7 @@ const getShareableSquadDocForInvitee = (doc) =>{
         squadName,
         description,
         skillsRequired,
-        createrInfo
+        creatorInfo
     } = doc
     
     return {
@@ -14,7 +14,7 @@ const getShareableSquadDocForInvitee = (doc) =>{
         squadName,
         description,
         skillsRequired,
-        createrInfo
+        creatorInfo
     }
 }
 

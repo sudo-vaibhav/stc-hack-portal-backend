@@ -3,7 +3,7 @@ const Team = require("../../../models/Team")
 const getUser = require("../../user/profile/getUser")
 const getEvent = require("../../event/getEvent")
 
-const sendInvite = async (req, res) => {
+const sendTeamInvite = async (req, res) => {
     // team id, user email, and only admin of
     // team should be able to send this invite
 
@@ -125,4 +125,4 @@ const sendInvite = async (req, res) => {
     })
 }
 
-module.exports = sendInvite
+module.exports = sendTeamInvite
