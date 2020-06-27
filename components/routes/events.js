@@ -39,6 +39,7 @@ const fileUpload = multer({storage:fileStorage,
 limits:{
   fileSize: 1024 * 1024 * 6 // maximum 6MB file size
 },fileFilter: fileFilter})
+const checkAuth = require("../middleware/checkAuth");
 
 // to view all events
 Router.get('/getevents', (req, res, next) => {
@@ -46,7 +47,6 @@ Router.get('/getevents', (req, res, next) => {
         .select('-__v')
         .exec()
         .then(docs => {
-            console.log("events displayed", docs)
             return res.status(200).send(docs)
         })
         .catch(err => {
@@ -58,24 +58,18 @@ Router.get('/getevents', (req, res, next) => {
 
 
 //to view specific event(id)
-Router.get("/aboutevent/:Id", (req, res, next) => {
+Router.get("/aboutevent/:Id", (req, res) => {
     const id = req.params.Id
     Event.findById(id)
-        .select('-__v')
-        .exec()
-        .then(doc => {
+        .populate("creator","name email")
+        .exec((err,doc) => {
             if (doc) {
-                return res.status(200).send(doc)
+                return res.status(200).send(doc.toJSON({virtuals: true}))
             } else {
                 return res.status(404).send({
                     message: "No Data Found!"
                 })
             }
-        })
-        .catch(err => {
-            return res.status(500).send({
-                error: "Internal Servor Error"
-            })
         })
 })
 
@@ -114,7 +108,6 @@ Router.post("/setevent", checkAuth,fileUpload.single('eventImage'),async (req, r
             event
                 .save()
                 .then(result => {
-                    console.log("Event created", result)
                     return res.status(201).send(result)
                 })
                 .catch(err => {

@@ -1,5 +1,3 @@
-const port = process.env.PORT || 3000
-
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -19,9 +17,7 @@ app.use(cors())
 require("dotenv").config()
 
 //middleware import for authentication check
-const {
-    checkAuth
-} = require("./components/middleware/auth")
+const checkAuth= require("./components/middleware/checkAuth")
 
 
 //importing mongoose and connecting to database
@@ -50,28 +46,15 @@ db.once('open', function () {
     //for operations related to teams
     app.use('/teams', require("./components/routes/teams"));
 
-});
+    //for operations related to squads (basically ready made teams)
+    // app.use("/squads", require("./components/routes/squads"))
 
-//just a test route for testing auth status
-app.get("/", checkAuth, (req, res) => {
-    return res.status(200).send({
-        message: "success"
-    })
-})
+});
 
 //route for handling signout requests
 app.use("/signout", checkAuth, require("./components/routes/signout"))
 
-//error handling
-/*app.use((error,req,res,next) => {
-  res.status(error.status || 500);
-  res.send({
-    error: {
-      message: error.message
-    }
-  })
-})*/
-
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log(`server started on port ${port}`)
 })

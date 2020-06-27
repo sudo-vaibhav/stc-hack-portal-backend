@@ -45,7 +45,9 @@ const EventSchema = mongoose.Schema({
     eventImage: {
       type: String
     }
-})
+},{
+  id: false
+}) //setting id to false prevents extra unneccessary id appearing when converting object to json)
 
 EventSchema.virtual("teams", {
   ref: "Team",
@@ -73,6 +75,13 @@ EventSchema.pre('deleteOne', { document: true},  function (next) {
 
 
 
+
+EventSchema.virtual("creator", {
+    ref: "User",
+    localField: "creatorId",
+    foreignField: "_id",
+    justOne: true
+})
 
 
 module.exports = mongoose.model("Event", EventSchema)

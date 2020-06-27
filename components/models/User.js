@@ -40,13 +40,22 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
     teams: {
-        type: [String],
+        type: [String]
     },
     invites: {
-        type: [String],
+        type: [String]
+    },
+    squadInvites: {
+        type: [String]
+    },
+    squads: {
+        type: [String]
     }
 
-})
+}, {
+    id: false
+})  //setting id to false prevents extra unneccessary id appearing when converting object to json
 
 const User = mongoose.model("User", UserSchema)
+// module.exports = {User,UserSchema}
 module.exports = User

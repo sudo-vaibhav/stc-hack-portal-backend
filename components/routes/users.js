@@ -3,36 +3,26 @@ const Router = express.Router()
 const User =require("../models/User")
 
 //importing helper functions for simplifying operations
-const getUser = require("../functions/user/profile/getUser")
 const setProfile = require("../functions/user/profile/setProfile")
 const getProfiles = require("../functions/user/profile/getProfiles")
 const acceptInvite = require("../functions/user/invites/acceptInvite")
 const rejectInvite = require("../functions/user/invites/rejectInvite")
 const searchProfiles = require("../functions/user/profile/searchProfiles")
-const getShareableUserDocs = require("../functions/user/getShareableUserDocs/getShareableUserDocs")
+const getUserProfile = require("../functions/user/profile/getUserProfile")
+const leaveTeam = require("../functions/user/leaveTeam/leaveTeam")
 
-// basically /users/setprofile route
+
 Router.post("/setprofile", setProfile)
-
-// basically /users/getprofile route
-Router.get("/getuserprofile", async (req, res) => {
-    const responseData = await getUser(req.userId, "byId")
-    const statusCode = responseData.status
-    const payload = responseData.payload
-    return res.status(statusCode).send(payload)
-})
+Router.get("/getuserprofile", getUserProfile)
 Router.get("/getprofiles/:pageNo", getProfiles)
-
 Router.post("/acceptinvite", acceptInvite)
-
-
 Router.post("/rejectinvite", rejectInvite)
-
-Router.get("/searchprofiles/:pageNo", searchProfiles)
+Router.post("/searchprofiles/:pageNo", searchProfiles)
+Router.post("/leaveteam",leaveTeam)
 
 Router.patch("/updateprofile", (req,res,next) =>
 {
-  delete req.body.teams,req.body.invites
+  delete req.body.teams,req.body.invites,req.body.squads,req.body.squadInvites
   User.update({_id: req.userId}, req.body)
   .exec()
   .then(result =>

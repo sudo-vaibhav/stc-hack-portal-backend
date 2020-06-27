@@ -3,7 +3,6 @@ const getUser = require("../profile/getUser")
 
 const rejectInvite = async (req, res) => {
     const inviteeId = req.userId
-    console.log("user id is:", inviteeId)
     const {
         teamId
     } = req.body

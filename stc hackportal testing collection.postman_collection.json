@@ -61,38 +61,6 @@
 				}
 			},
 			"response": []
-		},{
-			"name": "update profile",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "authtoken",
-						"type": "text",
-						"value": "{{secondauthtoken}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\" : \"\",\n    \"college\": \"\",\n    \"\" expectedGraduation: \"\",\n    \"bio\" : \"\",\n    \"skills\" : [\"\",\"\"],\n    \"githubLink\" : \"\",\n    \"stackOverflowLink\": \"\",\n    \"externalLink\" : \"\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/users/updateprofile",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"users",
-						"updateprofile"
-					]
-				}
-			},
-			"response": []
 		},
 		{
 			"name": "make new team",
@@ -134,19 +102,21 @@
 				"header": [
 					{
 						"key": "authtoken",
-						"value": "{{secondauthtoken}}",
+						"value": "{{authtoken}}",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "{{url}}/teams/5eefbab76937f7272e543ee2",
+					"raw": "http://localhost:3000/teams/getteaminfo/5ef6832074ae2c94488acd16",
 					"protocol": "http",
 					"host": [
-						"{{url}}"
+						"localhost"
 					],
+					"port": "3000",
 					"path": [
 						"teams",
-						"5eefbab76937f7272e543ee2"
+						"getteaminfo",
+						"5ef6832074ae2c94488acd16"
 					]
 				}
 			},
@@ -212,14 +182,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/events/aboutevent/5ee78c68cf0a8700046df23a",
+					"raw": "{{url}}/events/aboutevent/5ef4c5a3b8076c04ea03bfe2",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"events",
 						"aboutevent",
-						"5ee78c68cf0a8700046df23a"
+						"5ef4c5a3b8076c04ea03bfe2"
 					]
 				}
 			},
@@ -246,7 +216,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/events/setevent",
+					"raw": "{{url}}/events/setevent/",
 					"host": [
 						"{{url}}"
 					],
@@ -254,39 +224,6 @@
 						"events",
 						"setevent",
 						""
-					]
-				}
-			},
-			"response": []
-		},	{
-			"name": "update an event",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "authtoken",
-						"type": "text",
-						"value": "{{authtoken}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"startDate\" : \"\",\n    \"endDate\" : \"\",\n    \"location\" : \"\",\n    \"nameOfEvent\" : \"\",\n    \"description\" : \"\",\n    \"eventUrl\" : \"\",\n    \"minimumTeamSize\": ,\n    \"maximumTeamSize\": \n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/events/updateevent/5ee78c68cf0a8700046df23a",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-            "events",
-						"updateevent",
-						"5ee78c68cf0a8700046df23a"
 					]
 				}
 			},
@@ -379,7 +316,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/users/rejectinvite",
+					"raw": "{{url}}/teams/rejectinvite",
 					"host": [
 						"{{url}}"
 					],
@@ -460,14 +397,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{url}}/users/getprofiles/1",
+					"raw": "{{url}}/users/getprofiles/",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
 						"getprofiles",
-						"1"
+						""
 					]
 				}
 			},
@@ -538,14 +475,85 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/teams/removemember",
+					"raw": "{{url}}/users/removemember",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"removemember"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete team",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\" : \"5ef649409bdc714bf5c75f0e\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/deleteteam",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"teams",
-						"removemember"
+						"deleteteam"
 					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leave a team by member",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{secondauthtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\":\"5ef68baa8c1b499fa423ddc3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/leaveteam",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"leaveteam"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
 				}
 			},
 			"response": []
@@ -575,22 +583,19 @@
 	],
 	"variable": [
 		{
-			"id": "8147da1a-5d57-494c-859a-a485f3564091",
+			"id": "cf837a33-2224-4f5d-a140-eaae7e5a533c",
 			"key": "authtoken",
-			"value": "test",
-			"type": "string"
+			"value": "test"
 		},
 		{
-			"id": "0b73887f-d8e1-4e47-9465-22914abbdcd8",
+			"id": "30fed1c0-b51a-4d41-bcdf-6540c6e6c6c0",
 			"key": "url",
-			"value": "http://localhost:3000",
-			"type": "string"
+			"value": "http://localhost:3000"
 		},
 		{
-			"id": "2d98ee18-759f-445c-bb23-d5e7a7db51a1",
+			"id": "26800804-6c84-40b1-98f9-bb68da38d9f7",
 			"key": "secondauthtoken",
-			"value": "vaibhav",
-			"type": "string"
+			"value": "vaibhav"
 		}
 	],
 	"protocolProfileBehavior": {}
