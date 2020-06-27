@@ -107,7 +107,7 @@ Router.post("/setevent", checkAuth,fileUpload.single('eventImage'),async (req, r
                 eventUrl: eventUrl,
                 minimumTeamSize: minimumTeamSize,
                 maximumTeamSize: maximumTeamSize,
-                eventImage: "http://localhost:3000/eventImage/"+ req.file.filename //https://hackportal.herokuapp.com
+                eventImage: "https://hackportal.herokuapp.com/eventImage/"+ req.file.filename 
             });
             event
                 .save()
@@ -140,7 +140,7 @@ Router.post('/updateevent/:Id',checkAuth,fileUpload.single("eventImage"), functi
   eventUrl : req.body.eventUrl,
   minimumTeamSize : req.body.minimumTeamSize,
   maximumTeamSize : req.body.maximumTeamSize,
-  eventImage:  "http://localhost:3000/eventImage/"+ req.file.filename
+  eventImage:  "https://hackportal.herokuapp.com/eventImage/"+ req.file.filename
 }
 }else{
 
