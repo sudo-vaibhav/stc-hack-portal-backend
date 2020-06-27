@@ -1,7 +1,7 @@
 const getTeam = require("../../../team/getTeam/getTeam")
 const getUser = require("../../profile/getUser")
 
-const rejectInvite = async (req, res) => {
+const rejectTeamInvite = async (req, res) => {
     const inviteeId = req.userId
     const {
         teamId
@@ -73,4 +73,4 @@ const rejectInvite = async (req, res) => {
 
 }
 
-module.exports = rejectInvite
+module.exports = rejectTeamInvite

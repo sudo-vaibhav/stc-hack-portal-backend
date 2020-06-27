@@ -11,9 +11,9 @@ const leaveTeam = require("../functions/user/leaveTeam/leaveTeam")
 const leaveSquad = require("../functions/user/leaveSquad/leaveSquad")
 const acceptSquadInvite = require("../functions/user/invites/squadInvites/acceptSquadInvite")
 const rejectSquadInvite = require("../functions/user/invites/squadInvites/rejectSquadInvite")
-
 const searchProfiles = require("../functions/user/profile/searchProfiles")
 const getUserProfile = require("../functions/user/profile/getUserProfile")
+const updateUserProfile = require("../functions/user/profile/updateUserProfile/updateUserProfile")
 
 Router.post("/setprofile", setProfile)
 Router.get("/getuserprofile", getUserProfile)
@@ -25,27 +25,6 @@ Router.post("/rejectsquadinvite",rejectSquadInvite)
 Router.post("/searchprofiles/:pageNo", searchProfiles)
 Router.post("/leaveteam",leaveTeam)
 Router.post("/leavesquad",leaveSquad)
-
-Router.patch("/updateprofile", (req,res,next) =>
-{
-  delete req.body["_id"] 
-  delete req.body["teams"]
-  delete req.body["invites"]
-  delete req.body["squads"]
-  delete req.body["squadInvites"]
-  User.update({_id: req.userId}, req.body)
-  .exec()
-  .then(result =>
-    {
-    return res.status(200).send({
-        message: "User has been updated",
-    })
-  })
-  .catch(err => {
-    return res.status(500).send({
-      message: "Internal Server Error"
-    })
-  })
-})
+Router.patch("/updateuserprofile",updateUserProfile )
 
 module.exports = Router

@@ -27,7 +27,7 @@ const leaveSquad = async (req,res)=>{
                     await Promise.all([squad.save(),user.save()])
 
                     return res.status(200).send({
-                        message : "Left the team successfully"
+                        message : "Left the squad successfully"
                     })
                 }
                 else{
