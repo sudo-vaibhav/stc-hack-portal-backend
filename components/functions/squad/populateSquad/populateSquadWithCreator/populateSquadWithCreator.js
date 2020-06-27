@@ -3,7 +3,8 @@ const populateSquadWithCreator = async (squadJSON)=>{
     const userId = squadJSON._id
     const creatorQuery = await getUser(userId,"byId")
     const creator = creatorQuery.payload
-    squadJSON.creatorInfo = {...creator.toJSON()}
+
+    squadJSON.creatorInfo = {...creator}
     return squadJSON
 }
 

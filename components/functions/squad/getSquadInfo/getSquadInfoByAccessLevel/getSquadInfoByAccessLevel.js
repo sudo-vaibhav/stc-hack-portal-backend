@@ -1,7 +1,7 @@
 const getShareableSquadDocForMember = require("../getShareableSquadDocs/getShareableSquadDocForMember/getShareableSquadDocForMember")
 const getShareableSquadDocForInvitee = require("../getShareableSquadDocs/getShareableSquadDocForInvitee/getShareableSquadDocForInvitee")
 const populateSquadWithCreator = require("../../populateSquad/populateSquadWithCreator/populateSquadWithCreator")
-
+const populateSquadForMembersAndAdmin = require("../../populateSquad/populateSquadForMembersAndAdmin/populateSquadForMembersAndAdmin")
 const getSquadInfoByAccessLevel = async (userId, squad) => {
     //means user has a pending invite from this squad
     let squadJSON = squad.toJSON()

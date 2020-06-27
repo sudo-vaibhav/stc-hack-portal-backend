@@ -22,7 +22,10 @@ Router.post("/leaveteam",leaveTeam)
 
 Router.patch("/updateprofile", (req,res,next) =>
 {
-  delete req.body.teams,req.body.invites,req.body.squads,req.body.squadInvites
+  delete req.body["teams"]
+  delete req.body["invites"]
+  delete req.body["squads"]
+  delete req.body["squadInvites"]
   User.update({_id: req.userId}, req.body)
   .exec()
   .then(result =>

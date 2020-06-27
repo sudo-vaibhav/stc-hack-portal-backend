@@ -122,7 +122,8 @@ Router.post("/setevent", checkAuth,fileUpload.single('eventImage'),async (req, r
 //to update a specific event
 Router.post("/updateevent/:Id", checkAuth, fileUpload.single("eventImage"), (req, res, next) => {
     const id = req.params.Id
-    delete req.body._id, req.body.creatorId
+    delete req.body["_id"]
+    delete req.body["creatorId"]
     Event.update({
             _id: id
         },req.body)
