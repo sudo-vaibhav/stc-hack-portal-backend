@@ -1,10 +1,45 @@
 const express = require("express")
 const Router = express.Router();
 const mongoose = require("mongoose")
+const multer = require("multer")
+const path= require("path")
+const Event = require('../models/Event')
 
-const Event = require('../models/Event');
-
+const getEvent = require("../functions/event/getEvent")
+const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 const checkAuth = require("../middleware/checkAuth");
+
+
+
+
+//storage mechanism for multer
+const fileStorage = multer.diskStorage({
+  destination: (req,file,cb) => {
+    cb(null,'./components/functions/event/eventUpload')
+  },
+  filename: (req,file,cb) => {
+    cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname))
+  }
+})
+
+//to filter files according to mimetype
+const fileFilter = (req,file,cb) => {
+  //criteria to accept a file
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg')
+  { 
+    cb(null,true)
+  }else
+  {
+    cb("wrong image format",false)
+  }
+}
+
+//main event upload function
+const fileUpload = multer({storage:fileStorage,
+limits:{
+  fileSize: 1024 * 1024 * 6 // maximum 6MB file size
+},fileFilter: fileFilter})
+
 
 // to view all events
 Router.get('/getevents', (req, res, next) => {
@@ -40,7 +75,8 @@ Router.get("/aboutevent/:Id", (req, res) => {
 
 
 //to add info about specific event(id) 
-Router.post("/setevent", checkAuth, async (req, res) => {
+Router.post("/setevent", checkAuth,fileUpload.single('eventImage'),async (req, res) => {
+  console.log(req.file)
     const {
         startDate,
         endDate,
@@ -49,7 +85,7 @@ Router.post("/setevent", checkAuth, async (req, res) => {
         description,
         eventUrl,
         minimumTeamSize,
-        maximumTeamSize
+        maximumTeamSize,
     } = req.body
     //we need to initialize the model because without it,
     //mongoose won't ensure that event name is unique even 
@@ -66,7 +102,8 @@ Router.post("/setevent", checkAuth, async (req, res) => {
                 description: description,
                 eventUrl: eventUrl,
                 minimumTeamSize: minimumTeamSize,
-                maximumTeamSize: maximumTeamSize
+                maximumTeamSize: maximumTeamSize,
+                eventImage: req.file.filename
             });
             event
                 .save()
@@ -82,13 +119,13 @@ Router.post("/setevent", checkAuth, async (req, res) => {
         }) 
 })
 
-
-Router.patch("/updateevent/:Id", checkAuth, (req, res, next) => {
+//to update a specific event
+Router.post("/updateevent/:Id", checkAuth, fileUpload.single("eventImage"), (req, res, next) => {
     const id = req.params.Id
     delete req.body._id, req.body.creatorId
     Event.update({
             _id: id
-        }, req.body)
+        },req.body)
         .exec()
         .then(result => {
             res.status(200).send({
@@ -96,17 +133,17 @@ Router.patch("/updateevent/:Id", checkAuth, (req, res, next) => {
             })
         })
         .catch(err => {
-            res.status(500).json({
+            res.status(500).send({
                 error: "Internal Server Error"
             })
         })
 })
 
-/*to remove specific event(id)
-Router.delete("/removeEvent/:Id",(req,res,next) => {
-    return res.status(200).json({
-        message: "event has been deleted"
-    })
-}) */
+
+
+//to remove specific event(id)
+
+
+
 
 module.exports = Router

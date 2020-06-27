@@ -1,4 +1,7 @@
 const mongoose = require("mongoose")
+const Team = require("../models/Team")
+const User = require("../models/User")
+const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 
 const EventSchema = mongoose.Schema({
     _id: {
@@ -40,9 +43,18 @@ const EventSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-}, {
-    id: false
-}) //setting id to false prevents extra unneccessary id appearing when converting object to json
+    eventImage: {
+      type: String
+    }
+},{
+  id: false
+}) //setting id to false prevents extra unneccessary id appearing when converting object to json)
+
+
+
+
+
+
 
 EventSchema.virtual("creator", {
     ref: "User",
@@ -50,4 +62,6 @@ EventSchema.virtual("creator", {
     foreignField: "_id",
     justOne: true
 })
+
+
 module.exports = mongoose.model("Event", EventSchema)
