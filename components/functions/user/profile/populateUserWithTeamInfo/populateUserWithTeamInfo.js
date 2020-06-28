@@ -13,7 +13,7 @@ const populateUserWithTeamInfo = async (user) => {
         teamInfoQueries.push(getTeam(team, "byId")) //this will return promises, we will await for their resolution later
     }
 
-    for (const teamInvite of userObject.invites) {
+    for (const teamInvite of userObject.teamInvites) {
         teamInviteInfoQueries.push(getTeam(teamInvite, "byId")) //this will return promises, we will await for their resolution later
     }
 

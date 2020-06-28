@@ -6,7 +6,7 @@ const TeamPostRemove = (team) => {
                     teams: teamId
                 },
                 {
-                    invites: teamId
+                    teamInvites: teamId
                 }
             ]
         })
@@ -22,9 +22,8 @@ const TeamPostRemove = (team) => {
                         user.teams = updatedUserTeams
                     }
 
-                    if (user.invites.includes(teamId)) {
-                        const updatedUserInvites = user.invites.filter(currentId => currentId != teamId)
-                        user.invites = updatedUserInvites
+                    if (user.teamInvites.includes(teamId)) {
+                        user.teamInvites = user.teamInvites.filter(currentId => currentId != teamId)
                     }
 
                     return user.save() // we will await these saves in parallel later

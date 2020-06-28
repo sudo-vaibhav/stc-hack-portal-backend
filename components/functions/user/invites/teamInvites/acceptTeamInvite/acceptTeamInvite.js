@@ -18,12 +18,12 @@ const acceptInvite = async (req, res) => {
             //generate users data
             if (inviteeQuery.status == 200) {
                 const invitee = inviteeQuery.payload
-                // NOTE: theoretically this check should always pass as team.pendingRequests and user.invites
-                // are meant to always be manipulated together in each route that deals with invites
-                // so if team.pendingRequests.include(inviteeId) is true then then invitee.invites.includes(team._id)
+                // NOTE: theoretically this check should always pass as team.pendingRequests and user.teamInvites
+                // are meant to always be manipulated together in each route that deals with teamInvites
+                // so if team.pendingRequests.include(inviteeId) is true then then invitee.teamInvites.includes(team._id)
                 // should also be true
-                //check whether users invites include team id
-                if (invitee.invites.includes(teamId)) {
+                //check whether users teamInvites include team id
+                if (invitee.teamInvites.includes(teamId)) {
                     
                     //also check user isn't already member of another team for same event
                     const otherTeam = await Team.findOne({
@@ -53,15 +53,15 @@ const acceptInvite = async (req, res) => {
                             team.pendingRequests = pendingRequests
         
         
-                            //let us also modify the user schema by adding the the teamsId to the teams and remove the teamsId from the invites
+                            //let us also modify the user schema by adding the the teamsId to the teams and remove the teamsId from the teamInvites
                             const teams = invitee.teams
                             teams.push(team._id)
                             invitee.teams = teams
         
         
-                            const invites = invitee.invites
-                            invites.splice(invites.indexOf(team._id), 1)
-                            invitee.invites = invites
+                            const teamInvites = invitee.teamInvites
+                            teamInvites.splice(teamInvites.indexOf(team._id), 1)
+                            invitee.teamInvites = teamInvites
         
                             //save the updated team and user profiles
                             const updatedTeam = await team.save()

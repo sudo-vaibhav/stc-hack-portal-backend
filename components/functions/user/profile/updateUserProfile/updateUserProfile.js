@@ -3,7 +3,7 @@ const updateUserProfile = (req, res) => {
     delete req.body["_id"]
     delete req.body["email"]
     delete req.body["teams"]
-    delete req.body["invites"]
+    delete req.body["teamInvites"]
     delete req.body["squads"]
     delete req.body["squadInvites"]
     User.update({

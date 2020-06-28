@@ -81,7 +81,7 @@ const sendTeamInvite = async (req, res) => {
 
                                             //also add the team to invitee's invites array
                                             // so that invitee can also be informed
-                                            invitee.invites.push(team._id)
+                                            invitee.teamInvites.push(team._id)
 
                                             try {
 

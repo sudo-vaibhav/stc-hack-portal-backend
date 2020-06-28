@@ -12,7 +12,7 @@ const getShareableUserDocs = (docs) => {
         //delete confidential user information
         delete shareableDoc["__v"]
         delete shareableDoc["teams"]
-        delete shareableDoc["invites"]
+        delete shareableDoc["teamInvites"]
         delete shareableDoc["squads"]
         delete shareableDoc["squadInvites"]
         shareableDocs.push(shareableDoc)

@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
     teams: {
         type: [String]
     },
-    invites: {
+    teamInvites: {
         type: [String]
     },
     squadInvites: {

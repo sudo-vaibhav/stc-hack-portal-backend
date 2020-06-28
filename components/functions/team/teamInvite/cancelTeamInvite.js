@@ -24,11 +24,11 @@ const cancelTeamInvite = async (req, res) => {
                     if (inviteeQuery.status == 200) {
                         // check if invitee actually has an invite from the team
                         const invitee = inviteeQuery.payload
-                        if (invitee.invites.includes(teamId)) {
+                        if (invitee.teamInvites.includes(teamId)) {
                             // modify the team document
                             team.pendingRequests = team.pendingRequests.filter(pendingRequest=>pendingRequest!=inviteeId)
                             // modify the invitee document
-                            invitee.invites = invitee.invites.filter(invite=>invite!=teamId)
+                            invitee.teamInvites = invitee.teamInvites.filter(invite=>invite!=teamId)
 
                             // save both documents simultaneously in parallel
                             await Promise.all([invitee.save(), team.save()])

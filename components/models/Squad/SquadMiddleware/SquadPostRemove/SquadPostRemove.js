@@ -17,15 +17,13 @@ const SquadPostRemove = (squad) => {
             } else {
 
                 const userSavesToAwait = users.map(user => {
-
+                    
                     if (user.squads.includes(squadId)) {
-                        const updatedUserSquads = user.squads.filter(currentId => currentId != squadId)
-                        user.squads = updatedUserSquads
+                        user.squads = user.squads.filter(currentId => currentId != squadId)
                     }
 
                     if (user.squadInvites.includes(squadId)) {
-                        const updatedUserInvites = user.invites.filter(currentId => currentId != squadId)
-                        user.squadInvites = updatedUserInvites
+                        user.squadInvites = user.squadInvites.filter(currentId => currentId != squadId)
                     }
 
                     return user.save() // we will await these saves in parallel later

@@ -19,11 +19,11 @@ const rejectTeamInvite = async (req, res) => {
             //also check that user has a pending request for the team in his/her records
             if (inviteeQuery.status == 200) {
                 const invitee = inviteeQuery.payload
-                // NOTE: theoretically this check should always pass as team.pendingRequests and user.invites
+                // NOTE: theoretically this check should always pass as team.pendingRequests and user.teamInvites
                 // are meant to always be manipulated together in each route that deals with invites
-                // so if team.pendingRequests.include(inviteeId) is true then then invitee.invites.includes(team._id)
+                // so if team.pendingRequests.include(inviteeId) is true then then invitee.teamInvites.includes(team._id)
                 // should also be true
-                if (invitee.invites.includes(teamId)) {
+                if (invitee.teamInvites.includes(teamId)) {
                     //proceed to remove the invite in both the user's document
                     // and the team document in their respective collections
 
@@ -36,15 +36,14 @@ const rejectTeamInvite = async (req, res) => {
 
                     //next modify invitee records
 
-                    const updatedUserInvites = invitee.invites
+                    const updatedUserInvites = invitee.teamInvites
                     const indexOfTeam = updatedUserInvites.indexOf(teamId)
                     //splice removes the id of team from the array
                     updatedUserInvites.splice(indexOfTeam, 1)
-                    invitee.invites = updatedUserInvites
+                    invitee.teamInvites = updatedUserInvites
 
                     //now save the updated documents in the user and teams collections
-                    const updatedTeam = await team.save()
-                    const updatedInvitee = await invitee.save()
+                    await Promise.all([team.save(),invitee.save()])
 
                     return res.status(200).send({
                         message: "invite rejected successfully"
