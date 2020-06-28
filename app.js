@@ -37,21 +37,21 @@ db.once('open', function () {
     console.log("db connected")
 
     //for getting and setting user profiles
-    app.use("/users", checkAuth, require("./components/routes/users"))
+    app.use("/users", checkAuth, require("./components/routes/users/users"))
 
     //for operations related to events
-    app.use('/events', require("./components/routes/events"));
+    app.use('/events', require("./components/routes/events/events"));
 
     //for operations related to teams
-    app.use('/teams', require("./components/routes/teams"));
+    app.use('/teams', require("./components/routes/teams/teams"));
 
     //for operations related to squads (basically ready made teams)
-    app.use("/squads", require("./components/routes/squads"))
+    app.use("/squads", require("./components/routes/squads/squads"))
 
 });
 
 //route for handling signout requests
-app.use("/signout", checkAuth, require("./components/routes/signout"))
+app.use("/signout", checkAuth, require("./components/routes/signout/signout"))
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

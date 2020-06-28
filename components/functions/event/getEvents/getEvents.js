@@ -1,4 +1,4 @@
-const Event = require('../../../models/Event');
+const Event = require('../../../models/Event/Event');
 const PER_PAGE_LIMIT = 10
 const getPaginatedData = require("../../../pagination/getPaginatedData")
 const getShareableEventDocs = require("../../event/getShareableEventDocs/getShareableEventDocs")

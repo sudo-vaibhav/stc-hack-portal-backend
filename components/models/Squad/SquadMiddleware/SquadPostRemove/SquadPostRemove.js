@@ -1,39 +1,6 @@
-const mongoose = require("mongoose")
-const User = require("./User")
-const SquadSchema = mongoose.Schema({
-    _id: {
-        type: String,
-        required: true
-    },
-    creatorId: {
-        type: String,
-        required: true
-    },
-    squadName: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    description: {
-        type: String
-    },
-    members: {
-        type: [String],
-        required: true
-    },
-    pendingRequests: {
-        type: [String],
-        required: true
-    },
-    skillsRequired: {
-        type: [String],
-        required: true
-    }
-})
+const User = require("../../../User/User")
 
-// we need to remove all mentions of this squad id in user records
-// be it either invitee status or membership status
-SquadSchema.post("remove", (squad) => {
+const SquadPostRemove = (squad) => {
     const squadId = squad._id
     User.find({
             $or: [{
@@ -69,8 +36,6 @@ SquadSchema.post("remove", (squad) => {
             }
         })
 
-})
+}
 
-
-const Squad = mongoose.model("Squad", SquadSchema)
-module.exports = Squad
+module.exports = SquadPostRemove

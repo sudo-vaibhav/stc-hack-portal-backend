@@ -1,4 +1,4 @@
-const Event = require("../../../models/Event")
+const Event = require("../../../models/Event/Event")
 const multer = require("multer")
 const fs = require("fs")
 const path = require("path")

@@ -1,4 +1,4 @@
-const Event = require("../../../models/Event")
+const Event = require("../../../models/Event/Event")
 const getEventInfo = (req, res) => {
     const eventId = req.params.eventId
     Event.findById(eventId)

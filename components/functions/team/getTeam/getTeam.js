@@ -1,4 +1,4 @@
-const Team = require("../../../models/Team")
+const Team = require("../../../models/Team/Team")
 
 const processTeamQuery = (team) => {
         if (team) {

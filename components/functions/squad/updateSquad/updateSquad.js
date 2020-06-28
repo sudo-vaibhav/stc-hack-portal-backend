@@ -1,4 +1,4 @@
-const Squad = require("../../../models/Squad")
+const Squad = require("../../../models/Squad/Squad")
 const updateSquad = async (req,res)=>{
     const data = {...req.body}
     const squadId = data.squadId
