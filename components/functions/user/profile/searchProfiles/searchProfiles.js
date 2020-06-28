@@ -1,5 +1,5 @@
 const PER_PAGE_LIMIT = 10
-const getPaginatedData = require("../../../../pagination/getPaginatedData")
+const getPaginatedData = require("../../../../pagination/getPaginatedData/getPaginatedData")
 const User = require("../../../../models/User/User")
 const getShareableUserDocs = require("../../getShareableUserDocs/getShareableUserDocs")
 const searchProfiles = async (req, res) => {
