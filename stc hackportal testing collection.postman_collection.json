@@ -182,14 +182,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/events/aboutevent/5ef4c5a3b8076c04ea03bfe2",
+					"raw": "{{url}}/events/geteventinfo/5ef645415333d249f4c31c7a",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"events",
-						"aboutevent",
-						"5ef4c5a3b8076c04ea03bfe2"
+						"geteventinfo",
+						"5ef645415333d249f4c31c7a"
 					]
 				}
 			},
@@ -557,6 +557,116 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "set squad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get squad (multi tier access)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/squads/getsquadinfo/5ef7735ea213df462492dfc8",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"squads",
+						"getsquadinfo",
+						"5ef7735ea213df462492dfc8"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send invite for squad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel squad invite by admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{secondauthtoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"squadId\" : ,\n    \"inviteeId\" : \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/squads/cancelsquadinvite/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"squads",
+						"cancelsquadinvite",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove squad member by admin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete event by creator of event",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -583,17 +693,17 @@
 	],
 	"variable": [
 		{
-			"id": "cf837a33-2224-4f5d-a140-eaae7e5a533c",
+			"id": "74a31a92-2676-4f88-8419-2cd02b24252a",
 			"key": "authtoken",
 			"value": "test"
 		},
 		{
-			"id": "30fed1c0-b51a-4d41-bcdf-6540c6e6c6c0",
+			"id": "62f7fd5c-efa9-4fd5-8748-f1388f29823a",
 			"key": "url",
 			"value": "http://localhost:3000"
 		},
 		{
-			"id": "26800804-6c84-40b1-98f9-bb68da38d9f7",
+			"id": "b7974a8b-9e73-4198-8a1e-7ffab4d6ca7c",
 			"key": "secondauthtoken",
 			"value": "vaibhav"
 		}
