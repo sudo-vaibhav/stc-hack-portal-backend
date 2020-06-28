@@ -51,7 +51,7 @@ const removeSquadMember = async (req,res)=>{
         }
     }
     else{
-
+        return res.status(squadStatus).send(squadQuery.payload)
     }
 }
 module.exports = removeSquadMember

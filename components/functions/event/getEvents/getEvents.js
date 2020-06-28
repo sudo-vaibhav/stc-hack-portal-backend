@@ -4,18 +4,8 @@ const getPaginatedData = require("../../../pagination/getPaginatedData/getPagina
 const getShareableEventDocs = require("../../event/getShareableEventDocs/getShareableEventDocs")
 const getEvents = async (req, res) => {
   const pageNo = parseInt(req.params.pageNo)
-  documents = await getPaginatedData(Event, pageNo, PER_PAGE_LIMIT)
-    Event.find()
-        .sort({'_id': -1})
-        .exec()
-        .then(docs => {
-            return res.status(200).send(getShareableEventDocs(documents))
-        })
-        .catch(err => {
-            return res.status(500).send({
-                error: "Internal Server Error"
-            })
-        })
+  const documents = await getPaginatedData(Event, pageNo, PER_PAGE_LIMIT)
+  return res.status(200).send(getShareableEventDocs(documents))
 }
 
 module.exports = getEvents
