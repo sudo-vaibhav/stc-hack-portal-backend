@@ -2,7 +2,7 @@ const PER_PAGE_LIMIT = 10
 const getPaginatedData = require("../../../../pagination/getPaginatedData/getPaginatedData")
 const User = require("../../../../models/User/User")
 const getShareableUserDocs = require("../../getShareableUserDocs/getShareableUserDocs")
-const searchProfiles = async (req, res) => {
+const searchUserProfiles = async (req, res) => {
     const {
         skills
     } = req.body
@@ -17,4 +17,4 @@ const searchProfiles = async (req, res) => {
     return res.status(200).send(getShareableUserDocs(docs))
 }
 
-module.exports = searchProfiles
+module.exports = searchUserProfiles
