@@ -1,4 +1,3 @@
-const User = require("./../../../../models/User")
 const updateUserProfile = (req, res) => {
     delete req.body["_id"]
     delete req.body["teams"]
