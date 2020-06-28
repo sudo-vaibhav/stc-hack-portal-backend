@@ -7,12 +7,11 @@ const removeTeamMember = require("../../functions/team/teamInvite/removeTeamMemb
 const setTeam = require("../../functions/team/setTeam/setTeam")
 const deleteTeam = require("../../functions/team/deleteTeam/deleteTeam")
 const updateTeam = require("../../functions/team/updateTeam/updateTeam")
-
+const getTeamInfo = require("../../functions/team/getTeam/getTeamInfo/getTeamInfo")
 //authentication middleware
 const checkAuth= require("../../middleware/checkAuth/checkAuth");
 
-Router.get("/getteaminfo/:teamId", checkAuth, )
-
+Router.get("/getteaminfo/:teamId", checkAuth, getTeamInfo)
 Router.post("/setteam", checkAuth, setTeam)
 Router.post("/sendinvite", checkAuth, sendTeamInvite)
 Router.post("/cancelinvite", checkAuth, cancelTeamInvite)

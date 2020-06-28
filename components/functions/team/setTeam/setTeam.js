@@ -39,11 +39,6 @@ const setTeam = async (req, res) => {
                                 await creator.save()
                                 return res.status(200).send(newTeam)
                             })
-                            .catch(err => {
-                                return res.status(400).send({
-                                    message: "Duplicate team name, choose another name."
-                                })
-                            })
                     }
                 })
                 .catch(err => {
