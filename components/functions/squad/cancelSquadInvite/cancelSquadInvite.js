@@ -1,5 +1,5 @@
 const getSquad = require("../getSquad/getSquad")
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const cancelSquadInvite = async (req,res)=>{
     const {
         squadId,

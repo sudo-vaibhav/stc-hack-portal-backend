@@ -1,4 +1,4 @@
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const getSquad = require("../getSquad/getSquad")
 const removeSquadMember = async (req,res)=>{
     const adminId = req.userId

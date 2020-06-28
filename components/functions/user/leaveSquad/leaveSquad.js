@@ -1,4 +1,4 @@
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const getSquad = require("../../squad/getSquad/getSquad")
 
 const leaveSquad = async (req,res)=>{

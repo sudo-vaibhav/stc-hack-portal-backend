@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const Squad = require("../../../models/Squad")
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 
 const setSquad = async (req,res)=>{
     const userId = req.userId

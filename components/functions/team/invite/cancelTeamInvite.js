@@ -1,4 +1,4 @@
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const getTeam = require("../getTeam/getTeam")
 
 const cancelTeamInvite = async (req, res) => {

@@ -1,6 +1,6 @@
 const Team = require("../../../models/Team")
-const getUser = require("../../user/profile/getUser")
-const getEvent = require("../../event/getEvent")
+const getUser = require("../../user/profile/getUser/getUser")
+const getEvent = require("../../event/getEvent/getEvent")
 const mongoose = require("mongoose")
 const setTeam = async (req, res) => {
 

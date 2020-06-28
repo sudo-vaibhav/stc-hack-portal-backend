@@ -1,5 +1,5 @@
 const getTeam = require("../../../team/getTeam/getTeam")
-const getUser = require("../../profile/getUser")
+const getUser = require("../../profile/getUser/getUser")
 
 const rejectTeamInvite = async (req, res) => {
     const inviteeId = req.userId

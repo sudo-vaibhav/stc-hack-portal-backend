@@ -1,4 +1,4 @@
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const getSquad = require("../getSquad/getSquad")
 const sendSquadInvite = async (req,res)=>{
     // squad id, user email, and only admin of

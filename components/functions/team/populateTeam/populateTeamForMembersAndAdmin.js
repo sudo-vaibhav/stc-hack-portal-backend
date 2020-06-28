@@ -1,4 +1,4 @@
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const getShareableUserDocs = require("../../user/getShareableUserDocs/getShareableUserDocs")
 const populateTeamForMembersAndAdmin = async (teamData) => {
     const team = {...teamData}
@@ -11,7 +11,7 @@ const populateTeamForMembersAndAdmin = async (teamData) => {
         memberDocs.push(memberDocQuery.payload.toJSON()) //payload contains the actual user objects
                                                          //we do .JSON() to remove other mongoose methods
     }
-    team.membersInfo = getShareableUserDocs(memberDocs)
+team.membersInfo = getShareableUserDocs(memberDocs)
 
 
     //this will only get triggered for admin only

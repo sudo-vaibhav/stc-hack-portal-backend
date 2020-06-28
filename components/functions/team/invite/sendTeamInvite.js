@@ -1,7 +1,7 @@
 const Team = require("../../../models/Team")
 
-const getUser = require("../../user/profile/getUser")
-const getEvent = require("../../event/getEvent")
+const getUser = require("../../user/profile/getUser/getUser")
+const getEvent = require("../../event/getEvent/getEvent")
 
 const sendTeamInvite = async (req, res) => {
     // team id, user email, and only admin of

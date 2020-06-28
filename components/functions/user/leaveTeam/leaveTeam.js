@@ -1,5 +1,5 @@
 const getTeam = require("../../team/getTeam/getTeam")
-const getUser = require("../../user/profile/getUser")
+const getUser = require("../../user/profile/getUser/getUser")
 const leaveTeam = async (req, res) => {
     const teamId = req.body.teamId
     const userId = req.userId

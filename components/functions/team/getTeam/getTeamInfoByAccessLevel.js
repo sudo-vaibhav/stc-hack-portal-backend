@@ -2,7 +2,7 @@ const getShareableTeamDocForInvitee = require("./getShareableDocs/getShareableTe
 const getShareableTeamDocForMember = require("./getShareableDocs/getShareableTeamDocForMember")
 const populateTeamForMembersAndAdmin = require("../populateTeam/populateTeamForMembersAndAdmin")
 const populateTeamWithCreator = require("../populateTeam/populateTeamWithCreator")
-const getEvent = require("../../event/getEvent")
+const getEvent = require("../../event/getEvent/getEvent")
 
 const getTeamInfoByAccessLevel = async (userId, teamDoc) => {
     let team = {...teamDoc.toJSON()}

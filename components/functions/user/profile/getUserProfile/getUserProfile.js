@@ -1,5 +1,5 @@
-const getUser = require("./getUser")
-const populateUserWithTeamsInfo = require("./populateUserWithTeamInfo/populateUserWithTeamInfo")
+const getUser = require("../getUser/getUser")
+const populateUserWithTeamsInfo = require("../populateUserWithTeamInfo/populateUserWithTeamInfo")
 const getUserProfile = async (req, res) => {
     const responseData = await getUser(req.userId, "byId")
     const statusCode = responseData.status

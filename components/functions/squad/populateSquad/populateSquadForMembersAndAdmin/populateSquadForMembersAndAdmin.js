@@ -1,4 +1,4 @@
-const getUser = require("../../../user/profile/getUser")
+const getUser = require("../../../user/profile/getUser/getUser")
 const getShareableUserDocs = require("../../../user/getShareableUserDocs/getShareableUserDocs")
 
 const populateSquadForMembersAndAdmin = async (squadData) => {
