@@ -9,7 +9,7 @@ const populateSquadForMembersAndAdmin = async (squadData) => {
     //this will only get triggered for admin and all other members
     const memberDocs = await Promise.all(
         squad.members.map(async (member) => {
-            memberDocQuery = await getUser(member, "byId")
+            const memberDocQuery = await getUser(member, "byId")
             return memberDocQuery.payload.toJSON() //payload contains the actual user objects
             //we do .JSON() to remove other mongoose methods
         })
@@ -22,7 +22,7 @@ const populateSquadForMembersAndAdmin = async (squadData) => {
     if (squad.pendingRequests) {
         const inviteeDocs = []
         for (const invitee of squad.pendingRequests) {
-            inviteeDocQuery = await getUser(invitee, "byId")
+            const inviteeDocQuery = await getUser(invitee, "byId")
             inviteeDocs.push(inviteeDocQuery.payload.toJSON()) //payload contains the actual user objects
             //we do .JSON() to remove other mongoose methods
         }

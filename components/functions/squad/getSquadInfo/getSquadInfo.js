@@ -8,7 +8,7 @@ const getSquadInfo = async (req, res) => {
 
     if (squadQuery.status === 200) {
         const squad = squadQuery.payload
-        squadInfo = await getSquadInfoByAccessLevel(userId, squad)
+        const squadInfo = await getSquadInfoByAccessLevel(userId, squad)
         if (squadInfo) {
             return res.status(200).send(squadInfo)
         } else {

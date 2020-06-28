@@ -7,7 +7,7 @@ const populateTeamForMembersAndAdmin = async (teamData) => {
 
     //this will only get triggered for admin and all other members
     for(const member of team.members ){
-        memberDocQuery = await getUser(member,"byId")
+        const memberDocQuery = await getUser(member,"byId")
         memberDocs.push(memberDocQuery.payload.toJSON()) //payload contains the actual user objects
                                                          //we do .JSON() to remove other mongoose methods
     }
@@ -18,7 +18,7 @@ team.membersInfo = getShareableUserDocs(memberDocs)
     if(team.pendingRequests){
         const inviteeDocs = []
         for (const invitee of team.pendingRequests) {
-            inviteeDocQuery = await getUser(invitee, "byId")
+            const inviteeDocQuery = await getUser(invitee, "byId")
             inviteeDocs.push(inviteeDocQuery.payload.toJSON()) //payload contains the actual user objects
                                                         //we do .JSON() to remove other mongoose methods
         }

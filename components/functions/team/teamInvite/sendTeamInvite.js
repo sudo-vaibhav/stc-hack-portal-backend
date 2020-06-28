@@ -86,8 +86,7 @@ const sendTeamInvite = async (req, res) => {
                                             try {
 
                                                 //update records of both the team and invitee
-                                                updatedTeam = await team.save()
-                                                updatedInvitee = await invitee.save()
+                                                await Promise.all([team.save(),invitee.save()])
                                                 return res.status(200).send({
                                                     message: "Invite sent successfully"
                                                 })

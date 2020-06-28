@@ -6,7 +6,7 @@ const updateTeam = async (req,res)=>{
     const adminId = req.userId
     const teamId = req.params.teamId
     const teamQuery = await getTeam(teamId,"byId")
-
+    const teamStatus = teamQuery.status
 
     //check if team exists
     if(teamQuery.status == 200)

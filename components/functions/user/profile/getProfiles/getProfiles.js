@@ -4,8 +4,7 @@ const getPaginatedData = require("../../../../pagination/getPaginatedData/getPag
 const getShareableUserDocs = require("../../getShareableUserDocs/getShareableUserDocs")
 const getProfiles = async (req, res) => {
     const pageNo = parseInt(req.params.pageNo)
-    documents = await getPaginatedData(User, pageNo, PER_PAGE_LIMIT)
-
+    const documents = await getPaginatedData(User, pageNo, PER_PAGE_LIMIT)
     return res.status(200).send(getShareableUserDocs(documents))
 }
 module.exports = getProfiles

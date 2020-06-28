@@ -15,7 +15,7 @@ const updateUserProfile = require("../../functions/user/profile/updateUserProfil
 
 Router.post("/setprofile", setProfile)
 Router.get("/getuserprofile", getUserProfile)
-Router.get("/getprofiles/:pageNo", getProfiles)
+Router.get("/getuserprofiles/:pageNo", getProfiles)
 Router.post("/acceptteaminvite", acceptTeamInvite)
 Router.post("/rejectteaminvite", rejectTeamInvite)
 Router.post("/acceptsquadinvite", acceptSquadInvite)
