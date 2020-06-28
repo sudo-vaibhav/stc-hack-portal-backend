@@ -25,12 +25,11 @@ const mongoose = require("mongoose");
 
 
 //for local testing use: "mongodb://127.0.0.1:27017/hackportal
-mongoose.connect("mongodb://localhost/hack_apitrial5",{useNewUrlParser: true, useUnifiedTopology: true});
-/*mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
-})*/
+})
 
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'));
