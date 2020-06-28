@@ -1,8 +1,8 @@
 //Helper function imports
-const getTeam = require("../../../team/getTeam/getTeam")
-const getUser = require("../../profile/getUser/getUser")
-const Team  = require("../../../../models/Team")
-const getEvent = require("../../../event/getEvent/getEvent")
+const getTeam = require("../../../../team/getTeam/getTeam")
+const getUser = require("../../../profile/getUser/getUser")
+const Team  = require("../../../../../models/Team")
+const getEvent = require("../../../../event/getEvent/getEvent")
 const acceptInvite = async (req, res) => {
     const teamId = req.body.teamId
     //to check if user exists

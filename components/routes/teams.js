@@ -1,17 +1,17 @@
 const Router = require("express").Router();
 
 //helper functions for simplifying code
-const sendTeamInvite = require("../functions/team/invite/sendTeamInvite")
-const cancelTeamInvite = require("../functions/team/invite/cancelTeamInvite")
+const sendTeamInvite = require("../functions/team/teamInvite/sendTeamInvite")
+const cancelTeamInvite = require("../functions/team/teamInvite/cancelTeamInvite")
 const getTeam = require("../functions/team/getTeam/getTeam")
-const removeTeamMember = require("../functions/team/invite/removeTeamMember")
-const getTeamInfoByAccessLevel = require("../functions/team/getTeam/getTeamInfoByAccessLevel")
+const removeTeamMember = require("../functions/team/teamInvite/removeTeamMember")
+const getTeamInfoByAccessLevel = require("../functions/team/getTeam/getTeamInfoByAccessLevel/getTeamInfoByAccessLevel")
 const setTeam = require("../functions/team/setTeam/setTeam")
 const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 const updateTeam = require("../functions/team/updateTeam/updateTeam")
 
 //authentication middleware
-const checkAuth= require("../middleware/checkAuth");
+const checkAuth= require("../middleware/checkAuth/checkAuth");
 
 Router.get("/getteaminfo/:teamId", checkAuth, async (req, res) => {
     const teamId = req.params.teamId;

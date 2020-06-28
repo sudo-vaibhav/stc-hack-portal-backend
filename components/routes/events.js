@@ -3,7 +3,7 @@ const Router = express.Router()
 const multer = require("multer")
 const path = require("path")
 
-const checkAuth = require("../middleware/checkAuth")
+const checkAuth = require("../middleware/checkAuth/checkAuth")
 const getEvents = require("../functions/event/getEvents/getEvents")
 const getEventInfo = require("../functions/event/getEventInfo/getEventInfo")
 const setEvent = require("../functions/event/setEvent/setEvent")

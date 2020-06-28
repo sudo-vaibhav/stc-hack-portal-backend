@@ -17,7 +17,7 @@ app.use(cors())
 require("dotenv").config()
 
 //middleware import for authentication check
-const checkAuth= require("./components/middleware/checkAuth")
+const checkAuth= require("./components/middleware/checkAuth/checkAuth")
 
 
 //importing mongoose and connecting to database

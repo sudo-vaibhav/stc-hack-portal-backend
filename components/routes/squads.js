@@ -2,7 +2,7 @@ const Router = require("express").Router()
 
 const setSquad = require("../functions/squad/setSquad/setSquad")
 const getSquadInfo = require("../functions/squad/getSquadInfo/getSquadInfo")
-const checkAuth = require("../middleware/checkAuth")
+const checkAuth = require("../middleware/checkAuth/checkAuth")
 const cancelSquadInvite = require("../functions/squad/cancelSquadInvite/cancelSquadInvite")
 const removeSquadMember = require("../functions/squad/removeSquadMember/removeSquadMember")
 const deleteSquad = require("../functions/squad/deleteSquad/deleteSquad")
