@@ -1,7 +1,7 @@
 const Event = require("../../../models/Event")
 const getEventInfo = (req, res) => {
-    const teamId = req.params.teamId
-    Event.findById(teamId)
+    const eventId = req.params.eventId
+    Event.findById(eventId)
         .populate("creator", "name email")
         .exec((err, doc) => {
             if (doc) {

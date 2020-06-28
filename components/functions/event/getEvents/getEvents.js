@@ -1,10 +1,15 @@
 const Event = require('../../../models/Event');
-const getEvents = (req, res, next) => {
+const PER_PAGE_LIMIT = 10
+const getPaginatedData = require("../../../pagination/getPaginatedData")
+const getShareableEventDocs = require("../../event/getShareableEventDocs/getShareableEventDocs")
+const getEvents = async (req, res) => {
+  const pageNo = parseInt(req.params.pageNo)
+  documents = await getPaginatedData(Event, pageNo, PER_PAGE_LIMIT)
     Event.find()
-        .select('-__v')
+        .sort({'_id': -1})
         .exec()
         .then(docs => {
-            return res.status(200).send(docs)
+            return res.status(200).send(getShareableEventDocs(documents))
         })
         .catch(err => {
             return res.status(500).send({

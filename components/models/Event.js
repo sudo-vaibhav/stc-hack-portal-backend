@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const Team = require("../models/Team")
 const User = require("../models/User")
-const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
 
 const EventSchema = mongoose.Schema({
     _id: {

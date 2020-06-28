@@ -8,6 +8,8 @@ const removeTeamMember = require("../functions/team/invite/removeTeamMember")
 const getTeamInfoByAccessLevel = require("../functions/team/getTeam/getTeamInfoByAccessLevel")
 const setTeam = require("../functions/team/setTeam/setTeam")
 const deleteTeam = require("../functions/team/deleteTeam/deleteTeam")
+const updateTeam = require("../functions/team/updateTeam/updateTeam")
+
 //authentication middleware
 const checkAuth= require("../middleware/checkAuth");
 
@@ -37,10 +39,6 @@ Router.post("/sendinvite", checkAuth, sendTeamInvite)
 Router.post("/cancelinvite", checkAuth, cancelTeamInvite)
 Router.post("/removemember", checkAuth, removeTeamMember)
 Router.post("/deleteteam/:teamId",checkAuth, deleteTeam)
-/*Router.patch("/updateTeam/:Id",(req,res,next) => {
-  return res.status(200).json({
-    message: "Team updated"
-  })
-})
-*/
+Router.patch("/updateteam/:teamId",checkAuth, updateTeam)
+
 module.exports = Router

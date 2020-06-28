@@ -1,6 +1,7 @@
 const Team = require("../../../models/Team")
 const getUser = require("../../user/profile/getUser")
 const getEvent = require("../../event/getEvent")
+const mongoose = require("mongoose")
 const setTeam = async (req, res) => {
 
     const eventQuery = await getEvent(req.body.eventId, "byId")
