@@ -26,25 +26,12 @@ const cancelTeamInvite = async (req, res) => {
                         const invitee = inviteeQuery.payload
                         if (invitee.invites.includes(teamId)) {
                             // modify the team document
-                            const updatedPendingRequests = team.pendingRequests
-                            const indexOfInvitee = updatedPendingRequests.indexOf(inviteeId)
-                            updatedPendingRequests.splice(indexOfInvitee, 1)
-                            team.pendingRequests = updatedPendingRequests
-
+                            team.pendingRequests = team.pendingRequests.filter(pendingRequest=>pendingRequest!=inviteeId)
                             // modify the invitee document
-                            const updatedUserInvites = invitee.invites
-                            const indexOfTeam = updatedUserInvites.indexOf(teamId)
-                            updatedUserInvites.splice(indexOfTeam, 1)
-                            invitee.invites = updatedUserInvites
+                            invitee.invites = invitee.invites.filter(invite=>invite!=teamId)
 
-                            // save both documents simultaneously
-                            // (minor optimisation over separate await statements
-                            // as total time taken to save both events will be max of
-                            // time taken by individual document to save and not sum of
-                            // time taken individually to save both documents)
+                            // save both documents simultaneously in parallel
                             await Promise.all([invitee.save(), team.save()])
-
-                            // return 200 response
                             return res.status(200).send({
                                 message: "invite cancelled successfully"
                             })

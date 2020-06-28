@@ -25,14 +25,11 @@ const removeTeamMember = async (req, res) => {
                     if (team.members.includes(memberId)) {
                         //remove the memberId from the members array in the Team Schema and remove the teamId from the teams array in the User Schema and ensure that the member to be removed is not the admin
                         if (memberId != adminId) {
-                            const members = team.members
-                            members.splice(members.indexOf(memberId), 1)
-                            team.members = members
-
-                            const teams = member.teams
-                            teams.splice(teams.indexOf(teamId), 1)
-                            member.teams = teams
-
+                            
+                            //modify team and member documents
+                            team.members = team.members.filter(memberObject=>memberObject!=memberId)
+                            member.teams = member.teams.filter(teamObject=> teamObject!=teamId)
+                            
                             await Promise.all([member.save(), team.save()])
 
                             return res.status(201).send({
@@ -53,7 +50,7 @@ const removeTeamMember = async (req, res) => {
                 }
             } else {
                 return res.status(403).send({
-                    message: "You are not authorized to take such actions"
+                    message: "You are not authorized to take this action"
                 })
             }
         } else {

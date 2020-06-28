@@ -1,6 +1,4 @@
-const express = require("express")
-const Router = express.Router()
-const User =require("../../models/User/User")
+const Router = require("express").Router()
 
 //importing helper functions for simplifying operations
 const setProfile = require("../../functions/user/profile/setProfile/setProfile")
