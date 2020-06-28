@@ -27,28 +27,24 @@ const setProfile = async (req, res) => {
         skills: skills.map(skill => skill.toLowerCase().trim()) || [],
         githubLink: githubLink || "",
         stackOverflowLink: stackOverflowLink || "",
-        externalLink: externalLink || ""
+        externalLink: externalLink || "",
+        squadInvites: [],
+        teamInvites : [],
+        squads : [],
+        teams : []
     }
 
     const queryResponse = await getUser(req.userId, "byId")
 
     //if server error occured
-    if (queryResponse.status == 500) {
-        return res.status(queryResponse.status).send(queryResponse.payload)
+    if (queryResponse.status == 200) {
+        return res.status(400).send({
+            message : "User already exists, try updating the profile instead"
+        })
     } else {
-        //if user is already created previously
-        if (queryResponse.status == 200) {
-            const user = queryResponse.payload
-            user.overwrite(userData)
-            const updatedUser = await user.save()
-            return res.status(200).send(updatedUser)
-        }
-        //else if user is new 
-        else {
             const user = new User(userData)
             const newUser = await user.save()
             return res.status(200).send(newUser)
-        }
     }
 }
 

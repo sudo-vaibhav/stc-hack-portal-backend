@@ -10,9 +10,8 @@ const deleteTeam = async (req,res)=>{
         const team = teamQuery.payload
         //then check if requester is admin of that team
         if(team.creatorId === userId){
-            //then delete that team
-            delete 
-            await team.update({_id: teamId}, req.b)  // removing all mentions of that team
+            //then delete that team 
+            await team.remove()  // removing all mentions of that team
                                 // in users database will happen using post
                                 // middleware in team schema 😃
             return res.status(200).send({

@@ -1,7 +1,7 @@
 const Router = require("express").Router()
 
 //importing helper functions for simplifying operations
-const setProfile = require("../../functions/user/profile/setProfile/setProfile")
+const setUserProfile = require("../../functions/user/profile/setUserProfile/setUserProfile")
 const getProfiles = require("../../functions/user/profile/getProfiles/getProfiles")
 const acceptTeamInvite = require("../../functions/user/invites/teamInvites/acceptTeamInvite/acceptTeamInvite")
 const rejectTeamInvite = require("../../functions/user/invites/teamInvites/rejectTeamInvite/rejectTeamInvite")
@@ -13,7 +13,7 @@ const searchUserProfiles = require("../../functions/user/profile/searchUserProfi
 const getUserProfile = require("../../functions/user/profile/getUserProfile/getUserProfile")
 const updateUserProfile = require("../../functions/user/profile/updateUserProfile/updateUserProfile")
 
-Router.post("/setprofile", setProfile)
+Router.post("/setuserprofile", setUserProfile)
 Router.get("/getuserprofile", getUserProfile)
 Router.get("/getuserprofiles/:pageNo", getProfiles)
 Router.post("/acceptteaminvite", acceptTeamInvite)
