@@ -1,24 +1,10 @@
 const Event = require("../../../models/Event/Event")
 const multer = require("multer")
-
+const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 
 const updateEvent = function (req, res) {
 
-    let dataRecords = undefined
-    if (req.file) {
-        dataRecords = {
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
-            location: req.body.location,
-            description: req.body.description,
-            eventUrl: req.body.eventUrl,
-            minimumTeamSize: req.body.minimumTeamSize,
-            maximumTeamSize: req.body.maximumTeamSize,
-            eventImage: "https://hackportal.herokuapp.com/eventImage/" + req.file.filename
-        }
-    } else {
-
-        dataRecords = {
+    let dataRecords = cleanUserSuppliedInput({
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             location: req.body.location,
@@ -26,8 +12,13 @@ const updateEvent = function (req, res) {
             eventUrl: req.body.eventUrl,
             minimumTeamSize: req.body.minimumTeamSize,
             maximumTeamSize: req.body.maximumTeamSize
+    })
+    if (req.file) {
+        dataRecords = {
+            ...dataRecords,
+            eventImage: "https://hackportal.herokuapp.com/eventImage/" + req.file.filename
         }
-    }
+    } 
 
     const id = req.params.eventId
     delete req.body["_id"]

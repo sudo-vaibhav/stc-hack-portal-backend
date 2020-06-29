@@ -1,17 +1,18 @@
 const Squad = require("../../../models/Squad/Squad")
+const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 const updateSquad = async (req,res)=>{
-    const data = {...req.body}
+    let updatedData = {...req.body}
     const squadId = data.squadId
     delete data["_id"]
     delete data["creatorId"]
     delete data["members"]
     delete data["pendingRequests"]
     delete data["__v"]
-
+    updatedData = cleanUserSuppliedInput(updatedData)
     Squad.init().then(()=>{
-        Squad.update({
+        Squad.updateOne({
             _id: squadId
-        },data)
+        },updatedData)
         .exec()
         .then(result=>{
             return res.status(200).send({

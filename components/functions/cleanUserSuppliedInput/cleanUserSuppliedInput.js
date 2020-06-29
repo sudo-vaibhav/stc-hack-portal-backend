@@ -27,7 +27,9 @@ const cleanUserSuppliedInput = (data) => {
                  "endDate",
                  "location",
                  "nameOfEvent",
-                 "eventUrl"
+                 "eventUrl",
+                 "squadName",
+                 
                 ]
                 // this function should not transform ids or other important
                 //supposedly immutable data
@@ -36,7 +38,6 @@ const cleanUserSuppliedInput = (data) => {
                 }
                 break
             case "object":
-
                 //means object is array
                 if (Array.isArray(value)) {
                     

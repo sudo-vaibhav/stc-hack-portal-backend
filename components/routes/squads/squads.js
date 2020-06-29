@@ -15,6 +15,6 @@ Router.get("/getsquadinfo/:squadId", checkAuth, getSquadInfo)
 Router.post("/sendsquadinvite", checkAuth, sendSquadInvite)
 Router.post("/cancelsquadinvite", checkAuth, cancelSquadInvite)
 Router.post("/removesquadmember", checkAuth, removeSquadMember)
-Router.post("/deletesquad/:squadId", checkAuth, deleteSquad)
+Router.delete("/deletesquad/:squadId", checkAuth, deleteSquad)
 Router.patch("/updatesquad/:squadId",checkAuth, updateSquad)
 module.exports = Router

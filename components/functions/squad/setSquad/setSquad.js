@@ -1,15 +1,14 @@
 const mongoose = require("mongoose")
 const Squad = require("../../../models/Squad/Squad")
 const getUser = require("../../user/profile/getUser/getUser")
-
+const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 const setSquad = async (req,res)=>{
     const userId = req.userId
     const userQuery = await getUser(userId,"byId")
     const userStatus = userQuery.status
     if(userStatus==200){
-        let {squadName,description,skillsRequired} = req.body
+        let {squadName,description,skillsRequired} = cleanUserSuppliedInput(req.body)
         //cleaning skills required up
-        skillsRequired = skillsRequired.map(skill => skill.toLowerCase().trim())
 
         //we need to initialize the model because without it,
         //mongoose won't ensure that event name is unique even 
