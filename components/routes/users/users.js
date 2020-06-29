@@ -25,6 +25,6 @@ Router.post("/searchuserprofiles/:pageNo", searchUserProfiles)
 Router.post("/leaveteam",leaveTeam)
 Router.post("/leavesquad",leaveSquad)
 Router.patch("/updateuserprofile",updateUserProfile )
-Router.get("/signout", checkAuth, signout)
+Router.get("/signout", signout)
 
 module.exports = Router

@@ -63,7 +63,7 @@ const setTeam = async (req, res) => {
             }
 
         } else {
-            return res.status(creatorQuery.status).send(creatorQuery.message)
+            return res.status(creatorQuery.status).send(creatorQuery.payload)
         }
 
     } else {

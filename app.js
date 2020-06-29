@@ -22,7 +22,7 @@ const checkAuth= require("./components/middleware/checkAuth/checkAuth")
 
 //importing mongoose and connecting to database
 const mongoose = require("mongoose");
-
+mongoose.set('useFindAndModify', false);
 
 //for local testing use: "mongodb://127.0.0.1:27017/hackportal
 mongoose.connect(process.env.MONGODB_URI, {

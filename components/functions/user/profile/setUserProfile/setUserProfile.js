@@ -1,5 +1,6 @@
 const getUser = require("../getUser/getUser")
 const User = require("../../../../models/User/User")
+const cleanUserSuppliedInput = require("../../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 
 const setProfile = async (req, res) => {
     // extracting all the data provided about user in request body
@@ -12,22 +13,22 @@ const setProfile = async (req, res) => {
         githubLink,
         stackOverflowLink,
         externalLink
-    } = req.body
+    } = cleanUserSuppliedInput(req.body)
 
     // constructing user json object from the data for use in mongoDB document
     // by default skills will be converted to lowercase to ensure ease in searching
     // profiles by skill later
     const userData = {
         _id: req.userId,
-        name: name,
+        name: name.trim(),
         email: req.email,
-        college: college,
+        college: college.trim(),
         expectedGraduation: expectedGraduation || "",
-        bio: bio,
-        skills: skills.map(skill => skill.toLowerCase().trim()) || [],
-        githubLink: githubLink || "",
-        stackOverflowLink: stackOverflowLink || "",
-        externalLink: externalLink || "",
+        bio: bio.trim(),
+        skills: skills || [],
+        githubLink: githubLink.trim() || "",
+        stackOverflowLink: stackOverflowLink.trim() || "",
+        externalLink: externalLink.trim() || "",
         squadInvites: [],
         teamInvites : [],
         squads : [],
