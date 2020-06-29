@@ -502,13 +502,55 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/teams/deleteteam",
+					"raw": "{{url}}/teams/deleteteam/5ef649409bdc714bf5c75f0e",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"teams",
-						"deleteteam"
+            "deleteteam",
+            "5ef649409bdc714bf5c75f0e"
+					]
+				}
+			},
+			"response": []
+    },
+    {
+			"name": "update team",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authtoken",
+						"value": "{{authtoken}}",
+						"type": "text"
+					}
+        ],
+        "body": {
+					"mode": "raw",
+					"raw": "{\n    \"teamId\" : \"5ef649409bdc714bf5c75f0e\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/teams/updateteam/5ef649409bdc714bf5c75f0e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"teams",
+						"updateteam",
+						"5ef649409bdc714bf5c75f0e"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
 					]
 				}
 			},
