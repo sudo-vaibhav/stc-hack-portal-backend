@@ -17,6 +17,6 @@ Router.post("/sendinvite", checkAuth, sendTeamInvite)
 Router.post("/cancelinvite", checkAuth, cancelTeamInvite)
 Router.post("/removemember", checkAuth, removeTeamMember)
 Router.post("/deleteteam/:teamId",checkAuth, deleteTeam)
-Router.patch("/updateteam/:teamId",checkAuth, updateTeam)
+Router.post("/updateteam/:teamId",checkAuth, updateTeam)
 
 module.exports = Router

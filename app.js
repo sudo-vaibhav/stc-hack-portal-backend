@@ -22,7 +22,7 @@ const checkAuth= require("./components/middleware/checkAuth/checkAuth")
 
 //importing mongoose and connecting to database
 const mongoose = require("mongoose");
-
+mongoose.set('useFindAndModify', false);
 
 //for local testing use: "mongodb://127.0.0.1:27017/hackportal
 mongoose.connect("mongodb://localhost/rest_apitrial",{useNewUrlParser: true, useUnifiedTopology: true});
@@ -50,9 +50,6 @@ db.once('open', function () {
     app.use("/squads", require("./components/routes/squads/squads"))
 
 });
-
-//route for handling signout requests
-app.use("/signout", checkAuth, require("./components/routes/signout/signout"))
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

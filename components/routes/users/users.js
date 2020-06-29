@@ -12,6 +12,7 @@ const rejectSquadInvite = require("../../functions/user/invites/squadInvites/rej
 const searchUserProfiles = require("../../functions/user/profile/searchUserProfiles/searchUserProfiles")
 const getUserProfile = require("../../functions/user/profile/getUserProfile/getUserProfile")
 const updateUserProfile = require("../../functions/user/profile/updateUserProfile/updateUserProfile")
+const signout = require("../../functions/user/signout/signout")
 
 Router.post("/setuserprofile", setUserProfile)
 Router.get("/getuserprofile", getUserProfile)
@@ -24,5 +25,6 @@ Router.post("/searchuserprofiles/:pageNo", searchUserProfiles)
 Router.post("/leaveteam",leaveTeam)
 Router.post("/leavesquad",leaveSquad)
 Router.patch("/updateuserprofile",updateUserProfile )
+Router.get("/signout", signout)
 
 module.exports = Router
