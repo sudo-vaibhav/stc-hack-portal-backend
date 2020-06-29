@@ -17,7 +17,7 @@ const fileFilter = require("../../functions/upload/fileFilter/fileFilter")
 Router.get('/getevents/:pageNo', getEvents)
 Router.get("/geteventinfo/:eventId", getEventInfo)
 Router.post("/setevent", checkAuth, fileUpload.single('eventImage'),setEvent)
-Router.post('/updateevent/:Id', checkAuth, fileUpload.single("eventImage"),updateEvent)
-Router.delete('/deleteevent/:Id', checkAuth,deleteEvent)
+Router.post('/updateevent/:eventId', checkAuth, fileUpload.single("eventImage"),updateEvent)
+Router.delete('/deleteevent/:eventId', checkAuth,deleteEvent)
 
 module.exports = Router

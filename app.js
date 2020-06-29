@@ -25,6 +25,7 @@ const mongoose = require("mongoose");
 
 
 //for local testing use: "mongodb://127.0.0.1:27017/hackportal
+mongoose.connect("mongodb://localhost/rest_apitrial",{useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

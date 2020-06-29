@@ -4,7 +4,7 @@ const fs = require("fs")
 const path = require("path")
 
 const deleteEvent= async (req, res) => {
-  const id = req.params.Id
+  const id = req.params.eventId
   Event.findById(id).then(async (event) => {
       if (!event) {
           return res.status(404).send({

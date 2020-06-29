@@ -29,7 +29,7 @@ const updateEvent = function (req, res) {
         }
     }
 
-    const id = req.params.Id
+    const id = req.params.eventId
     delete req.body["_id"]
     delete req.body["creatorId"]
 
