@@ -1,7 +1,8 @@
 const getSquad = require("../../../../squad/getSquad/getSquad")
 const getUser = require("../../../profile/getUser/getUser")
 const acceptSquadInvite = async (req, res) => {
-    const squadId = req.body.squadId
+    
+    const squadId = req.params.squadId
     const userId = req.userId
 
     //check if squad exists
@@ -42,7 +43,7 @@ const acceptSquadInvite = async (req, res) => {
             }
             else{
                 return res.status(400).send({
-                    message: "No invite found for this team"
+                    message: "No invite found for this squad"
                 })
             }
 

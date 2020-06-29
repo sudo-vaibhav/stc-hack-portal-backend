@@ -2,12 +2,12 @@ const Squad = require("../../../models/Squad/Squad")
 const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 const updateSquad = async (req,res)=>{
     let updatedData = {...req.body}
-    const squadId = data.squadId
-    delete data["_id"]
-    delete data["creatorId"]
-    delete data["members"]
-    delete data["pendingRequests"]
-    delete data["__v"]
+    const squadId = updatedData.squadId
+    delete updatedData["_id"]
+    delete updatedData["creatorId"]
+    delete updatedData["members"]
+    delete updatedData["pendingRequests"]
+    delete updatedData["__v"]
     updatedData = cleanUserSuppliedInput(updatedData)
     Squad.init().then(()=>{
         Squad.updateOne({
