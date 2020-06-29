@@ -2,9 +2,7 @@ const getSquad = require("../../../../squad/getSquad/getSquad")
 const getUser = require("../../../profile/getUser/getUser")
 const rejectSquadInvite = async (req,res)=>{
     const inviteeId = req.userId
-    const {
-        squadId
-    } = req.body
+    const squadId = req.params.squadId
 
     //first check if squad exists
     const squadQuery = await getSquad(squadId,"byId")

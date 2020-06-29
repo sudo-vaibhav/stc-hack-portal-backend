@@ -1,7 +1,7 @@
 const getTeam = require("../../team/getTeam/getTeam")
 const getUser = require("../../user/profile/getUser/getUser")
 const leaveTeam = async (req, res) => {
-    const teamId = req.body.teamId
+    const teamId = req.params.teamId
     const userId = req.userId
 
     //first get the team

@@ -4,7 +4,7 @@ const getUser = require("../../../profile/getUser/getUser")
 const Team  = require("../../../../../models/Team/Team")
 const getEvent = require("../../../../event/getEvent/getEvent")
 const acceptInvite = async (req, res) => {
-    const teamId = req.body.teamId
+    const teamId = req.params.teamId
     //to check if user exists
     const inviteeQuery = await getUser(req.userId, "byId")
     //to check if team exists

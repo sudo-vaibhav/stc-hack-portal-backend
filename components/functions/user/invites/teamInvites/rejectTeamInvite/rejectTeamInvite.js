@@ -3,11 +3,7 @@ const getUser = require("../../../profile/getUser/getUser")
 
 const rejectTeamInvite = async (req, res) => {
     const inviteeId = req.userId
-    const {
-        teamId
-    } = req.body
-
-
+    const teamId = req.params.teamId
     const inviteeQuery = await getUser(inviteeId, "byId")
     //first check that team exists
     const teamQuery = await getTeam(teamId, "byId")

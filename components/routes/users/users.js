@@ -16,15 +16,21 @@ const signout = require("../../functions/user/signout/signout")
 
 Router.post("/setuserprofile", setUserProfile)
 Router.get("/getuserprofile", getUserProfile)
-Router.get("/getuserprofiles/:pageNo", getProfiles)
-Router.post("/acceptteaminvite", acceptTeamInvite)
-Router.post("/rejectteaminvite", rejectTeamInvite)
-Router.patch("/acceptsquadinvite/:squadId", acceptSquadInvite)
-Router.post("/rejectsquadinvite",rejectSquadInvite)
-Router.post("/searchuserprofiles/:pageNo", searchUserProfiles)
-Router.post("/leaveteam",leaveTeam)
-Router.post("/leavesquad",leaveSquad)
 Router.patch("/updateuserprofile",updateUserProfile )
+
+Router.patch("/acceptteaminvite/:teamId", acceptTeamInvite)
+Router.patch("/rejectteaminvite/:teamId", rejectTeamInvite)
+Router.patch("/leaveteam/:teamId",leaveTeam)
+
+Router.patch("/acceptsquadinvite/:squadId", acceptSquadInvite)
+Router.patch("/rejectsquadinvite/:squadId",rejectSquadInvite)
+Router.patch("/leavesquad/:squadId",leaveSquad)
+
+
+Router.get("/getuserprofiles/:pageNo", getProfiles)
+Router.post("/searchuserprofiles/:pageNo", searchUserProfiles)
+
+
 Router.get("/signout", signout)
 
 module.exports = Router

@@ -2,7 +2,7 @@ const getUser = require("../../user/profile/getUser/getUser")
 const getSquad = require("../../squad/getSquad/getSquad")
 
 const leaveSquad = async (req,res)=>{
-    const squadId = req.body.squadId
+    const squadId = req.params.squadId
     const userId = req.userId
 
     //check if squad exists
