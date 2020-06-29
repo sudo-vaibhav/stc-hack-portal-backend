@@ -2,6 +2,7 @@ const Team = require("../../../models/Team/Team")
 const getUser = require("../../user/profile/getUser/getUser")
 const getEvent = require("../../event/getEvent/getEvent")
 const mongoose = require("mongoose")
+const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 const setTeam = async (req, res) => {
 
     const eventQuery = await getEvent(req.body.eventId, "byId")
@@ -31,14 +32,21 @@ const setTeam = async (req, res) => {
                                 message: "You already have a team for the same event"
                             })
                         } else {
+
+                            const teamData = cleanUserSuppliedInput({
+                                teamName: req.body.teamName,
+                                eventId : req.body.eventId,
+                                description: req.body.description,
+                                skillsRequired: req.body.skillsRequired
+                            })
                             const team = new Team({
                                 _id: new mongoose.Types.ObjectId().toString(),
                                 creatorId: req.userId,
-                                teamName: req.body.teamName,
-                                eventId: req.body.eventId,
-                                description: req.body.description,
+                                teamName: teamData.teamName,
+                                eventId: teamData.eventId,
+                                description: teamData.description,
                                 members: [req.userId],
-                                skillsRequired: req.body.skillsRequired || [],
+                                skillsRequired:  teamData.skillsRequired || [],
                                 pendingRequests: []
                             })
                             team.save()

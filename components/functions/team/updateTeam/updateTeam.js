@@ -8,7 +8,6 @@ const updateTeam = async (req, res) => {
     const teamId = req.params.teamId
     const teamQuery = await getTeam(teamId, "byId")
     const teamStatus = teamQuery.status
-    console.log("req.body", req.body)
     const inputData = {
         ...req.body
     }
@@ -17,7 +16,6 @@ const updateTeam = async (req, res) => {
     delete inputData["eventId"]
     delete inputData["members"]
     delete inputData["pendingRequests"]
-    console.log("inputData", inputData)
     const updatedTeamData = cleanUserSuppliedInput(inputData)
     //check if team exists
     if (teamQuery.status == 200) {

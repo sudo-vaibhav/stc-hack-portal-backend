@@ -4,19 +4,29 @@ const multer = require("multer")
 const fileUpload = require("../../upload/fileUpload/fileUpload")
 const fileStorage= require("../../upload/fileStorage/fileStorage")
 const fileFilter = require("../../upload/fileFilter/fileFilter")
-
+const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 const setEvent= async (req, res) => {
   console.log(req.file)
   const {
-      startDate,
       endDate,
+      startDate,
       location,
       nameOfEvent,
       description,
       eventUrl,
       minimumTeamSize,
-      maximumTeamSize,
+      maximumTeamSize
   } = req.body
+  const eventData = cleanUserSuppliedInput({
+    endDate,
+    startDate,
+    location,
+    nameOfEvent,
+    description,
+    eventUrl,
+    minimumTeamSize,
+    maximumTeamSize
+  })
   //we need to initialize the model because without it,
   //mongoose won't ensure that event name is unique even 
   //after you tell it that unique:true  in Event schema 😕
@@ -28,14 +38,14 @@ const setEvent= async (req, res) => {
        event = new Event({
           _id: new mongoose.Types.ObjectId().toString(),
           creatorId: req.userId,
-          startDate: startDate,
-          endDate: endDate,
-          location: location,
-          nameOfEvent: nameOfEvent,
-          description: description,
-          eventUrl: eventUrl,
-          minimumTeamSize: minimumTeamSize,
-          maximumTeamSize: maximumTeamSize,
+          startDate: eventData.startDate,
+          endDate: eventData.endDate,
+          location: eventData.location,
+          nameOfEvent: eventData.nameOfEvent,
+          description: eventData.description,
+          eventUrl: eventData.eventUrl,
+          minimumTeamSize: eventData.minimumTeamSize,
+          maximumTeamSize: eventData.maximumTeamSize,
           eventImage: "https://hackportal.herokuapp.com/eventImage/" + req.file.filename
       })}
       else 
