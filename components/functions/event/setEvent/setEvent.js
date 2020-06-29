@@ -41,7 +41,7 @@ const setEvent= async (req, res) => {
       else 
       {
         return res.status(404).send({
-          message: "Hey!, This error could be a result of any of the mistakes you have made- 1. You have not uploaded an Image  2. You have not uploaded the correct Image Format(only JPEG,JPG,SVG and PNG are allowed)  3. Your Image Size is greater than 6MB"
+          message: "Image not provided or not allowed due to format/size issues"
         })
       }
       event
