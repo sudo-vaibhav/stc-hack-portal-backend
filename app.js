@@ -50,9 +50,6 @@ db.once('open', function () {
 
 });
 
-//route for handling signout requests
-app.use("/signout", checkAuth, require("./components/routes/signout/signout"))
-
 const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log(`server started on port ${port}`)
