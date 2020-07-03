@@ -47,7 +47,11 @@ const cleanUserSuppliedInput = (data) => {
                         //supposedly immutable data
                         const cleanableFieldNames = ["skills", "skillsRequired"]
                         if(cleanableFieldNames.includes(key)){
-                            cleanedData[key] = value.map(item => item.trim().toLowerCase()).filter(item => item != "")
+                            // 1) trimming unnecessary white space
+                            // 2) making everything lowercase
+                            // 3) removing empty strings
+                            // 4) making sure skills are unique and not repeated
+                            cleanedData[key] = [... new Set(value.map(item => item.trim().toLowerCase()).filter(item => item != ""))]
                         }
                     }
                 } 
