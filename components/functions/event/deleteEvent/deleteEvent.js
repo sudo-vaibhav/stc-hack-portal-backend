@@ -2,8 +2,13 @@ const Event = require("../../../models/Event/Event")
 const multer = require("multer")
 const fs = require("fs")
 const path = require("path")
+const fileUpload = require("../../upload/fileUpload/fileUpload")
+const fileLimit = require("../../upload/fileFilter/fileFilter")
+const fileStorage = require("../../upload/fileStorage/fileStorage")
 
-const deleteEvent= async (req, res) => {
+
+
+const deleteEvent= async (req,res) => {
   const id = req.params.eventId
   Event.findById(id).then(async (event) => {
       if (!event) {
@@ -13,6 +18,13 @@ const deleteEvent= async (req, res) => {
       }
 
       if (event.creatorId === req.userId) {
+        fs.unlink("public\\uploads\\eventUpload\\"+event.eventImage.substr(44, ),(err) => {
+          if(err){
+            return res.status(404).send({
+              message: "File Not deleted"
+            })
+          }
+         })
           await event.remove()
           return res.status(200).send({
               message: "Event deleted Successfully"

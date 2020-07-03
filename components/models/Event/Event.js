@@ -43,7 +43,7 @@ const EventSchema = mongoose.Schema({
     },
     eventImage: {
       type: String,
-      required: (true," ")
+      required: true
     }
 },{
   id: false
