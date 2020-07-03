@@ -24,6 +24,7 @@ const deleteEvent= async (req,res) => {
               message: "File Not deleted"
             })
           }
+          console.log("image of the event removed")
          })
           await event.remove()
           return res.status(200).send({
