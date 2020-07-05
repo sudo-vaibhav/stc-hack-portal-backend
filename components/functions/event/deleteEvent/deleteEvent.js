@@ -18,8 +18,9 @@ const deleteEvent= async (req,res) => {
       }
 
       if (event.creatorId === req.userId) {
-        fs.unlink("public\\uploads\\eventUpload\\"+event.eventImage.substr(44, ),(err) => {
+        fs.unlink("public/uploads/eventUpload/"+event.eventImage.substr(44, ),(err) => {
           if(err){
+            console.log("Error in deleting file")
             return res.status(404).send({
               message: "File Not deleted"
             })
