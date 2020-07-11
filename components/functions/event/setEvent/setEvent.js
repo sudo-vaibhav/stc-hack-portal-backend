@@ -1,9 +1,5 @@
 const Event = require("../../../models/Event/Event");
 const mongoose = require("mongoose");
-// const multer = require("multer")
-// const fileUpload = require("../../upload/fileUpload/fileUpload")
-// const fileStorage= require("../../upload/fileStorage/fileStorage")
-// const fileFilter = require("../../upload/fileFilter/fileFilter")
 const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput");
 const setEvent = async (req, res) => {
   const {
