@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 // const fileFilter = require("../../upload/fileFilter/fileFilter")
 const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput");
 const setEvent = async (req, res) => {
-  console.log(req.file);
   const {
     endDate,
     startDate,
@@ -28,7 +27,6 @@ const setEvent = async (req, res) => {
     minimumTeamSize,
     maximumTeamSize,
     eventImage,
-    m,
   });
   //we need to initialize the model because without it,
   //mongoose won't ensure that event name is unique even
@@ -54,9 +52,8 @@ const setEvent = async (req, res) => {
         return res.status(200).send(result);
       })
       .catch((err) => {
-        console.log(err);
         return res.status(400).send({
-          message: "Event validation failed",
+          message: "Event name not unique or Event validation failed",
         });
       });
   });
