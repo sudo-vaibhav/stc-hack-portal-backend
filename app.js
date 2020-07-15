@@ -3,9 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 
 //for parsing various types of requests
-app.use( bodyParser.json({limit: '50mb'}) );
+app.use( bodyParser.json({limit: '6mb'}) );
 app.use(bodyParser.urlencoded({
-  limit: '50mb',
+  limit: '6mb',
   extended: true,
   parameterLimit:50000
 }));
