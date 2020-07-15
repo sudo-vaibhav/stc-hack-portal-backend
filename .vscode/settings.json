@@ -4,6 +4,6 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/e13c7b0d-1c8f-45e1-8bcc-7292cbcb4738/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/hackportal",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/e13c7b0d-1c8f-45e1-8bcc-7292cbcb4738/resourceGroups/hackportal-india-resource-group/providers/Microsoft.Web/sites/hackportal"
 }
