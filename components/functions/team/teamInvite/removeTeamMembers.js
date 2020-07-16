@@ -20,27 +20,29 @@ const removeTeamMembers = async (req, res) => {
         //check whether the user to be removed exists
         try {
           if (!memberIdsToRemove.includes(adminId)) {
-            memberIdsToRemove.forEach(async (memberId) => {
-              const memberQuery = await getUser(memberId, "byId");
-              if (memberQuery.status == 200) {
-                //check whether the members of the team include the user to be removed
+            const userDocsToAwait = memberIdsToRemove
+              //removing those ids that are not in team
+              .filter((memberId) => team.members.includes(memberId))
+              .map(async (memberId) => {
+                const memberQuery = await getUser(memberId, "byId");
                 const member = memberQuery.payload;
-                if (team.members.includes(memberId)) {
-                  //modify team and member documents
-                  team.members = team.members.filter(
-                    (memberObject) => memberObject != memberId
-                  );
-                  member.teams = member.teams.filter(
-                    (teamObject) => teamObject != teamId
-                  );
 
-                  await Promise.all([member.save(), team.save()]);
+                //modify team and member documents
+                team.members = team.members.filter(
+                  (memberObject) => memberObject != memberId
+                );
+                member.teams = member.teams.filter(
+                  (teamObject) => teamObject != teamId
+                );
 
-                  return res.status(201).send({
-                    message: "User has been removed from the team",
-                  });
-                }
-              }
+                return member.save();
+              });
+
+            console.log("team is ", team);
+            await Promise.all(userDocsToAwait);
+            await team.save();
+            return res.status(200).send({
+              message: "Users have been removed from the team",
             });
           } else {
             return res.status(400).send({
