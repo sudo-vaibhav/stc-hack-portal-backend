@@ -38,7 +38,6 @@ const removeTeamMembers = async (req, res) => {
                 return member.save();
               });
 
-            console.log("team is ", team);
             await Promise.all(userDocsToAwait);
             await team.save();
             return res.status(200).send({
