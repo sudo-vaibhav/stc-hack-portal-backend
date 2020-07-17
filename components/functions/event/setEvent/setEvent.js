@@ -2,27 +2,9 @@ const Event = require("../../../models/Event/Event");
 const mongoose = require("mongoose");
 const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput");
 const setEvent = async (req, res) => {
-  const {
-    endDate,
-    startDate,
-    location,
-    nameOfEvent,
-    description,
-    eventUrl,
-    minimumTeamSize,
-    maximumTeamSize,
-    eventImage,
-  } = req.body;
   const eventData = cleanUserSuppliedInput({
-    endDate,
-    startDate,
-    location,
-    nameOfEvent,
-    description,
-    eventUrl,
-    minimumTeamSize,
-    maximumTeamSize,
-    eventImage,
+    ...req.body,
+    creatorId: req.userId,
   });
   //we need to initialize the model because without it,
   //mongoose won't ensure that event name is unique even
@@ -30,17 +12,8 @@ const setEvent = async (req, res) => {
   //read more about it here: https://mongoosejs.com/docs/faq.html#unique-doesnt-work
   Event.init().then(() => {
     const event = new Event({
+      ...eventData,
       _id: new mongoose.Types.ObjectId().toString(),
-      creatorId: req.userId,
-      startDate: eventData.startDate,
-      endDate: eventData.endDate,
-      location: eventData.location,
-      nameOfEvent: eventData.nameOfEvent,
-      description: eventData.description,
-      eventUrl: eventData.eventUrl,
-      minimumTeamSize: eventData.minimumTeamSize,
-      maximumTeamSize: eventData.maximumTeamSize,
-      eventImage: eventData.eventImage,
     });
     event
       .save()

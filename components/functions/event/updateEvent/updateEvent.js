@@ -2,16 +2,10 @@ const Event = require("../../../models/Event/Event");
 const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput");
 
 const updateEvent = function (req, res) {
-  let dataRecords = cleanUserSuppliedInput({
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    location: req.body.location,
-    description: req.body.description,
-    eventUrl: req.body.eventUrl,
-    minimumTeamSize: req.body.minimumTeamSize,
-    maximumTeamSize: req.body.maximumTeamSize,
-    eventImage: req.body.eventImage,
-  });
+  const eventData = req.body;
+  delete eventData["_id"];
+  delete eventData["creatorId"];
+  let dataRecords = cleanUserSuppliedInput(eventData);
 
   const id = req.params.eventId;
 
