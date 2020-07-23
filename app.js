@@ -2,24 +2,25 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-//for parsing various types of requests
-app.use( bodyParser.json({limit: '6mb'}) );
-app.use(bodyParser.urlencoded({
-  limit: '6mb',
-  extended: true,
-  parameterLimit:50000
-}));
-
+//for accessing secret variables
+require("dotenv").config();
 
 // for allowing front end to send requests to api
 const cors = require("cors");
 app.use(cors());
 
-//for accessing secret variables
-require("dotenv").config();
-
 //middleware import for authentication check
 const checkAuth = require("./components/middleware/checkAuth/checkAuth");
+
+//for parsing various types of requests
+app.use(bodyParser.json({ limit: "6mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "6mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 
 //importing mongoose and connecting to database
 const mongoose = require("mongoose");
