@@ -2,7 +2,9 @@ const PER_PAGE_LIMIT = 5;
 const getPaginatedData = require("../../../../pagination/getPaginatedData/getPaginatedData");
 const User = require("../../../../models/User/User");
 const searchUserProfiles = async (req, res) => {
+  console.log("getting search requests");
   const { skills } = req.body;
+  console.log("skills:", skills);
   const pageNo = parseInt(req.params.pageNo);
   const docs = await getPaginatedData(
     User,
