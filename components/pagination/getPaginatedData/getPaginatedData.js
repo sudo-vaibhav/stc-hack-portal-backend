@@ -11,9 +11,9 @@ const getPaginatedData = async (
   // page query instead of double scanning for each query
   // a smart optimisation suggested by @NavdeepChawla
   if (pageNumber == 1) {
-    paginatedDataInfo.totalPageCount = Math.ceil(
-      (await Model.find(queryConditions).count()) / perPageLimit
-    );
+    const totalCount = await Model.find(queryConditions).count();
+    paginatedDataInfo.totalPageCount = Math.ceil(totaCount / perPageLimit);
+    paginatedDataInfo.totalCount = totalCount;
   }
 
   paginatedDataInfo.documents = await Model.find(queryConditions)
