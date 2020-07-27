@@ -12,7 +12,7 @@ const getPaginatedData = async (
   // a smart optimisation suggested by @NavdeepChawla
   if (pageNumber == 1) {
     const totalCount = await Model.find(queryConditions).count();
-    paginatedDataInfo.totalPageCount = Math.ceil(totaCount / perPageLimit);
+    paginatedDataInfo.totalPageCount = Math.ceil(totalCount / perPageLimit);
     paginatedDataInfo.totalCount = totalCount;
   }
 
