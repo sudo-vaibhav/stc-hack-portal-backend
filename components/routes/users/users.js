@@ -15,9 +15,9 @@ const updateUserProfile = require("../../functions/user/profile/updateUserProfil
 const getUserById = require("../../functions/user/profile/getUserById/getUserById");
 const signout = require("../../functions/user/signout/signout");
 
-Router.post("/setuserprofile", setUserProfile);
-Router.get("/getuserprofile", getUserProfile);
-Router.patch("/updateuserprofile", updateUserProfile);
+Router.post("/", setUserProfile);
+Router.get("/", getUserProfile);
+Router.patch("/", updateUserProfile);
 
 Router.patch("/acceptteaminvite/:teamId", acceptTeamInvite);
 Router.patch("/rejectteaminvite/:teamId", rejectTeamInvite);
