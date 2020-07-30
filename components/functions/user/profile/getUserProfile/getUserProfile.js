@@ -1,6 +1,7 @@
 const getUser = require("../getUser/getUser");
 const populateUserWithTeamsAndSquadInfo = require("../populateUserWithTeamAndSquadInfo/populateUserWithTeamAndSquadInfo");
 const getUserProfile = async (req, res) => {
+  console.log("user id:", req.userId);
   const responseData = await getUser(req.userId, "byId");
   const statusCode = responseData.status;
   const payload = responseData.payload;

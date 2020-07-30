@@ -26,9 +26,15 @@ const checkAuth = (req, res, next) => {
       .verifyIdToken(req.headers.authtoken)
       .then((decodedToken) => {
         console.log("decoded token", decodedToken);
-        req.userId = decodedToken.user_id;
-        req.email = decodedToken.email;
-        next();
+        if (decodedToken.email_verified) {
+          req.userId = decodedToken.user_id;
+          req.email = decodedToken.email;
+          next();
+        } else {
+          return res.status(403).send({
+            message: "email not verified",
+          });
+        }
       })
       .catch(() => {
         console.log("some problem with token. Unable to decode");
