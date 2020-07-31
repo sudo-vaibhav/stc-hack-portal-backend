@@ -1,8 +1,8 @@
-const getUser = require("../getUser/getUser")
+//const getUser = require("../getUser/getUser")
 const User = require("../../../../models/User/User")
 const cleanUserSuppliedInput = require("../../../cleanUserSuppliedInput/cleanUserSuppliedInput")
 
-const setProfile = async (req, res) => {
+const setProfile =  (req, res) => {
     // extracting all the data provided about user in request body
     const {
         bio,
@@ -35,7 +35,7 @@ const setProfile = async (req, res) => {
         teams : []
     }
 
-    const queryResponse = await getUser(req.userId, "byId")
+    /*const queryResponse = await getUser(req.userId, "byId")
 
     //if server error occured
     if (queryResponse.status == 200) {
@@ -47,6 +47,24 @@ const setProfile = async (req, res) => {
             const newUser = await user.save()
             return res.status(200).send(newUser)
     }
+}*/
+User.init().then(() => {
+  const user = new User(userData);
+  user
+    .save()
+    .then((result) => {
+      return res.status(200).send(result);
+    })
+    .catch((err) => {
+      return res.status(400).send({
+        message: "User credentials not unique or User validation failed",
+      });
+    });
+}).catch((err) => {
+  return res.status(400).send({
+    message: "User already exists, try updating the profile instead!"
+  })
+});
 }
 
 module.exports = setProfile
