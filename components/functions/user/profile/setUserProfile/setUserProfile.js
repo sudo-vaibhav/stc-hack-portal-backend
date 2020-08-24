@@ -40,7 +40,7 @@ const setProfile = async (req, res) => {
     //if server error occured
     if (queryResponse.status == 200) {
         return res.status(400).send({
-            message : "User already exists, try updating the profile instead"
+            message : "User already exists, try updating the profile or check your input details!"
         })
     } else {
             const user = new User(userData)
