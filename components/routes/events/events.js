@@ -9,7 +9,7 @@ const updateEvent = require("../../functions/event/updateEvent/updateEvent");
 const deleteEvent = require("../../functions/event/deleteEvent/deleteEvent");
 
 Router.get("/getevents/:pageNo", getEvents);
-Router.get("/geteventinfo/:eventId", getEventInfo);
+Router.get("/geteventinfo/:eventId", checkAuth, getEventInfo);
 Router.post("/setevent", checkAuth, setEvent);
 Router.patch("/updateevent/:eventId", checkAuth, updateEvent);
 Router.delete("/deleteevent/:eventId", checkAuth, deleteEvent);

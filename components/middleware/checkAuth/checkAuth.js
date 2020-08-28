@@ -29,7 +29,7 @@ const checkAuth = (req, res, next) => {
         if (decodedToken.email_verified) {
           req.userId = decodedToken.user_id;
           req.email = decodedToken.email;
-          next();
+          return next();
         } else {
           return res.status(403).send({
             message: "email not verified",

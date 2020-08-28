@@ -7,7 +7,7 @@ const getEvents = async (req, res) => {
     Event,
     pageNo,
     PER_PAGE_LIMIT,
-    "-__v"
+    "-__v -eventImage -minimumTeamSize -maximumTeamSize -eventUrl"
   );
   return res.status(200).send(documents);
 };
