@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const EventPostRemove = require("./EventMiddleware/EventPostRemove/EventPostRemove");
+const eventPostValidation = require("./EventMiddleware/EventPostValidation/eventPostValidation");
 const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
 
 const EventSchema = mongoose.Schema(
@@ -13,13 +14,14 @@ const EventSchema = mongoose.Schema(
       required: true,
     },
     startDate: {
-      type: Date,
-      required: true
+      type: String,
+      required: true,
+      validate:dateRegex
     },
     endDate: {
-      type: Date,
+      type: String,
       required: true,
-      validate: [dateValidation,'Start Date must be less than End Date!']
+      validate:dateRegex
     },
     location: {
       type: String,
@@ -65,18 +67,8 @@ EventSchema.virtual("creator", {
 
 EventSchema.post("remove", EventPostRemove);
 
-function dateValidation (value) {
-  if (this.startDate > this.endDate) {
-    this.invalidate('startDate', 'Start date must be less than end date.', this.startDate);
-  }
-}
+EventSchema.post("validate",eventPostValidation);
 
 
-/*EventSchema.post('validate', function (value) {
-  if (this.startDate > this.endDate) {
-    this.invalidate('startDate', 'Start date must be less than end date.', this.startDate);
-  }
-  next();
-});*/
 
 module.exports = mongoose.model("Event", EventSchema);
