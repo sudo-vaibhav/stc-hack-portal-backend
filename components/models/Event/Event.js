@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const EventPostRemove = require("./EventMiddleware/EventPostRemove/EventPostRemove");
+const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
 
 const EventSchema = mongoose.Schema(
   {
@@ -14,12 +15,12 @@ const EventSchema = mongoose.Schema(
     startDate: {
       type: Date,
       required: true,
-      validate: /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/,
+      validate: dateRegex
     },
     endDate: {
       type: Date,
       required: true,
-      validate: /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/,
+      validate: [dateValidation,'Start Date must be less than End Date!']
     },
     location: {
       type: String,
@@ -65,11 +66,23 @@ EventSchema.virtual("creator", {
 
 EventSchema.post("remove", EventPostRemove);
 
-EventSchema.post('validate', function (value) {
+function dateValidation(value){
+  if (dateRegex.test(value))
+        {
+          if(this.startDate <= value){
+            this.invalidate('value', 'start date must be less than end value');
+          }
+        }
+        else{
+          next();
+        }
+}
+
+/*EventSchema.post('validate', function (value) {
   if (this.startDate > this.endDate) {
     this.invalidate('startDate', 'Start date must be less than end date.', this.startDate);
   }
   next();
-});
+});*/
 
 module.exports = mongoose.model("Event", EventSchema);
