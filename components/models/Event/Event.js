@@ -14,8 +14,7 @@ const EventSchema = mongoose.Schema(
     },
     startDate: {
       type: Date,
-      required: true,
-      validate: [dateValidation,'Start Date must be less than End Date!']
+      required: true
     },
     endDate: {
       type: Date,
@@ -67,7 +66,7 @@ EventSchema.virtual("creator", {
 EventSchema.post("remove", EventPostRemove);
 
 function dateValidation (value) {
-  return value.startDate <= value.endDate;
+  return this.startDate <= value;
 }
 
 
