@@ -39,7 +39,7 @@ const EventSchema = mongoose.Schema(
     },
     minimumTeamSize: {
       type: Number,
-      required: true,
+      required: true
     },
     maximumTeamSize: {
       type: Number,
@@ -66,7 +66,9 @@ EventSchema.virtual("creator", {
 EventSchema.post("remove", EventPostRemove);
 
 function dateValidation (value) {
-  return this.startDate <= value;
+  if (this.startDate > this.endDate) {
+    this.invalidate('startDate', 'Start date must be less than end date.', this.startDate);
+  }
 }
 
 
