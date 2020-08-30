@@ -54,7 +54,7 @@ db.once("open", async function () {
   app.use("/squads", require("./components/routes/squads/squads"));
 
   app.use((err, req, res, next) => {
-    console.log(err.message);
+    console.log(err);
     return res.status(400).send({
       message: err.message,
     });
