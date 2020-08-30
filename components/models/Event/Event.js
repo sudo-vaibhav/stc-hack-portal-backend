@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const EventPostRemove = require("./EventMiddleware/EventPostRemove/EventPostRemove");
+const EventPostValidate = require("./EventMiddleware/EventPostValidate/EventPostValidate");
 const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
 
 const EventSchema = mongoose.Schema(
@@ -11,15 +12,17 @@ const EventSchema = mongoose.Schema(
     creatorId: {
       type: String,
       required: true,
+      immutable: true,
     },
     startDate: {
-      type: Date,
+      type: String,
       required: true,
+      validate: dateRegex,
     },
     endDate: {
-      type: Date,
+      type: String,
       required: true,
-      //   validate: [dateValidation,'Start Date must be less than End Date!']
+      validate: dateRegex,
     },
     location: {
       type: String,
@@ -32,10 +35,12 @@ const EventSchema = mongoose.Schema(
     },
     description: {
       type: String,
+      required: true,
+      default: "",
     },
     eventUrl: {
       type: String,
-      validate: /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$/,
+      validate: /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})?$/,
     },
     minimumTeamSize: {
       type: Number,
@@ -48,6 +53,8 @@ const EventSchema = mongoose.Schema(
     eventImage: {
       type: String,
       required: true,
+      default: "",
+      validate: /^data:image\/[^;]+;base64[^"]+$/,
     },
   },
   {
@@ -64,22 +71,6 @@ EventSchema.virtual("creator", {
 });
 
 EventSchema.post("remove", EventPostRemove);
-
-function dateValidation(value) {
-  if (this.startDate > this.endDate) {
-    this.invalidate(
-      "startDate",
-      "Start date must be less than end date.",
-      this.startDate
-    );
-  }
-}
-
-/*EventSchema.post('validate', function (value) {
-  if (this.startDate > this.endDate) {
-    this.invalidate('startDate', 'Start date must be less than end date.', this.startDate);
-  }
-  next();
-});*/
+EventSchema.post("validate", EventPostValidate);
 
 module.exports = mongoose.model("Event", EventSchema);

@@ -1,6 +1,4 @@
-const getUser = require("../getUser/getUser");
 const User = require("../../../../models/User/User");
-const cleanUserSuppliedInput = require("../../../cleanUserSuppliedInput/cleanUserSuppliedInput");
 
 const setProfile = async (req, res, next) => {
   // constructing user json object from the data for use in mongoDB document
