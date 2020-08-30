@@ -60,8 +60,10 @@ const sendTeamInvite = async (req, res, next) => {
                       } else {
                         //means user is already in some other team for the same event
                         if (otherTeamofInvitee) {
-                          new Error(
-                            "Invitee is already in another team for the same Event"
+                          next(
+                            new Error(
+                              "Invitee is already in another team for the same Event"
+                            )
                           );
                         } else {
                           //now you have passed all checks and can invite the invitee to your team
@@ -69,12 +71,12 @@ const sendTeamInvite = async (req, res, next) => {
                           //here team represents that team in which you originally wanted
                           // to invite the user in
                           let pendingRequests = team.pendingRequests;
-                          pendingRequests.push(invitee._id);
+                          pendingRequests.addToSet(invitee._id);
                           team.pendingRequests = pendingRequests;
 
                           //also add the team to invitee's invites array
                           // so that invitee can also be informed
-                          invitee.teamInvites.push(team._id);
+                          invitee.teamInvites.addToSet(team._id);
 
                           try {
                             //update records of both the team and invitee
