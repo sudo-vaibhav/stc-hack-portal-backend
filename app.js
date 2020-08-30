@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
+const models = require("./components/models/models");
 //for accessing secret variables
 require("dotenv").config();
 
@@ -35,9 +36,11 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function () {
+db.once("open", async function () {
   console.log("db connected");
 
+  // setting up indices on all models
+  await Promise.all(models.map((model) => model.init()));
   //for getting and setting user profiles
   app.use("/users", checkAuth, require("./components/routes/users/users"));
 
@@ -49,6 +52,13 @@ db.once("open", function () {
 
   //for operations related to squads (basically ready made teams)
   app.use("/squads", require("./components/routes/squads/squads"));
+
+  app.use((err, req, res, next) => {
+    console.log(err.message);
+    return res.status(400).send({
+      message: err.message,
+    });
+  });
 });
 
 const port = process.env.PORT || 3000;
