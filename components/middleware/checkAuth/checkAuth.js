@@ -22,20 +22,6 @@ admin.initializeApp({
 const checkAuth = (req, res, next) => {
   if (req.headers.authtoken) {
     const authtoken = req.headers.authtoken;
-    switch (authtoken) {
-      case "vaibhav":
-        req.userId = "QmKukaZYw6WwyhOnav6j4RmRVpz1";
-        req.email = "mailvaibhavchopra@gmail.com";
-        return next();
-      case "vasu":
-        req.userId = "uXvB61NubEfSTUdrBhXDXt9j0gp2";
-        req.email = "vasumanhas000@gmail.com";
-        return next();
-      case "yash":
-        req.userId = "984xCyW0nnRikhkVBaiKbmoLKj92";
-        req.email = "singhal.yash8080@gmail.com";
-        return next();
-    }
     admin
       .auth()
       .verifyIdToken(authtoken)
