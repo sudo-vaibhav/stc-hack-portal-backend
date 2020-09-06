@@ -1,9 +1,0 @@
-{
-    "editor.detectIndentation": false,
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ],
-    "appService.deploySubpath": ".",
-    "appService.defaultWebAppToDeploy": "/subscriptions/e13c7b0d-1c8f-45e1-8bcc-7292cbcb4738/resourceGroups/hackportal-india/providers/Microsoft.Web/sites/hackportal"
-}
