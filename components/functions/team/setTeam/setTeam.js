@@ -33,12 +33,18 @@ const setTeam = async (req, res, next) => {
                 eventId: req.body.eventId,
                 _id: new mongoose.Types.ObjectId().toString(),
               });
-              team.save().then(async (newTeam) => {
-                const creator = creatorQuery.payload;
-                creator.teams.addToSet(newTeam._id);
-                await creator.save();
-                return res.status(200).send(newTeam);
-              });
+              team
+                .save()
+                .then(async (newTeam) => {
+                  const creator = creatorQuery.payload;
+                  creator.teams.addToSet(newTeam._id);
+                  await creator.save();
+                  return res.status(200).send(newTeam);
+                })
+                .catch((err) => {
+                  console.log("error in adding team to user's document");
+                  console.log(err);
+                });
             }
           })
           .catch((err) => {

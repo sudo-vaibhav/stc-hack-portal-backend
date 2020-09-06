@@ -57,19 +57,23 @@ const UserSchema = new mongoose.Schema(
     },
     externalLink: {
       type: String,
-      validate: /^((http|https):\/\/[^ "]+)?$/
+      validate: /^((http|https):\/\/[^ "]+)?$/,
     },
     teams: {
       type: [String],
+      default: [],
     },
     teamInvites: {
       type: [String],
+      default: [],
     },
     squadInvites: {
       type: [String],
+      default: [],
     },
     squads: {
       type: [String],
+      default: [],
     },
   },
   {
