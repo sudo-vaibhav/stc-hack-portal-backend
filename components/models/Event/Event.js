@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment")
 const EventPostRemove = require("./EventMiddleware/EventPostRemove/EventPostRemove");
 const EventPostValidate = require("./EventMiddleware/EventPostValidate/EventPostValidate");
 const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
@@ -15,12 +16,12 @@ const EventSchema = mongoose.Schema(
       immutable: true,
     },
     startDate: {
-      type: String,
+      type: Date,
       required: true,
       validate: dateRegex,
     },
     endDate: {
-      type: String,
+      type: Date,
       required: true,
       validate: dateRegex,
     },

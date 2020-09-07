@@ -8,8 +8,7 @@ module.exports = (doc) => {
   if (
     moment(doc.startDate, "DD-MM-YYYY").isAfter(
       moment(doc.endDate, "DD-MM-YYYY")
-    )
-  ) {
+  )) {
     throw new Error("Start Date cannot be after End Date!");
   }
 };
