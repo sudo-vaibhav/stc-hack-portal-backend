@@ -2,28 +2,39 @@ const mongoose = require("mongoose");
 const moment = require("moment")
 const EventPostRemove = require("./EventMiddleware/EventPostRemove/EventPostRemove");
 const EventPostValidate = require("./EventMiddleware/EventPostValidate/EventPostValidate");
-const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
+// const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
 
 const EventSchema = mongoose.Schema(
   {
     _id: {
       type: String,
       required: true,
+      immutable: true,
     },
     creatorId: {
       type: String,
       required: true,
       immutable: true,
     },
-    startDate: {
+    startTime: {
       type: Date,
       required: true,
-      validate: dateRegex,
+      validate: [
+        function () {
+          return this.startDate.getTime() > Date.now().getTime();
+        },
+        "Start date should not be in the past",
+      ],
     },
     endDate: {
       type: Date,
       required: true,
-      validate: dateRegex,
+      validate: [
+        function () {
+          return this.endDate > this.startDate;
+        },
+        "End time should be after start time",
+      ],
     },
     location: {
       type: String,
@@ -37,11 +48,10 @@ const EventSchema = mongoose.Schema(
     description: {
       type: String,
       required: true,
-      default: "",
     },
     eventUrl: {
       type: String,
-      validate: /^((http|https):\/\/[^ "]+)?$/,
+      validate: /^(http|https):\/\/[^ "]+$/,
     },
     minimumTeamSize: {
       type: Number,
@@ -54,7 +64,6 @@ const EventSchema = mongoose.Schema(
     eventImage: {
       type: String,
       required: true,
-      default: "",
       validate: /^data:image\/[^;]+;base64[^"]+$/,
     },
   },
@@ -72,6 +81,7 @@ EventSchema.virtual("creator", {
 });
 
 EventSchema.post("remove", EventPostRemove);
-EventSchema.post("validate", EventPostValidate);
+
+// EventSchema.post("validate", EventPostValidate);
 
 module.exports = mongoose.model("Event", EventSchema);

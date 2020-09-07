@@ -56,6 +56,11 @@ db.once("open", async function () {
 
   app.use((err, req, res, next) => {
     console.log(err);
+    if (typeof err == "string") {
+      return res.status(400).send({
+        message: err,
+      });
+    }
     return res.status(400).send({
       message: err.message,
     });
