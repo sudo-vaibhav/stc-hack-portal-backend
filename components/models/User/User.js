@@ -42,17 +42,16 @@ const UserSchema = new mongoose.Schema(
         type: String,
         trim: true,
         lowercase: true,
-        validate: /^.+$/, //so it can't be empty string
       },
     ],
 
     githubLink: {
       type: String,
-      validate: /^(https?:\/\/github.com\/[^\/]*\/?)?$/,
+      validate: /^https?:\/\/github.com\/[^\/]*\/?$/,
     },
     stackOverflowLink: {
       type: String,
-      validate: /^(https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d_.!@#$%&-*]+)?$/,
+      validate: /^https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d_.!@#$%&-*]+$/,
     },
     externalLink: {
       type: String,
