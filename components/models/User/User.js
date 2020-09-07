@@ -34,7 +34,6 @@ const UserSchema = new mongoose.Schema(
     bio: {
       type: String,
       required: true,
-      default: "",
       trim: true,
     },
 
