@@ -1,5 +1,4 @@
 const Event = require('../../models/Event/Event')
-const moment = require("moment")
 const getEventPaginatedData = async (
   pageNumber,
   perPageLimit,
@@ -12,12 +11,13 @@ const getEventPaginatedData = async (
   // page query instead of double scanning for each query
   // a smart optimisation suggested by @NavdeepChawla
   if (pageNumber == 1) {
-    const totalCount = await Event.find(queryConditions).count();
+    const totalCount = await Event.find({startDate: { $gte: Date.now()}}).count();
     paginatedDataInfo.totalPageCount = Math.ceil(totalCount / perPageLimit);
     paginatedDataInfo.totalCount = totalCount;
   }
 
-  paginatedDataInfo.documents = await Event.find(queryConditions)
+  paginatedDataInfo.documents = await Event.find({startDate: { $gte: Date.now()}})
+    .sort({startDate:+1})
     .select(shareableDocConfig)
     .limit(perPageLimit)
     .skip((pageNumber - 1) * perPageLimit)

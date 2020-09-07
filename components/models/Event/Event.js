@@ -16,12 +16,14 @@ const EventSchema = mongoose.Schema(
       required: true,
       immutable: true,
     },
-    startTime: {
+    startDate: {
       type: Date,
       required: true,
       validate: [
         function () {
-          return this.startDate.getTime() > Date.now().getTime();
+          console.log(Date.now())
+          console.log(this.startDate > Date.now())
+          return this.startDate > Date.now();
         },
         "Start date should not be in the past",
       ],
@@ -81,7 +83,6 @@ EventSchema.virtual("creator", {
 });
 
 EventSchema.post("remove", EventPostRemove);
-
-// EventSchema.post("validate", EventPostValidate);
+EventSchema.post("validate", EventPostValidate); //to check that minimumTeamSize is not greater than maximumTeamSize
 
 module.exports = mongoose.model("Event", EventSchema);

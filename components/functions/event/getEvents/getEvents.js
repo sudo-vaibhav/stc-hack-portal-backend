@@ -5,7 +5,6 @@ const getEventPaginatedData = require("../../../pagination/getPaginatedData/getE
 const getEvents = async (req, res) => {
   const pageNo = parseInt(req.params.pageNo);
   const documents = await getEventPaginatedData(
-    Event,
     pageNo,
     PER_PAGE_LIMIT,
     "-__v -eventImage -minimumTeamSize -maximumTeamSize -eventUrl "

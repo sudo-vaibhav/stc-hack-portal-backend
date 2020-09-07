@@ -51,11 +51,11 @@ const UserSchema = new mongoose.Schema(
     },
     stackOverflowLink: {
       type: String,
-      validate: /^https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d_.!@#$%&-*]+$/,
+      validate: /^https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d-?_.!@#$%^&-()*]+$/,
     },
     externalLink: {
       type: String,
-      validate: /^((http|https):\/\/[^ "]+)?$/,
+      validate: /^((http|https):\/\/[^ "]+)$/,
     },
     teams: {
       type: [String],
