@@ -12,14 +12,14 @@ const getEventPaginatedData = async (
   // a smart optimisation suggested by @NavdeepChawla
   if (pageNumber == 1) {
     const totalCount = await Event.find({
-      startDate: { $gte: Date.now() },
+      endDate: { $gte: Date.now() },
     }).count();
     paginatedDataInfo.totalPageCount = Math.ceil(totalCount / perPageLimit);
     paginatedDataInfo.totalCount = totalCount;
   }
 
   paginatedDataInfo.documents = await Event.find({
-    startDate: { $gte: Date.now() },
+    endDate: { $gte: Date.now() },
   })
     .sort({ startDate: +1 })
     .select(shareableDocConfig)
