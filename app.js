@@ -33,6 +33,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+/*mongoose.connect("mongodb://localhost/hack_apitrial15",{useNewUrlParser: true, useUnifiedTopology: true});*/
 
 
 var db = mongoose.connection;

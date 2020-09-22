@@ -35,7 +35,7 @@ const EventSchema = mongoose.Schema(
         function () {
           return this.endDate > this.startDate;
         },
-        "End time should be after start time",
+        "End date should be after start date",
       ],
     },
     location: {
