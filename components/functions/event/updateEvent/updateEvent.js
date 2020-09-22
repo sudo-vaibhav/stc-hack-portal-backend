@@ -2,36 +2,28 @@ const Event = require("../../../models/Event/Event");
 const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSuppliedInput");
 const { query } = require("express");
 
-const updateEvent = function (req, res,next) {
+const updateEvent = async (req, res, next) => {
   const eventData = req.body;
-  delete eventData["_id"];
-  delete eventData["creatorId"];
+
   let dataRecords = cleanUserSuppliedInput(eventData);
 
   const id = req.params.eventId;
-
-  var update = Event.findOneAndUpdate(
-    {
-      _id: id,
-    },
-    { $set: dataRecords},
-    { 
-      new: true, 
-      runValidators: true, 
-      context: query
-    }
-  );
-  update
-    .exec()
-    .then((event) => {
-      return res.status(200).send({
-        message: "Event has been updated",
-        updatedEvent: event
-      })
-    })
-    .catch((err) => {
-      next(err);
-    });
+  try {
+    var update = await Event.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      { $set: dataRecords },
+      {
+        omitUndefined: true,
+        runValidators: true,
+        new: true,
+      }
+    );
+    return res.status(200).send(update);
+  } catch (err) {
+    next(err);
+  }
 };
 
 /*const updateEvent = async (req,res,next) => {
