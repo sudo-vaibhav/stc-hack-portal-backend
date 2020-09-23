@@ -47,15 +47,36 @@ const UserSchema = new mongoose.Schema(
 
     githubLink: {
       type: String,
-      validate: /^https?:\/\/github.com\/[^\/]*\/?$/,
+      //validate: /^https?:\/\/github.com\/[^\/]*\/?$/
+      validate: [
+        function(v) {
+          var re = /^https?:\/\/github.com\/[^\/]*\/?$/;
+          return (v == null) || re.test(v)
+      },
+        'Please enter a valid GitHub Link',
+      ],
     },
     stackOverflowLink: {
       type: String,
-      validate: /^https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d-?_.!@#$%^&-()*]+$/,
+      //validate: /^https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d-?_.!@#$%^&-()*]+$/,
+      validate: [
+        function(v) {
+          var re = /^https?:\/\/stackoverflow.com\/users\/[0-9]+\/[\w\d-?_.!@#$%^&-()*]+$/;
+          return (v == null) || re.test(v)
+      },
+        'Please enter a valid StackOverFlow Link',
+      ]
     },
     externalLink: {
       type: String,
-      validate: /^((http|https):\/\/[^ "]+)$/,
+      //validate: /^((http|https):\/\/[^ "]+)$/,
+      validate: [
+        function(v) {
+          var re = /^((http|https):\/\/[^ "]+)$/;
+          return (v == null) || re.test(v)
+      },
+        'Please enter a valid External Link',
+      ]
     },
     teams: {
       type: [String],

@@ -10,7 +10,6 @@ const updateUserProfile = async (req, res, next) => {
     const user = await User.findOne({
       _id: req.userId,
     });
-
     if (user) {
       console.log(user);
       console.log('inside if statement');
@@ -19,8 +18,9 @@ const updateUserProfile = async (req, res, next) => {
         user[key] = req.body[key] === null ? undefined : req.body[key];
       });
     }
-    await user.save();
-    return res.status(200).send(user);
+    await user.save().then(function(data){
+      return res.status(200).send(data);
+  });
   } catch (err) {
     next(err);
   }
