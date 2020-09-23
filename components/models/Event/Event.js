@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const moment = require("moment")
-const EventPostRemove = require("./EventMiddleware/EventPostRemove/EventPostRemove");
-const EventPostValidate = require("./EventMiddleware/EventPostValidate/EventPostValidate");
+const mongoose = require('mongoose');
+const moment = require('moment');
+const EventPostRemove = require('./EventMiddleware/EventPostRemove/EventPostRemove');
+const EventPostValidate = require('./EventMiddleware/EventPostValidate/EventPostValidate');
 // const dateRegex = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((1[6-9]|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((1[6-9]|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/;
 
 const EventSchema = mongoose.Schema(
@@ -21,11 +21,11 @@ const EventSchema = mongoose.Schema(
       required: true,
       validate: [
         function () {
-          console.log(Date.now())
-          console.log(this.startDate > Date.now())
+          console.log(this.startDate);
+          console.log(this.startDate > Date.now());
           return this.startDate > Date.now();
         },
-        "Start date should not be in the past",
+        'Start date should not be in the past',
       ],
     },
     endDate: {
@@ -35,7 +35,7 @@ const EventSchema = mongoose.Schema(
         function () {
           return this.endDate > this.startDate;
         },
-        "End time should be after start time",
+        'End time should be after start time',
       ],
     },
     location: {
@@ -75,14 +75,14 @@ const EventSchema = mongoose.Schema(
 ); //setting id to false prevents extra unneccessary id appearing when converting object to json)
 
 //this will populate the event with creator info
-EventSchema.virtual("creator", {
-  ref: "User",
-  localField: "creatorId",
-  foreignField: "_id",
+EventSchema.virtual('creator', {
+  ref: 'User',
+  localField: 'creatorId',
+  foreignField: '_id',
   justOne: true,
 });
 
-EventSchema.post("remove", EventPostRemove);
-EventSchema.post("validate", EventPostValidate); //to check that minimumTeamSize is not greater than maximumTeamSize
+EventSchema.post('remove', EventPostRemove);
+EventSchema.post('validate', EventPostValidate); //to check that minimumTeamSize is not greater than maximumTeamSize
 
-module.exports = mongoose.model("Event", EventSchema);
+module.exports = mongoose.model('Event', EventSchema);

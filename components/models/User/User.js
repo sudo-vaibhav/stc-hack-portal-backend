@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -79,6 +79,6 @@ const UserSchema = new mongoose.Schema(
   }
 ); //setting id to false prevents extra unneccessary id appearing when converting object to json
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 // module.exports = {User,UserSchema}
 module.exports = User;

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var baseURL = 'http://localhost:3000';
+      fetch(baseURL + '/users/', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          authtoken: 'test',
+        },
+        body: JSON.stringify({ githubLink: null, bio: 'asfsasaf' }),
+      })
+        .then((resp) => resp.json())
+        .then((res) => console.log(res));
+    </script>
+  </body>
+</html>

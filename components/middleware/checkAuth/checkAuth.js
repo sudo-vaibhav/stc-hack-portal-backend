@@ -1,11 +1,11 @@
-var admin = require("firebase-admin");
+var admin = require('firebase-admin');
 
 // required for configuring firebase admin sdk
 var serviceAccount = {
   type: process.env.TYPE,
   project_id: process.env.PROJECT_ID,
   private_key_id: process.env.PRIVATE_KEY_ID,
-  private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
+  private_key: process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
   client_email: process.env.CLIENT_EMAIL,
   client_id: process.env.CLIENT_ID,
   auth_uri: process.env.AUTH_URI,
@@ -16,42 +16,42 @@ var serviceAccount = {
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://hackportal-53efe.firebaseio.com",
+  databaseURL: 'https://hackportal-53efe.firebaseio.com',
 });
 
 const checkAuth = (req, res, next) => {
   if (req.headers.authtoken) {
     const authtoken = req.headers.authtoken;
 
-    if (req.headers.authtoken == "test") {
-      req.userId = "rhckA3yK4CeXF8dkB8mK5HLasPf2";
-      req.email = "vaibhav.chopra2019@vitstudent.ac.in";
+    if (req.headers.authtoken == 'test') {
+      req.userId = '984xCyW0nnRikhkVBaiKbmoLKj92';
+      req.email = 'singhal.yash8080@gmail.com';
       return next();
     }
     admin
       .auth()
       .verifyIdToken(authtoken)
       .then((decodedToken) => {
-        console.log("decoded token", decodedToken);
+        console.log('decoded token', decodedToken);
         if (decodedToken.email_verified) {
           req.userId = decodedToken.user_id;
           req.email = decodedToken.email;
           return next();
         } else {
           return res.status(403).send({
-            message: "email not verified",
+            message: 'email not verified',
           });
         }
       })
       .catch(() => {
-        console.log("some problem with token. Unable to decode");
+        console.log('some problem with token. Unable to decode');
         return res.status(403).send({
-          message: "Unauthorized",
+          message: 'Unauthorized',
         });
       });
   } else {
     return res.status(403).send({
-      message: "no authtoken provided in header",
+      message: 'no authtoken provided in header',
     });
   }
 };
