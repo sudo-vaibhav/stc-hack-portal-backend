@@ -3,21 +3,17 @@ const cleanUserSuppliedInput = require("../../cleanUserSuppliedInput/cleanUserSu
 const { query } = require("express");
 
 const updateEvent = async (req, res, next) => {
-  const eventData = req.body;
-
-  let dataRecords = cleanUserSuppliedInput(eventData);
-
+  const dataRecords = cleanUserSuppliedInput(req.body);
   const id = req.params.eventId;
   try {
-    var update = await Event.findOneAndUpdate(
+    const update = await Event.findOneAndUpdate(
       {
         _id: id,
       },
       { $set: dataRecords },
       {
-        omitUndefined: true,
         runValidators: true,
-        new: true,
+        returnOriginal: false,
       }
     );
     return res.status(200).send(update);

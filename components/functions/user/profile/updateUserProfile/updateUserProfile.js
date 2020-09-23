@@ -14,7 +14,7 @@ const updateUserProfile = async (req, res, next) => {
       { $set: userUpdatedData },
       {
         runValidators: true,
-        returnOriginal: false,
+        returnOriginal: false
       }
     );
     return res.status(200).send(user);
